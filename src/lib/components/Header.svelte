@@ -1,14 +1,26 @@
 <script lang="ts">
+	import { page } from '$app/state';
+	import { onMount } from 'svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
+
+	const PALM_SUNDAY_BANNER_KEY = 'palm-sunday-banner-dismissed';
 
 	let mobileMenuOpen = $state(false);
 	let ministriesOpen = $state(false);
 	let familyLifeOpen = $state(false);
 	let serveOpen = $state(false);
 	let scrolled = $state(false);
+	let bannerDismissed = $state(false);
+
+	const showPalmSundayBanner = $derived(page.url.pathname === '/' && !scrolled && !bannerDismissed);
 
 	function handleScroll() {
 		scrolled = window.scrollY > 50;
+	}
+
+	function dismissPalmSundayBanner() {
+		bannerDismissed = true;
+		localStorage.setItem(PALM_SUNDAY_BANNER_KEY, 'true');
 	}
 
 	function closeMobile() {
@@ -17,6 +29,11 @@
 		familyLifeOpen = false;
 		serveOpen = false;
 	}
+
+	onMount(() => {
+		handleScroll();
+		bannerDismissed = localStorage.getItem(PALM_SUNDAY_BANNER_KEY) === 'true';
+	});
 </script>
 
 <svelte:window onscroll={handleScroll} />
@@ -106,6 +123,27 @@
 			</button>
 		</div>
 	</div>
+
+	{#if showPalmSundayBanner}
+		<div class="relative border-t border-white/10 bg-[rgba(26,18,13,0.78)] text-white backdrop-blur-sm">
+			<div class="container flex min-h-12 items-center justify-center py-2">
+				<p class="px-12 text-center text-sm font-medium tracking-[0.08em] uppercase sm:text-[0.95rem]">
+					Palm Sunday: One service at 10:30 AM
+				</p>
+			</div>
+			<button
+				type="button"
+				class="absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-red-400 transition hover:text-red-300 sm:right-6"
+				onclick={dismissPalmSundayBanner}
+				aria-label="Dismiss Palm Sunday banner"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+					<line x1="18" y1="6" x2="6" y2="18"></line>
+					<line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
+			</button>
+		</div>
+	{/if}
 
 	<!-- Mobile Menu -->
 	{#if mobileMenuOpen}
