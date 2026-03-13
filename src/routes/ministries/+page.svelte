@@ -15,6 +15,7 @@
 
 <svelte:head>
 	<title>Ministries - First Baptist Church Wimberley</title>
+	<meta name="description" content="Explore ministries at First Baptist Church Wimberley — Women's Ministry, Care, Missions, Family Life programs for all ages, and more." />
 </svelte:head>
 
 <section class="pt-32 pb-20">
@@ -27,7 +28,7 @@
 
 		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 			{#each ministries as ministry}
-				<a href={ministry.href} target={ministry.href.startsWith('http') ? '_blank' : undefined} rel={ministry.href.startsWith('http') ? 'noopener' : undefined} class="ministry-link rounded-[var(--radius-md)] border border-(--color-border-light) bg-(--color-bg-card) px-5 py-4 flex items-center justify-between">
+				<a href={ministry.href} target={ministry.href.startsWith('http') ? '_blank' : undefined} rel={ministry.href.startsWith('http') ? 'noopener noreferrer' : undefined} class="ministry-link rounded-[var(--radius-md)] border border-(--color-border-light) bg-(--color-bg-card) px-5 py-4 flex items-center justify-between">
 					<span class="font-medium text-(--color-heading)">{ministry.name}</span>
 					<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
 				</a>

@@ -6,6 +6,7 @@
 
 <svelte:head>
 	<title>Connect - First Baptist Church Wimberley</title>
+	<meta name="description" content="Connect with First Baptist Church Wimberley — visit Sunday mornings, join a small group, give online, or take your next step with Jesus." />
 </svelte:head>
 
 <section class="relative min-h-[52vh] md:min-h-[58vh] flex items-end justify-center overflow-hidden">
@@ -31,7 +32,7 @@
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-			<Card href="/about-us" hover={false} class="connect-card p-7 arrow-slide-hover">
+			<Card href="/about-us" hover={false} class="card-hover-lift p-7 arrow-slide-hover">
 				<p class="section-label mb-3">New Here?</p>
 				<h3 class="text-[1.25rem] mb-2">Sunday Mornings</h3>
 				<p class="text-(--color-text-muted) leading-[1.7] mb-5">Join us in person at 9:30AM and 11:00AM. We would love to meet you.</p>
@@ -41,7 +42,7 @@
 				</span>
 			</Card>
 
-			<Card href="https://fbcwimberley.churchcenter.com/groups/" target="_blank" rel="noopener" hover={false} class="connect-card p-7 arrow-slide-hover">
+			<Card href="https://fbcwimberley.churchcenter.com/groups/" target="_blank" rel="noopener noreferrer" hover={false} class="card-hover-lift p-7 arrow-slide-hover">
 				<p class="section-label mb-3">Get Plugged In</p>
 				<h3 class="text-[1.25rem] mb-2">Join A Group</h3>
 				<p class="text-(--color-text-muted) leading-[1.7] mb-5">Find people to grow with through Bible studies, classes, and ministry groups.</p>
@@ -51,7 +52,7 @@
 				</span>
 			</Card>
 
-			<Card href="https://onrealm.org/fbcwimberley/give/now" target="_blank" rel="noopener" hover={false} class="connect-card p-7 arrow-slide-hover">
+			<Card href="https://onrealm.org/fbcwimberley/give/now" target="_blank" rel="noopener noreferrer" hover={false} class="card-hover-lift p-7 arrow-slide-hover">
 				<p class="section-label mb-3">Support The Mission</p>
 				<h3 class="text-[1.25rem] mb-2">Give Online</h3>
 				<p class="text-(--color-text-muted) leading-[1.7] mb-5">Would you like to give to what God is doing at FBCW? Give securely online.</p>
@@ -65,7 +66,7 @@
 </section>
 
 <section class="relative py-24 md:py-28 overflow-hidden">
-	<div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-102A6400-1-scaled-2a1dd8d246-960.webp')">
+	<div class="absolute inset-0 bg-cover bg-center lg:bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-102A6400-1-scaled-2a1dd8d246-960.webp')">
 		<div class="dark-overlay"></div>
 	</div>
 
@@ -92,7 +93,7 @@
 			<a
 				href={nextStepFormUrl}
 				target="_blank"
-				rel="noopener"
+				rel="noopener noreferrer"
 				class="nextstep-submit inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-full bg-(--color-accent) text-white font-semibold text-[0.95rem] tracking-[0.02em] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-(--color-accent-hover) hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(200,145,90,0.3)]"
 			>
 				Open Next Step Form
@@ -116,9 +117,9 @@
 		</div>
 
 		<div class="flex flex-wrap items-center justify-center gap-3">
-			<a href="https://www.facebook.com/firstwimberley" target="_blank" rel="noopener" class="social-pill">Facebook</a>
-			<a href="https://www.instagram.com/fbc_wimberley/" target="_blank" rel="noopener" class="social-pill">Instagram</a>
-			<a href="https://www.youtube.com/channel/UCBR1Vcq5wc2L6QFa9U2FTJw" target="_blank" rel="noopener" class="social-pill">YouTube</a>
+			<a href="https://www.facebook.com/firstwimberley" target="_blank" rel="noopener noreferrer" class="social-pill">Facebook</a>
+			<a href="https://www.instagram.com/fbc_wimberley/" target="_blank" rel="noopener noreferrer" class="social-pill">Instagram</a>
+			<a href="https://www.youtube.com/channel/UCBR1Vcq5wc2L6QFa9U2FTJw" target="_blank" rel="noopener noreferrer" class="social-pill">YouTube</a>
 		</div>
 	</div>
 </section>
