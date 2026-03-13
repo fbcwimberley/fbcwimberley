@@ -1,25 +1,26 @@
 <svelte:head>
 	<title>High School - First Baptist Church Wimberley</title>
+	<meta name="description" content="High School ministry at FBC Wimberley helping 9th–12th graders build a faith of their own. Sundays 9:30AM and Wednesdays 6:15–8:00PM." />
 </svelte:head>
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
 	<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/remote/fbcwimberley.com-High-school-girls-camp-8cfba82b6b.webp')"></div>
-	<div class="absolute inset-0 bg-[rgba(64,142,201,0.55)]"></div>
+	<div class="absolute inset-0 bg-(--color-kids-hero-overlay)"></div>
 	<div class="relative z-1 text-center px-6">
 		<p class="section-label text-white/85">Family Life</p>
 		<h1 class="text-[clamp(2.4rem,6vw,4rem)] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.28)]">High School</h1>
 	</div>
 </section>
 
-<section class="py-10 md:py-14 bg-[#89cddc]">
+<section class="py-10 md:py-14 bg-(--color-kids-bg)">
 	<div class="container max-w-none px-4 md:px-6">
 		<div class="grid grid-cols-1">
 			<div class="w-full max-w-[760px] mx-auto p-8 md:p-12 lg:p-16 flex flex-col justify-center text-center text-black dark:text-white bg-(--color-bg-alt) rounded-[var(--radius-lg)] border border-(--color-border-light) shadow-[0_16px_40px_rgba(0,0,0,0.14)]">
-				<h2 class="text-[clamp(1.5rem,3vw,2.2rem)] mb-4">Helping 9th -12th graders build a faith of their own</h2>
+				<h2 class="text-[clamp(1.5rem,3vw,2.2rem)] mb-4">Helping 9th–12th graders build a faith of their own</h2>
 				<p class="leading-[1.75] mb-6">Many opportunities for students to grow in their faith and build Godly relationships with other students.</p>
 
 				<p class="font-semibold mb-1">Sunday Morning - Student Building</p>
-				<p class="mb-4">9:30 AM</p>
+				<p class="mb-4">9:30 am</p>
 
 				<p class="font-semibold mb-1">Wednesday</p>
 				<p>6:15 - 8:00 pm</p>

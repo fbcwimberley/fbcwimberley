@@ -52,6 +52,19 @@
 	--color-error-text: #fecaca;
 	--color-accent-bg: rgba(200, 145, 90, 0.15);
 	--color-accent-border: rgba(200, 145, 90, 0.25);
+
+	/* Form feedback on light card backgrounds */
+	--color-success-text-on-light: #15803d;
+	--color-error-text-on-light: #b91c1c;
+
+	/* Kids / Family Ministry brand colors */
+	--color-kids-bg: #89cddc;
+	--color-kids-card-bg: #e8e6da;
+	--color-kids-hero-overlay: rgba(64, 139, 201, 0.55);
+	--color-kids-accent-text: #4d92ca;
+
+	/* Dark hero fallback (serve pages, deep-navy sections) */
+	--color-dark-hero: #0f2135;
 }
 
 /* ===== Class-based dark mode ===== */
@@ -84,6 +97,14 @@
 	--color-cta-text: #e4e4ec;
 	--color-nav-text: #e4e4ec;
 	--color-nav-hover: #5a9fc2;
+
+	/* Form feedback adapts to dark card backgrounds in dark mode */
+	--color-success-text-on-light: #6ee7b7;
+	--color-error-text-on-light: #fca5a5;
+
+	/* Kids card adapts to dark mode */
+	--color-kids-card-bg: #1e1e32;
+
 	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
 	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
 	--shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
@@ -140,6 +161,22 @@
 
 	input {
 		font-family: inherit;
+	}
+
+	/* Global focus-visible: visible ring for keyboard nav, hidden for mouse */
+	:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
+	/* Respect user motion preferences */
+	@media (prefers-reduced-motion: reduce) {
+		*, *::before, *::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
 	}
 }
 
@@ -268,15 +305,6 @@
 	}
 }
 
-/* ===== Connect Card Hover (legacy timing preserved) ===== */
-@utility connect-card {
-	transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
-	&:hover {
-		transform: translateY(-4px);
-		box-shadow: var(--shadow-md);
-		border-color: var(--color-border);
-	}
-}
 
 /* ===== Features Card Link Reveal ===== */
 @utility feature-card {
@@ -335,8 +363,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 2.25rem;
-	height: 2.25rem;
+	width: 2.75rem;
+	height: 2.75rem;
 	border-radius: var(--radius-full);
 	background: rgba(255, 255, 255, 0.08);
 	color: inherit;
@@ -367,7 +395,7 @@
 	background: var(--color-success-bg);
 	border: 1px solid var(--color-success-border);
 	color: var(--color-success-text);
-	border-radius: var(--color-radius-md, var(--radius-md));
+	border-radius: var(--radius-md);
 	font-weight: 500;
 	font-size: 1rem;
 }

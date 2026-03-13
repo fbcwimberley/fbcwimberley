@@ -140,8 +140,8 @@
 		</blockquote>
 
 		<div class="flex justify-center gap-3 mt-9">
-			<a href="https://www.instagram.com/fbcwomen_at_first/" target="_blank" rel="noopener" class="social-pill">Instagram</a>
-			<a href="https://www.facebook.com/groups/fbcwomenatfirst" target="_blank" rel="noopener" class="social-pill">Facebook</a>
+			<a href="https://www.instagram.com/fbcwomen_at_first/" target="_blank" rel="noopener noreferrer" class="social-pill">Instagram</a>
+			<a href="https://www.facebook.com/groups/fbcwomenatfirst" target="_blank" rel="noopener noreferrer" class="social-pill">Facebook</a>
 			<a href="mailto:women@fbcwimberley.com" class="social-pill">Email</a>
 		</div>
 	</div>
@@ -185,7 +185,7 @@
 					<h3 class="text-[1.15rem] mb-3">{opportunity.title}</h3>
 					<p class="text-(--color-text-muted) leading-[1.75]">{opportunity.details}</p>
 					{#if opportunity.href}
-						<a href={opportunity.href} target="_blank" rel="noopener" class="inline-flex mt-4 font-semibold">Register Here</a>
+						<a href={opportunity.href} target="_blank" rel="noopener noreferrer" class="inline-flex mt-4 font-semibold">Register Here</a>
 					{/if}
 				</div>
 			{/each}
@@ -194,7 +194,7 @@
 </section>
 
 <section class="relative py-24 overflow-hidden">
-	<div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-MG_6048-scaled-3ab2eebb7c.webp')">
+	<div class="absolute inset-0 bg-cover bg-center lg:bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-MG_6048-scaled-3ab2eebb7c.webp')">
 		<div class="dark-overlay"></div>
 	</div>
 	<div class="container relative z-1 max-w-[860px] text-center">
@@ -204,7 +204,7 @@
 			Life throws challenges at every woman. Sometimes it can feel exhausting to carry the burden alone. The support and service groups of FBCW Women's Ministry provide opportunities to connect with other women in times of need and to serve others in difficult seasons.
 		</p>
 		<p class="text-white/75 max-w-[740px] mx-auto mb-8">Whether it's conferences, coffee meetups, or service opportunities, there's always something going on for women at FBCW.</p>
-		<a href="https://fbcwimberley.churchcenter.com/registrations" target="_blank" rel="noopener" class="btn btn-accent hover:btn-accent-hover">View Events</a>
+		<a href="https://fbcwimberley.churchcenter.com/registrations" target="_blank" rel="noopener noreferrer" class="btn btn-accent hover:btn-accent-hover">View Events</a>
 	</div>
 </section>
 
@@ -219,7 +219,7 @@
 			<div class="rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-7 md:p-9">
 				<form class="flex flex-col gap-4.5" onsubmit={handleContactSubmit}>
 					{#if submitted}
-						<div class="rounded-[var(--radius-md)] border border-[rgba(16,185,129,0.3)] bg-[rgba(16,185,129,0.12)] text-[#16a34a] p-4">
+						<div class="rounded-[var(--radius-md)] border border-(--color-success-border) bg-(--color-success-bg) text-(--color-success-text-on-light) p-4">
 							Thanks for contacting us. We will reach out soon.
 						</div>
 					{:else}
@@ -241,7 +241,7 @@
 							</button>
 						</div>
 						{#if submitError}
-							<p class="text-[#b91c1c] text-[0.9rem]">{submitError}</p>
+							<p class="text-(--color-error-text-on-light) text-[0.9rem]">{submitError}</p>
 						{/if}
 					{/if}
 				</form>

@@ -10,9 +10,10 @@
 
 <svelte:head>
 	<title>Serve The Community - First Baptist Church Wimberley</title>
+	<meta name="description" content="Make a difference in Wimberley and beyond. Discover community service opportunities through First Baptist Church Wimberley." />
 </svelte:head>
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#132638]">
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-(--color-dark-hero)">
 	<div class="absolute inset-0 flex items-center justify-center">
 		<img
 			src="/images/remote/fbcwimberley.com-missions-2-3a0b1a988c.webp"
@@ -42,12 +43,12 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 xl:gap-10">
 			{#each communityCards as card}
 				<article class="rounded-[var(--radius-lg)] overflow-hidden border border-(--color-border-light) bg-(--color-bg-card) shadow-(--shadow-sm)">
-					<a href={card.href} target="_blank" rel="noopener">
+					<a href={card.href} target="_blank" rel="noopener noreferrer">
 						<img src={card.image} alt={card.title} loading="lazy" class="w-full h-[220px] md:h-[240px] object-cover" />
 					</a>
 					<div class="p-6">
 						<h3 class="text-[1.35rem] mb-3">{card.title}</h3>
-						<a href={card.href} target="_blank" rel="noopener" class="font-semibold text-(--color-primary) hover:text-(--color-primary-hover)">
+						<a href={card.href} target="_blank" rel="noopener noreferrer" class="font-semibold text-(--color-primary) hover:text-(--color-primary-hover)">
 							Find Out More
 						</a>
 					</div>

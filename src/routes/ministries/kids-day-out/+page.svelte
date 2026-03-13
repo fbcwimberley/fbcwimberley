@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	const registerUrl = 'https://schools.procareconnect.com/register/e14a3225-928b-4d0a-a39c-69376116ac46';
 	const ajaxEndpoint = 'https://fbcwimberley.com/wp-admin/admin-ajax.php';
 	const kdoFormConfig = {
@@ -60,6 +62,15 @@
 	let submitted = $state(false);
 	let submitError = $state('');
 
+	let videoLoaded = $state(false);
+
+	onMount(() => {
+		const id = setTimeout(() => {
+			videoLoaded = true;
+		}, 800);
+		return () => clearTimeout(id);
+	});
+
 	async function handleContactSubmit(e: SubmitEvent) {
 		e.preventDefault();
 		if (submitting) return;
@@ -110,12 +121,22 @@
 
 <section class="relative min-h-screen overflow-hidden">
 	<div class="absolute inset-0">
-		<iframe
-			title="KDO Website Header"
-			src="https://www.youtube.com/embed/6JmqGqhaJnk?autoplay=1&mute=1&controls=0&loop=1&playlist=6JmqGqhaJnk&playsinline=1"
-			allow="autoplay; encrypted-media; picture-in-picture"
-			class="absolute inset-0 w-full h-full pointer-events-none scale-130"
-		></iframe>
+		<img
+			src="/images/remote/fbcwimberley.com-1-1-78216c6fbe.webp"
+			alt=""
+			aria-hidden="true"
+			fetchpriority="high"
+			class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+			class:opacity-0={videoLoaded}
+		/>
+		{#if videoLoaded}
+			<iframe
+				title="KDO Website Header"
+				src="https://www.youtube.com/embed/6JmqGqhaJnk?autoplay=1&mute=1&controls=0&loop=1&playlist=6JmqGqhaJnk&playsinline=1"
+				allow="autoplay; encrypted-media; picture-in-picture"
+				class="absolute inset-0 w-full h-full pointer-events-none scale-130"
+			></iframe>
+		{/if}
 	</div>
 	<div class="absolute inset-0 bg-[rgba(0,0,0,0.36)]"></div>
 	<div class="relative z-1 min-h-screen container max-w-[1200px] flex items-end pb-18 md:pb-24">
@@ -151,7 +172,7 @@
 
 <section class="py-8">
 	<div class="container text-center">
-		<a href={registerUrl} target="_blank" rel="noopener" class="btn btn-primary hover:btn-primary-hover">Register Now</a>
+		<a href={registerUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary hover:btn-primary-hover">Register Now</a>
 	</div>
 </section>
 
@@ -235,7 +256,7 @@
 
 <section class="py-8">
 	<div class="container text-center">
-		<a href={registerUrl} target="_blank" rel="noopener" class="btn btn-primary hover:btn-primary-hover">Register Now</a>
+		<a href={registerUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary hover:btn-primary-hover">Register Now</a>
 	</div>
 </section>
 
@@ -255,7 +276,7 @@
 		<div class="rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-7 md:p-9">
 			<form class="flex flex-col gap-4.5" onsubmit={handleContactSubmit}>
 				{#if submitted}
-					<div class="rounded-[var(--radius-md)] border border-[rgba(16,185,129,0.3)] bg-[rgba(16,185,129,0.12)] text-[#16a34a] p-4">
+					<div class="rounded-[var(--radius-md)] border border-(--color-success-border) bg-(--color-success-bg) text-(--color-success-text-on-light) p-4">
 						Thanks for contacting us. We will reach out soon.
 					</div>
 				{:else}
@@ -277,7 +298,7 @@
 						</button>
 					</div>
 					{#if submitError}
-						<p class="text-[#b91c1c] text-[0.9rem]">{submitError}</p>
+						<p class="text-(--color-error-text-on-light) text-[0.9rem]">{submitError}</p>
 					{/if}
 				{/if}
 			</form>
@@ -287,7 +308,7 @@
 
 <section class="py-10 md:py-14">
 	<div class="container text-center">
-		<a href={registerUrl} target="_blank" rel="noopener" class="btn btn-primary hover:btn-primary-hover">Register Now</a>
+		<a href={registerUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary hover:btn-primary-hover">Register Now</a>
 	</div>
 </section>
 
