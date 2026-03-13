@@ -1,5 +1,6 @@
 <svelte:head>
 	<title>Missions - First Baptist Church Wimberley</title>
+	<meta name="description" content="FBC Wimberley's missions ministry focuses on local and global engagement, helping people know Jesus and make His truth known to neighbors and nations." />
 </svelte:head>
 
 <section class="relative min-h-[44vh] md:min-h-[50vh] flex items-end justify-center overflow-hidden">
@@ -19,6 +20,6 @@
 		<p class="text-(--color-text-muted) text-[1.03rem] leading-[1.85] mb-8">
 			The official ministry menu currently routes Missions to media resources. Use the playlist below for missions-focused content and updates.
 		</p>
-		<a href="https://www.youtube.com/playlist?list=PLKz_XG7H0s7ph34R0pZLEF55wfrM34kyo" target="_blank" rel="noopener" class="btn btn-primary hover:btn-primary-hover">Open Missions Playlist</a>
+		<a href="https://www.youtube.com/playlist?list=PLKz_XG7H0s7ph34R0pZLEF55wfrM34kyo" target="_blank" rel="noopener noreferrer" class="btn btn-primary hover:btn-primary-hover">Open Missions Playlist</a>
 	</div>
 </section>

@@ -1,5 +1,6 @@
 <svelte:head>
 	<title>Watch Online - First Baptist Church Wimberley</title>
+	<meta name="description" content="Watch First Baptist Church Wimberley services live or on demand. Worship gatherings every Sunday at 9:30AM and 11:00AM in Wimberley, Texas." />
 </svelte:head>
 
 <section class="watch-page">

@@ -176,6 +176,7 @@
 
 <svelte:head>
 	<title>About Us - First Baptist Church Wimberley</title>
+	<meta name="description" content="Meet the team at First Baptist Church Wimberley, learn our history since 1884, explore our vision and mission, and plan your visit. Sundays at 9:30AM and 11:00AM." />
 </svelte:head>
 
 <!-- Hero -->
@@ -201,13 +202,13 @@
 
 <!-- Vision -->
 <section class="relative py-24 overflow-hidden">
-	<div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-102A5443-scaled-9aa360e309-1600.webp')">
+	<div class="absolute inset-0 bg-cover bg-center lg:bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-102A5443-scaled-9aa360e309-1600.webp')">
 		<div class="dark-overlay"></div>
 	</div>
 	<div class="container relative z-1 max-w-[800px] text-center">
 		<p class="section-label">What Drives Us</p>
 		<h2 class="text-[clamp(1.75rem,4vw,2.5rem)] text-white mb-8">Our Vision</h2>
-		<div class="glass-card p-10 md:p-12">
+		<div class="glass-card p-6 md:p-10 lg:p-12">
 			<p class="text-[1.05rem] text-white/80 leading-[1.8] mb-8">
 				At First Baptist Church of Wimberley we exist to truly know Jesus and to make His Truth known. Our heartbeat is to sincerely experience a relationship with Jesus and help you do the same. We're not interested in knowing a Jesus of cold religion or a Jesus that doesn't challenge our living. Our desire is to experience the Truth of the real Jesus of the Bible and introduce him to the world. We'd love to have you join us.
 			</p>
@@ -237,7 +238,7 @@
 			<h3 class="text-[clamp(1.5rem,3vw,2rem)] mb-6">Elders</h3>
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 				{#each elders as member}
-					<button class="staff-card flex flex-col items-center text-center p-6 bg-(--color-bg-card) border border-(--color-border-light) rounded-[var(--radius-lg)] cursor-pointer transition-all duration-300 w-full hover:border-(--color-border) hover:shadow-(--shadow-sm)" class:expanded={expandedStaff === member.name} onclick={() => toggleStaff(member.name)}>
+					<button class="staff-card flex flex-col items-center text-center p-6 bg-(--color-bg-card) border border-(--color-border-light) rounded-[var(--radius-lg)] cursor-pointer transition-all duration-300 w-full hover:border-(--color-border) hover:shadow-(--shadow-sm)" class:expanded={expandedStaff === member.name} onclick={() => toggleStaff(member.name)} aria-expanded={expandedStaff === member.name}>
 						<div class="w-[120px] h-[120px] rounded-full overflow-hidden mb-4 border-3 border-(--color-border-light)">
 							<img src={member.image} alt={member.name} loading="lazy" class="w-full h-full object-cover" />
 						</div>
@@ -267,7 +268,7 @@
 			<h3 class="text-[clamp(1.5rem,3vw,2rem)] mb-6">Our Team</h3>
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 				{#each team as member}
-					<button class="staff-card flex flex-col items-center text-center p-6 bg-(--color-bg-card) border border-(--color-border-light) rounded-[var(--radius-lg)] cursor-pointer transition-all duration-300 w-full hover:border-(--color-border) hover:shadow-(--shadow-sm)" class:expanded={expandedStaff === member.name} onclick={() => toggleStaff(member.name)}>
+					<button class="staff-card flex flex-col items-center text-center p-6 bg-(--color-bg-card) border border-(--color-border-light) rounded-[var(--radius-lg)] cursor-pointer transition-all duration-300 w-full hover:border-(--color-border) hover:shadow-(--shadow-sm)" class:expanded={expandedStaff === member.name} onclick={() => toggleStaff(member.name)} aria-expanded={expandedStaff === member.name}>
 						<div class="w-[120px] h-[120px] rounded-full overflow-hidden mb-4 border-3 border-(--color-border-light)">
 							<img src={member.image} alt={member.name} loading="lazy" class="w-full h-full object-cover" />
 						</div>
@@ -297,13 +298,13 @@
 
 <!-- Plan Your Visit -->
 <section class="relative py-24 overflow-hidden">
-	<div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-102A6470-scaled-9eb00dbc08-1600.webp')">
+	<div class="absolute inset-0 bg-cover bg-center lg:bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-102A6470-scaled-9eb00dbc08-1600.webp')">
 		<div class="dark-overlay"></div>
 	</div>
 	<div class="container relative z-1 max-w-[800px] text-center">
 		<p class="section-label">We'd Love To See You</p>
 		<h2 class="text-[clamp(1.75rem,4vw,2.5rem)] text-white mb-8">Plan Your Visit</h2>
-		<div class="glass-card p-10 md:p-12">
+		<div class="glass-card p-6 md:p-10 lg:p-12">
 			<p class="text-[1.05rem] text-white/80 leading-[1.8]">
 				Whether you're a young or senior adult, single, or married with kids, you'll feel encouraged by the community we have at FBC Wimberley. You can visit as many times as you want without any obligations or pressure. And who knows&mdash;you just might decide to make FBCW your new church home!
 			</p>
@@ -319,9 +320,9 @@
 
 		<div class="flex flex-col gap-3 text-left">
 			{#each faqs as faq, i}
-				<button class="faq-item w-full bg-(--color-bg-card) border border-(--color-border-light) rounded-[var(--radius-md)] py-5 px-6 cursor-pointer transition-all duration-300 text-left hover:border-(--color-border)" class:open={openFaq === i} onclick={() => toggleFaq(i)}>
+				<button class="faq-item w-full bg-(--color-bg-card) border border-(--color-border-light) rounded-[var(--radius-md)] py-5 px-6 cursor-pointer transition-all duration-300 text-left hover:border-(--color-border)" class:open={openFaq === i} onclick={() => toggleFaq(i)} aria-expanded={openFaq === i}>
 					<div class="flex items-center justify-between gap-4">
-						<h3 class="font-sans text-[0.95rem] font-semibold text-(--color-heading)">{faq.question}</h3>
+						<span class="font-sans text-[0.95rem] font-semibold text-(--color-heading)">{faq.question}</span>
 						<svg class:rotated={openFaq === i} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-(--color-text-muted) transition-transform duration-200"><polyline points="6 9 12 15 18 9"></polyline></svg>
 					</div>
 					{#if openFaq === i}
@@ -342,7 +343,7 @@
 
 <!-- Mission -->
 <section class="relative py-24 overflow-hidden">
-	<div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-s-h-gue-CjMwAu4-OqY-unsplash-scaled-f09ccd30b3.webp')">
+	<div class="absolute inset-0 bg-cover bg-center lg:bg-fixed" style="background-image: url('/images/remote/fbcwimberley.com-s-h-gue-CjMwAu4-OqY-unsplash-scaled-f09ccd30b3.webp')">
 		<div class="dark-overlay"></div>
 	</div>
 	<div class="container relative z-1 max-w-[900px] text-center">

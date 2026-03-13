@@ -18,16 +18,17 @@
 		{
 			title: 'Kids Ministry',
 			image: '/images/remote/fbcwimberley.com-preschool_first_baptist_wimberley-ab0dfc5303.webp',
-			href: 'https://fbcwimberley.com/security-team-2/'
+			href: '/ministries/kids-day-out'
 		}
 	];
 </script>
 
 <svelte:head>
 	<title>Serve The Church - First Baptist Church Wimberley</title>
+	<meta name="description" content="Find your place to serve at First Baptist Church Wimberley. Join the Greeting Team, Technical Arts, Security Team, Kids Ministry, and more." />
 </svelte:head>
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0f2135]">
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-(--color-dark-hero)">
 	<div class="absolute inset-0 flex items-center justify-center">
 		<img
 			src="/images/remote/fbcwimberley.com-wimberley_church_serve-ae435911b2.webp"
@@ -52,13 +53,14 @@
 	<div class="container max-w-[1180px]">
 		<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 xl:gap-10">
 			{#each serveCards as card}
+				{@const isExternal = card.href.startsWith('http')}
 				<article class="rounded-[var(--radius-lg)] overflow-hidden border border-(--color-border-light) bg-(--color-bg-card) shadow-(--shadow-sm)">
-					<a href={card.href} target="_blank" rel="noopener">
+					<a href={card.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>
 						<img src={card.image} alt={card.title} loading="lazy" class="w-full h-[220px] md:h-[240px] object-cover" />
 					</a>
 					<div class="p-6">
 						<h3 class="text-[1.35rem] mb-3">{card.title}</h3>
-						<a href={card.href} target="_blank" rel="noopener" class="font-semibold text-(--color-primary) hover:text-(--color-primary-hover)">
+						<a href={card.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined} class="font-semibold text-(--color-primary) hover:text-(--color-primary-hover)">
 							Find Out More
 						</a>
 					</div>
