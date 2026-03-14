@@ -3,7 +3,9 @@
 	import { onMount } from 'svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 
-	const PALM_SUNDAY_BANNER_KEY = 'palm-sunday-banner-dismissed';
+	const FAMILY_LIFE_WEEKEND_BANNER_KEY = 'family-life-weekend-banner-dismissed';
+	const FAMILY_LIFE_WEEKEND_REGISTRATION_URL = 'https://fbcwimberley.churchcenter.com/registrations';
+	const FAMILY_LIFE_WEEKEND_TARGET = new Date('2026-03-27T18:00:00-05:00').getTime();
 
 	let mobileMenuOpen = $state(false);
 	let ministriesOpen = $state(false);
@@ -12,20 +14,35 @@
 	let serveOpen = $state(false);
 	let scrolled = $state(false);
 	let bannerDismissed = $state(false);
+	let countdown = $state(getCountdownParts());
 
-	const showPalmSundayBanner = $derived(page.url.pathname === '/' && !scrolled && !bannerDismissed);
+	const showFamilyLifeWeekendBanner = $derived(page.url.pathname === '/' && !scrolled && !bannerDismissed);
 
 	let ministriesTimer: ReturnType<typeof setTimeout> | undefined;
 	let serveTimer: ReturnType<typeof setTimeout> | undefined;
 	let familyLifeTimer: ReturnType<typeof setTimeout> | undefined;
+	let countdownTimer: ReturnType<typeof setInterval> | undefined;
+
+	function getCountdownParts() {
+		const distance = Math.max(FAMILY_LIFE_WEEKEND_TARGET - Date.now(), 0);
+		const totalSeconds = Math.floor(distance / 1000);
+
+		return {
+			days: Math.floor(totalSeconds / 86400),
+			hours: Math.floor((totalSeconds % 86400) / 3600),
+			minutes: Math.floor((totalSeconds % 3600) / 60),
+			seconds: totalSeconds % 60,
+			isComplete: distance === 0
+		};
+	}
 
 	function handleScroll() {
 		scrolled = window.scrollY > 50;
 	}
 
-	function dismissPalmSundayBanner() {
+	function dismissFamilyLifeWeekendBanner() {
 		bannerDismissed = true;
-		localStorage.setItem(PALM_SUNDAY_BANNER_KEY, 'true');
+		localStorage.setItem(FAMILY_LIFE_WEEKEND_BANNER_KEY, 'true');
 	}
 
 	function closeMobile() {
@@ -35,10 +52,18 @@
 		serveOpen = false;
 	}
 
-    onMount(() => {
-        handleScroll();
-        bannerDismissed = localStorage.getItem(PALM_SUNDAY_BANNER_KEY) === 'true';
-    });
+	onMount(() => {
+		handleScroll();
+		bannerDismissed = localStorage.getItem(FAMILY_LIFE_WEEKEND_BANNER_KEY) === 'true';
+		countdown = getCountdownParts();
+		countdownTimer = setInterval(() => {
+			countdown = getCountdownParts();
+		}, 1000);
+
+		return () => {
+			if (countdownTimer) clearInterval(countdownTimer);
+		};
+	});
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') {
@@ -188,18 +213,49 @@
 		</div>
 	</div>
 
-	{#if showPalmSundayBanner}
+	{#if showFamilyLifeWeekendBanner}
 		<div class="relative border-t border-white/10 bg-[rgba(26,18,13,0.78)] text-white backdrop-blur-sm">
-			<div class="container flex min-h-12 items-center justify-center py-2">
-				<p class="px-12 text-center text-sm font-medium tracking-[0.08em] uppercase sm:text-[0.95rem]">
-					Palm Sunday: One service at 10:30 AM
-				</p>
+			<div class="container px-12 py-3 sm:px-14">
+				<div class="flex flex-col items-center justify-center gap-3 text-center lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6 lg:text-left">
+					<p class="text-sm font-medium tracking-[0.08em] uppercase sm:text-[0.95rem]">
+						Are you ready for Family Life Weekend 2026?
+					</p>
+					<div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+						{#if countdown.isComplete}
+							<span class="rounded-full border border-white/30 px-4 py-2 text-sm font-semibold tracking-[0.08em] uppercase">
+								Happening now
+							</span>
+						{:else}
+							{#each [
+								{ label: 'Days', value: countdown.days },
+								{ label: 'Hours', value: countdown.hours },
+								{ label: 'Minutes', value: countdown.minutes },
+								{ label: 'Seconds', value: countdown.seconds }
+							] as part}
+								<div class="min-w-16 rounded-[var(--radius-sm)] border border-white/20 bg-white/8 px-3 py-2 text-center">
+									<div class="text-lg font-semibold tabular-nums sm:text-xl">{part.value.toString().padStart(2, '0')}</div>
+									<div class="text-[0.65rem] tracking-[0.18em] uppercase text-white/70 sm:text-[0.7rem]">{part.label}</div>
+								</div>
+							{/each}
+						{/if}
+					</div>
+					<div class="flex justify-center lg:justify-end">
+						<a
+							href={FAMILY_LIFE_WEEKEND_REGISTRATION_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center rounded-full border border-white/30 px-4 py-2 text-sm font-medium tracking-[0.08em] uppercase transition hover:bg-white hover:text-[rgba(26,18,13,0.92)] sm:text-[0.95rem]"
+						>
+							Register under Events
+						</a>
+					</div>
+				</div>
 			</div>
 			<button
 				type="button"
 				class="absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-red-400 transition hover:text-red-300 sm:right-6"
-				onclick={dismissPalmSundayBanner}
-				aria-label="Dismiss Palm Sunday banner"
+				onclick={dismissFamilyLifeWeekendBanner}
+				aria-label="Dismiss Family Life Weekend banner"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
 					<line x1="18" y1="6" x2="6" y2="18"></line>
