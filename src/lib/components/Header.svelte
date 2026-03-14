@@ -308,7 +308,7 @@
 							href={FAMILY_LIFE_WEEKEND_REGISTRATION_URL}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="group inline-flex items-center gap-3 rounded-full border border-[color:var(--color-primary)]/55 bg-white/6 px-4 py-2 text-left text-white shadow-[0_10px_30px_rgba(0,0,0,0.14)] transition duration-200 hover:-translate-y-[1px] hover:border-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)]/12 hover:shadow-[0_14px_36px_rgba(0,0,0,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(26,18,13,0.92)]"
+							class="group inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--color-primary)]/55 bg-white/6 pl-8 pr-4 py-2 text-center text-white shadow-[0_10px_30px_rgba(0,0,0,0.14)] transition duration-200 hover:-translate-y-[1px] hover:border-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)]/12 hover:shadow-[0_14px_36px_rgba(0,0,0,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(26,18,13,0.92)]"
 						>
 							<span class="text-sm font-semibold tracking-[0.08em] uppercase sm:text-[0.95rem]">Register</span>
 							<span class="flex h-9 w-9 items-center justify-center text-[color:var(--color-primary)] transition group-hover:text-[color:var(--color-primary-hover)]" aria-hidden="true">
