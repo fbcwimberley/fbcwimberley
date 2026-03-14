@@ -6,6 +6,12 @@
 	const FAMILY_LIFE_WEEKEND_BANNER_KEY = 'family-life-weekend-banner-dismissed';
 	const FAMILY_LIFE_WEEKEND_REGISTRATION_URL = 'https://fbcwimberley.churchcenter.com/registrations';
 	const FAMILY_LIFE_WEEKEND_TARGET = new Date('2026-03-27T18:00:00-05:00').getTime();
+	const FAMILY_LIFE_WEEKEND_DISMISS_DURATION_MS = 60 * 60 * 1000;
+	const FAMILY_LIFE_WEEKEND_COOKIE_ATTRIBUTES = '; Path=/; Max-Age=3600; SameSite=Lax';
+
+	let { showFamilyLifeWeekendBanner: initialShowFamilyLifeWeekendBanner } = $props<{
+		showFamilyLifeWeekendBanner: boolean;
+	}>();
 
 	let mobileMenuOpen = $state(false);
 	let ministriesOpen = $state(false);
@@ -13,15 +19,20 @@
 	let familyLifeDesktopOpen = $state(false);
 	let serveOpen = $state(false);
 	let scrolled = $state(false);
-	let bannerDismissed = $state(false);
+	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('default');
 	let countdown = $state(getCountdownParts());
 
-	const showFamilyLifeWeekendBanner = $derived(page.url.pathname === '/' && !scrolled && !bannerDismissed);
+	const shouldShowFamilyLifeWeekendBanner = $derived(
+		page.url.pathname === '/'
+			&& !scrolled
+			&& (bannerVisibilityOverride === 'visible' || (bannerVisibilityOverride === 'default' && initialShowFamilyLifeWeekendBanner))
+	);
 
 	let ministriesTimer: ReturnType<typeof setTimeout> | undefined;
 	let serveTimer: ReturnType<typeof setTimeout> | undefined;
 	let familyLifeTimer: ReturnType<typeof setTimeout> | undefined;
 	let countdownTimer: ReturnType<typeof setInterval> | undefined;
+	let bannerResetTimer: ReturnType<typeof setTimeout> | undefined;
 
 	function getCountdownParts() {
 		const distance = Math.max(FAMILY_LIFE_WEEKEND_TARGET - Date.now(), 0);
@@ -40,9 +51,61 @@
 		scrolled = window.scrollY > 50;
 	}
 
+	function clearBannerResetTimer() {
+		if (bannerResetTimer) {
+			clearTimeout(bannerResetTimer);
+			bannerResetTimer = undefined;
+		}
+	}
+
+	function getBannerHideUntilFromCookie() {
+		const cookie = document.cookie
+			.split('; ')
+			.find((entry) => entry.startsWith(`${FAMILY_LIFE_WEEKEND_BANNER_KEY}=`));
+		const value = cookie?.split('=')[1];
+		const hideUntil = value ? Number(decodeURIComponent(value)) : 0;
+
+		return Number.isFinite(hideUntil) ? hideUntil : 0;
+	}
+
+	function setBannerHideUntilCookie(hideUntil: number) {
+		document.cookie = `${FAMILY_LIFE_WEEKEND_BANNER_KEY}=${encodeURIComponent(hideUntil.toString())}${FAMILY_LIFE_WEEKEND_COOKIE_ATTRIBUTES}`;
+	}
+
+	function clearBannerHideUntilCookie() {
+		document.cookie = `${FAMILY_LIFE_WEEKEND_BANNER_KEY}=; Path=/; Max-Age=0; SameSite=Lax`;
+	}
+
+	function showFamilyLifeWeekendBannerNow() {
+		bannerVisibilityOverride = 'visible';
+		clearBannerHideUntilCookie();
+		clearBannerResetTimer();
+	}
+
+	function scheduleBannerReset(delayMs: number) {
+		clearBannerResetTimer();
+		bannerResetTimer = setTimeout(() => {
+			showFamilyLifeWeekendBannerNow();
+		}, delayMs);
+	}
+
+	function syncBannerDismissState() {
+		const hideUntil = getBannerHideUntilFromCookie();
+
+		if (hideUntil > Date.now()) {
+			bannerVisibilityOverride = 'hidden';
+			scheduleBannerReset(hideUntil - Date.now());
+			return;
+		}
+
+		showFamilyLifeWeekendBannerNow();
+	}
+
 	function dismissFamilyLifeWeekendBanner() {
-		bannerDismissed = true;
-		localStorage.setItem(FAMILY_LIFE_WEEKEND_BANNER_KEY, 'true');
+		const hideUntil = Date.now() + FAMILY_LIFE_WEEKEND_DISMISS_DURATION_MS;
+		bannerVisibilityOverride = 'hidden';
+		setBannerHideUntilCookie(hideUntil);
+		scheduleBannerReset(FAMILY_LIFE_WEEKEND_DISMISS_DURATION_MS);
 	}
 
 	function closeMobile() {
@@ -54,7 +117,7 @@
 
 	onMount(() => {
 		handleScroll();
-		bannerDismissed = localStorage.getItem(FAMILY_LIFE_WEEKEND_BANNER_KEY) === 'true';
+		syncBannerDismissState();
 		countdown = getCountdownParts();
 		countdownTimer = setInterval(() => {
 			countdown = getCountdownParts();
@@ -62,6 +125,7 @@
 
 		return () => {
 			if (countdownTimer) clearInterval(countdownTimer);
+			clearBannerResetTimer();
 		};
 	});
 
@@ -213,7 +277,7 @@
 		</div>
 	</div>
 
-	{#if showFamilyLifeWeekendBanner}
+	{#if shouldShowFamilyLifeWeekendBanner}
 		<div class="relative border-t border-white/10 bg-[rgba(26,18,13,0.78)] text-white backdrop-blur-sm">
 			<div class="container px-12 py-3 sm:px-14">
 				<div class="flex flex-col items-center justify-center gap-3 text-center lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6 lg:text-left">

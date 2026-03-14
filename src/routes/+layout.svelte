@@ -6,7 +6,7 @@
 	import { initThemeListener } from '$lib/stores/theme';
 	import { onMount } from 'svelte';
 
-	let { children } = $props();
+	let { children, data } = $props();
 
 	onMount(() => {
 		initThemeListener();
@@ -35,7 +35,7 @@
 </svelte:head>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<Header />
+<Header showFamilyLifeWeekendBanner={data.showFamilyLifeWeekendBanner} />
 <main id="main-content">
 	{@render children()}
 </main>
