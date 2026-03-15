@@ -204,7 +204,7 @@
 			Life throws challenges at every woman. Sometimes it can feel exhausting to carry the burden alone. The support and service groups of FBCW Women's Ministry provide opportunities to connect with other women in times of need and to serve others in difficult seasons.
 		</p>
 		<p class="text-white/75 max-w-[740px] mx-auto mb-8">Whether it's conferences, coffee meetups, or service opportunities, there's always something going on for women at FBCW.</p>
-		<a href="https://fbcwimberley.churchcenter.com/registrations" target="_blank" rel="noopener noreferrer" class="btn btn-accent hover:btn-accent-hover">View Events</a>
+		<a href="/events" class="btn btn-accent hover:btn-accent-hover">View Events</a>
 	</div>
 </section>
 

@@ -5,6 +5,7 @@ First Baptist Church Wimberley website rebuild with SvelteKit.
 ## What This Site Includes
 
 - Marketing-style church website with custom themed sections (home, about, connect, ministries, serve, watch)
+- Internal events page (`/events`) backed by the Planning Center Registrations API
 - Responsive header with dropdown navigation and mobile drawer
 - Light/dark theme toggle with persisted preference
 - Embedded livestream page (`/watch`)
@@ -33,6 +34,8 @@ Create `.env` with:
 ```bash
 MAILCHIMP_API_KEY=your-key-usXX
 MAILCHIMP_AUDIENCE_ID=your-audience-id
+PLANNINGCENTER_CLIENT_ID=your-client-id
+PLANNINGCENTER_PAT=your-personal-access-token
 # Optional fallback name used by the API route:
 # MAILCHIMP_LIST_ID=your-audience-id
 ```
@@ -62,6 +65,7 @@ Additional utility script:
 
 - `src/routes` - page routes and API endpoints
 - `src/lib/components` - reusable UI sections and layout components
+- `src/lib/server/planningCenter.ts` - Planning Center API helpers for event pages
 - `src/lib/stores/theme.ts` - theme preference and DOM application logic
 - `static/images` - local static image assets (including localized remote images)
 - `scripts` - one-off content/image maintenance tooling
@@ -70,4 +74,5 @@ Additional utility script:
 
 - Header/footer are shared through `src/routes/+layout.svelte`.
 - Newsletter form in `src/lib/components/Newsletter.svelte` posts to `/api/newsletter`.
-- Several nav links point to external ChurchCenter/Realm destinations by design.
+- Events content is loaded from Planning Center and surfaced internally at `/events`.
+- Several nav links still point to external ChurchCenter/Realm destinations by design.

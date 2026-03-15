@@ -11,6 +11,7 @@ app.html (shell)
         │     └── ThemeToggle.svelte
         ├── <main> (page content via {@render children()})
         │     ├── +page.svelte (home — composes section components)
+        │     ├── events/+page.svelte (Planning Center-backed event listing)
         │     └── about-us/+page.svelte (self-contained page with inline sections)
         └── Footer.svelte (all pages)
 ```
@@ -53,8 +54,8 @@ Components use Svelte 5 runes for local state. There is no global state beyond t
 ### Rendering Strategy
 
 - **SSR + Client Hydration:** SvelteKit renders pages on the server, then hydrates on the client.
-- **No data loading:** No `+page.ts` or `+page.server.ts` files. All content is static/hardcoded.
-- **No API routes:** No `+server.ts` files. External services (ChurchCenter, OnRealm) are linked directly.
+- **Selective server data loading:** Planning Center event pages use `+page.server.ts` to fetch live registration data.
+- **API routes:** Server routes exist for integrations such as Mailchimp newsletter signup.
 - **Layout inheritance:** All pages inherit `+layout.svelte` which provides Header, Footer, and theme initialization.
 
 ## Page Composition Patterns
@@ -106,8 +107,8 @@ Level 3:                ├── Preschool
 **Mobile:** JavaScript toggle-based accordions with `$state` booleans
 
 **Internal vs External links:**
-- `/about-us` → Internal SvelteKit route
-- All other nav links → External URLs (fbcwimberley.com, churchcenter, onrealm)
+- `/about-us`, `/connect`, `/events`, ministry pages → Internal SvelteKit routes
+- Groups, directory, giving, and some registrations → External URLs (churchcenter, onrealm)
 
 ## Visual Rhythm
 

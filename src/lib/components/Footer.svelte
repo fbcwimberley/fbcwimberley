@@ -7,7 +7,7 @@
 				<ul class="flex flex-col gap-2.5">
 					<li><a href="/watch" class="footer-link">Watch Online</a></li>
 					<li><a href="/about-us" class="footer-link">About Us</a></li>
-					<li><a href="https://fbcwimberley.churchcenter.com/registrations" class="footer-link">Events</a></li>
+					<li><a href="/events" class="footer-link">Events</a></li>
 					<li><a href="https://onrealm.org/fbcwimberley/give/now" class="footer-link">Give</a></li>
 				</ul>
 			</div>
