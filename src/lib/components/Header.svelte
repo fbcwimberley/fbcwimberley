@@ -4,7 +4,7 @@
 	import ThemeToggle from './ThemeToggle.svelte';
 
 	const FAMILY_LIFE_WEEKEND_BANNER_KEY = 'family-life-weekend-banner-dismissed';
-	const FAMILY_LIFE_WEEKEND_REGISTRATION_URL = 'https://fbcwimberley.churchcenter.com/registrations/events/3413391';
+	const FAMILY_LIFE_WEEKEND_REGISTRATION_URL = '/events/family-life-weekend';
 	const FAMILY_LIFE_WEEKEND_TARGET = new Date('2026-03-27T18:00:00-05:00').getTime();
 	const FAMILY_LIFE_WEEKEND_DISMISS_DURATION_MS = 60 * 60 * 1000;
 	const FAMILY_LIFE_WEEKEND_COOKIE_ATTRIBUTES = '; Path=/; Max-Age=3600; SameSite=Lax';
@@ -306,11 +306,9 @@
 					<div class="flex justify-center lg:justify-end">
 						<a
 							href={FAMILY_LIFE_WEEKEND_REGISTRATION_URL}
-							target="_blank"
-							rel="noopener noreferrer"
 							class="group inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--color-primary)]/55 bg-white/6 pl-8 pr-4 py-2 text-center text-white shadow-[0_10px_30px_rgba(0,0,0,0.14)] transition duration-200 hover:-translate-y-[1px] hover:border-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)]/12 hover:shadow-[0_14px_36px_rgba(0,0,0,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(26,18,13,0.92)]"
 						>
-							<span class="text-sm font-semibold tracking-[0.08em] uppercase sm:text-[0.95rem]">Register</span>
+							<span class="text-sm font-semibold tracking-[0.08em] uppercase sm:text-[0.95rem]">Learn More</span>
 							<span class="flex h-9 w-9 items-center justify-center text-[color:var(--color-primary)] transition group-hover:text-[color:var(--color-primary-hover)]" aria-hidden="true">
 								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
 									<line x1="5" y1="12" x2="19" y2="12"></line>
