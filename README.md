@@ -18,33 +18,6 @@ First Baptist Church Wimberley website rebuild with SvelteKit.
 - Tailwind CSS v4 (`@tailwindcss/vite`) plus custom global CSS variables
 - Adapter: `@sveltejs/adapter-auto`
 
-## Routes
-
-Top-level pages:
-
-- `/`
-- `/about-us`
-- `/connect`
-- `/ministries`
-- `/serve-the-church`
-- `/serve-the-community`
-- `/watch`
-
-Ministry pages:
-
-- `/ministries/womens-ministry`
-- `/ministries/care`
-- `/ministries/missions`
-- `/ministries/preschool`
-- `/ministries/elementary`
-- `/ministries/junior-high`
-- `/ministries/high-school`
-- `/ministries/kids-day-out`
-
-API:
-
-- `POST /api/newsletter` (Mailchimp subscribe/update by email hash)
-
 ## Local Development
 
 ### 1) Install dependencies
