@@ -446,7 +446,7 @@ function determineCategory(signupId: string, title: string, descriptionText: str
 	}
 
 	if (/(men|mens|men's)/.test(haystack)) {
-		return 'Mens Ministry';
+		return "Men's Ministry";
 	}
 
 	if (/(awana|vbs|kids camp|kid|ministry to kids|preteen|children)/.test(haystack)) {
