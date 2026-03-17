@@ -111,10 +111,6 @@
 						<p class="text-[0.76rem] uppercase tracking-[0.12em] text-white/62">Events Loaded</p>
 						<p class="mt-1 text-[1.8rem] font-semibold tabular-nums">{model.events.length}</p>
 					</div>
-					<div class="rounded-[var(--radius-md)] border border-white/10 bg-black/12 px-4 py-3">
-						<p class="text-[0.76rem] uppercase tracking-[0.12em] text-white/62">Status</p>
-						<p class="mt-1 text-[1rem] font-medium">{model.loadError ? 'Fallback content' : 'Live data available'}</p>
-					</div>
 				</div>
 			</div>
 		</div>
