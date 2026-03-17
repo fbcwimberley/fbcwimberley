@@ -261,7 +261,7 @@
 				{:else}
 					<div class="rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-8 shadow-(--shadow-sm)">
 						<p class="max-w-[42rem] text-(--color-text-muted) leading-[1.8]">
-							No events for {selectedCategory} currently.
+							No additional events for {selectedCategory} currently.
 						</p>
 					</div>
 				{/if}
