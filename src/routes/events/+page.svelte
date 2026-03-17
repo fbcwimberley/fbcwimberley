@@ -25,6 +25,31 @@
 
 		return `${text.slice(0, max).trimEnd()}...`;
 	}
+
+	function getFeaturedHeroStyle(heroImageUrl: string | null | undefined): string | undefined {
+		if (!heroImageUrl) {
+			return undefined;
+		}
+
+		let normalizedUrl: string;
+		try {
+			// Normalize and validate the URL; allow relative URLs by providing a base.
+			normalizedUrl = new URL(heroImageUrl, 'http://localhost').toString();
+		} catch {
+			// If the URL is invalid, avoid injecting it into CSS.
+			return undefined;
+		}
+
+		// Escape characters that could break out of the CSS url(...) context.
+		const safeUrl = normalizedUrl.replace(/["\\)]/g, (match) => {
+			if (match === '"') return '\\"';
+			if (match === '\\') return '\\\\';
+			// Escape closing parenthesis to prevent ending url(...) early.
+			return '\\)';
+		});
+
+		return `background-image: linear-gradient(180deg, rgba(7, 10, 19, 0.28) 0%, rgba(7, 10, 19, 0.62) 100%), url("${safeUrl}")`;
+	}
 </script>
 
 <svelte:head>
@@ -104,9 +129,7 @@
 					<div class="featured-hero">
 						<div
 							class="featured-hero-banner"
-							style={featured.heroImageUrl
-								? `background-image: linear-gradient(180deg, rgba(7, 10, 19, 0.28) 0%, rgba(7, 10, 19, 0.62) 100%), url('${featured.heroImageUrl}')`
-								: undefined}
+							style={getFeaturedHeroStyle(featured.heroImageUrl)}
 						>
 							<div class="featured-hero-overlay"></div>
 							<div class="relative z-1 p-7 md:p-10">
