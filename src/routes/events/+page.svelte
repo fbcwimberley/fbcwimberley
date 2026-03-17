@@ -232,7 +232,8 @@
 										</p>
 									</div>
 
-									<div class="mt-6 pt-5 border-t border-(--color-border-light)">
+									<div class="mt-auto pt-6">
+										<div class="border-t border-(--color-border-light) pt-5">
 										<div class="flex flex-wrap gap-3">
 											<a
 												href={event.registerUrl}
@@ -250,6 +251,7 @@
 											>
 												Details
 											</a>
+										</div>
 										</div>
 									</div>
 								</div>
