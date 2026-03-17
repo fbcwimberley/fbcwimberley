@@ -207,6 +207,13 @@
 						{#each remainingEvents as event}
 							<article class="event-card rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-6 shadow-(--shadow-sm)">
 								<div class="flex min-h-full flex-col">
+									{#if event.heroImageUrl}
+										<div
+											class="event-card-image"
+											style={`background-image: linear-gradient(180deg, rgba(13, 16, 28, 0.08) 0%, rgba(13, 16, 28, 0.32) 100%), url('${event.heroImageUrl}')`}
+											aria-hidden="true"
+										></div>
+									{/if}
 									<div>
 										<p class="event-category-badge">{event.category}</p>
 										{#if event.startText}
@@ -384,6 +391,17 @@
 			transform 300ms var(--ease-spring),
 			box-shadow 300ms var(--ease-spring),
 			border-color 300ms ease;
+	}
+
+	.event-card-image {
+		margin-bottom: 1.1rem;
+		min-height: 180px;
+		border-radius: calc(var(--radius-lg) - 0.35rem);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 	}
 
 	.event-card:hover {
