@@ -31,6 +31,7 @@ type SignupAttributes = {
 	new_registration_url?: string;
 	open_at?: string;
 	close_at?: string;
+	archived?: boolean;
 };
 
 type SignupTimeAttributes = {
@@ -348,8 +349,9 @@ function buildFallbackEventsListModel(): EventsListPageModel {
 export async function getUpcomingEvents(limit = 12): Promise<EventsListPageModel> {
 	try {
 		const signups = await fetchCollection<SignupAttributes>('/registrations/v2/signups');
+		const activeSignups = signups.filter((signup) => signup.attributes.archived !== true);
 		const events = await Promise.all(
-			signups.map(async (signup) => {
+			activeSignups.map(async (signup) => {
 				const signupId = signup.id;
 				const registrationUrl = signup.attributes.new_registration_url ?? undefined;
 
