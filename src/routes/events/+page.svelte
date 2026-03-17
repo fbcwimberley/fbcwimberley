@@ -79,15 +79,14 @@
 	</div>
 
 	<div class="relative z-1 container pb-16 pt-32">
-		<div class="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(260px,0.8fr)] lg:items-end">
-			<div class="max-w-[760px]">
-				<p class="section-label">Church Life</p>
-				<h1 class="text-[clamp(2.35rem,6vw,4.25rem)] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.28)]">
-					Upcoming Events
-				</h1>
-				<p class="mt-5 max-w-[58ch] text-[1.02rem] leading-[1.85] text-white/84">
-					Find registrations, schedules, and event details from Planning Center in one place without sending people straight out to Church Center first.
-				</p>
+		<div class="max-w-[760px]">
+			<p class="section-label">Church Life</p>
+			<h1 class="text-[clamp(2.35rem,6vw,4.25rem)] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.28)]">
+				Upcoming Events
+			</h1>
+			<p class="mt-5 max-w-[58ch] text-[1.02rem] leading-[1.85] text-white/84">
+				Find registrations, schedules, and event details from Planning Center in one place without sending people straight out to Church Center first.
+			</p>
 				<div class="mt-8 flex flex-wrap gap-3">
 					<Button href="#event-list" variant="accent">
 						See Upcoming Events
@@ -97,24 +96,7 @@
 					</Button>
 				</div>
 			</div>
-
-			<div class="rounded-[var(--radius-lg)] border border-white/12 bg-white/8 p-6 text-white shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-sm">
-				<p class="text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-[rgba(212,163,106,0.95)]">
-					Live Feed
-				</p>
-				<div class="mt-4 space-y-4">
-					<div class="rounded-[var(--radius-md)] border border-white/10 bg-black/12 px-4 py-3">
-						<p class="text-[0.76rem] uppercase tracking-[0.12em] text-white/62">Source</p>
-						<p class="mt-1 text-[1rem] font-medium">Planning Center Registrations</p>
-					</div>
-					<div class="rounded-[var(--radius-md)] border border-white/10 bg-black/12 px-4 py-3">
-						<p class="text-[0.76rem] uppercase tracking-[0.12em] text-white/62">Events Loaded</p>
-						<p class="mt-1 text-[1.8rem] font-semibold tabular-nums">{model.events.length}</p>
-					</div>
-				</div>
-			</div>
 		</div>
-	</div>
 </section>
 
 <section id="event-list" class="py-20 bg-(--color-bg)">
