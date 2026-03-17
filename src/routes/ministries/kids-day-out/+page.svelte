@@ -348,7 +348,9 @@
 	}
 
 	.staff-card img {
+		display: block;
 		width: 100%;
+		aspect-ratio: 4 / 5;
 		height: auto;
 		object-fit: cover;
 		border-radius: var(--radius-lg);
