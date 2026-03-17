@@ -49,7 +49,7 @@
 	];
 
 	const ageFourTeachers = [
-		{ name: 'Barbara Scherff', image: '/images/remote/fbcwimberley.com-Untitled-design-958a5038d2.webp' },
+		{ name: 'Barbara Scherff', image: '/images/remote/fbcwimberley.com-Barbara-Scherff-2026.jpg' },
 		{ name: 'Caitlyn Scrogin', image: '/images/remote/fbcwimberley.com-Caitlyn-Scrogin-0861dd56dd.webp' }
 	];
 
@@ -227,28 +227,27 @@
 			</div>
 		</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
-			<div class="staff-group !mt-0">
-				<h3>4 Year Old Teachers</h3>
-				<div class="staff-grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
-					{#each ageFourTeachers as person}
-						<div class="staff-card">
-							<img src={person.image} alt={person.name} loading="lazy" />
-							<p><strong>{person.name}</strong></p>
-						</div>
-					{/each}
-				</div>
+		<div class="staff-group">
+			<h3>4 Year Old Teachers</h3>
+			<div class="staff-grid">
+				{#each ageFourTeachers as person}
+					<div class="staff-card">
+						<img src={person.image} alt={person.name} loading="lazy" />
+						<p><strong>{person.name}</strong></p>
+					</div>
+				{/each}
 			</div>
-			<div class="staff-group !mt-0">
-				<h3>Specials &amp; Support Teachers</h3>
-				<div class="staff-grid grid-cols-1">
-					{#each supportTeachers as person}
-						<div class="staff-card">
-							<img src={person.image} alt={person.name} loading="lazy" />
-							<p><strong>{person.name}</strong></p>
-						</div>
-					{/each}
-				</div>
+		</div>
+
+		<div class="staff-group">
+			<h3>Specials &amp; Support Teachers</h3>
+			<div class="staff-grid">
+				{#each supportTeachers as person}
+					<div class="staff-card">
+						<img src={person.image} alt={person.name} loading="lazy" />
+						<p><strong>{person.name}</strong></p>
+					</div>
+				{/each}
 			</div>
 		</div>
 	</div>
@@ -349,7 +348,9 @@
 	}
 
 	.staff-card img {
+		display: block;
 		width: 100%;
+		aspect-ratio: 4 / 5;
 		height: auto;
 		object-fit: cover;
 		border-radius: var(--radius-lg);

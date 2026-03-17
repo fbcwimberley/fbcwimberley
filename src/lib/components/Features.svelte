@@ -12,7 +12,7 @@
 			icon: 'calendar',
 			title: 'Upcoming Events',
 			description: "There's always something happening in the life of our church. Check out all the upcoming events and registrations.",
-			href: 'https://fbcwimberley.churchcenter.com/registrations'
+			href: '/events'
 		},
 		{
 			icon: 'users',

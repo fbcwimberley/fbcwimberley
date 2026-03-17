@@ -73,6 +73,27 @@ export type EventPageModel = {
 	loadError: boolean;
 };
 
+export type EventsListItem = {
+	id: string;
+	title: string;
+	descriptionText: string;
+	heroImageUrl: string | null;
+	registerUrl: string;
+	eventUrl: string;
+	locationName: string | null;
+	locationDetail: string | null;
+	locationUrl: string | null;
+	locationType: string | null;
+	startAt: string | null;
+	startText: string | null;
+	registrationWindow: string | null;
+};
+
+export type EventsListPageModel = {
+	events: EventsListItem[];
+	loadError: boolean;
+};
+
 function getBasicAuthHeader() {
 	const clientId = env.PLANNINGCENTER_CLIENT_ID;
 	const pat = env.PLANNINGCENTER_PAT;
@@ -218,6 +239,26 @@ function formatPrice(selection: PlanningCenterResource<SelectionTypeAttributes>)
 	return name;
 }
 
+function getEventUrlFromRegistrationUrl(registrationUrl: string) {
+	return registrationUrl.replace(/\/reservations\/new\/?$/, '');
+}
+
+function toChurchCenterEventUrl(signupId: string, registrationUrl?: string) {
+	if (registrationUrl) {
+		return getEventUrlFromRegistrationUrl(registrationUrl);
+	}
+
+	return `https://fbcwimberley.churchcenter.com/registrations/events/${signupId}`;
+}
+
+function toChurchCenterRegistrationUrl(signupId: string, registrationUrl?: string) {
+	if (registrationUrl) {
+		return registrationUrl;
+	}
+
+	return `${toChurchCenterEventUrl(signupId)}/reservations/new`;
+}
+
 function buildFallbackModel(): EventPageModel {
 	return {
 		title: 'Family Life Weekend',
@@ -246,6 +287,131 @@ async function findSignupForEvent() {
 		const url = signup.attributes.new_registration_url ?? '';
 		return url.includes(`/${EVENT_ID}/`) || url.endsWith(`/${EVENT_ID}`) || url.includes(EVENT_ID);
 	});
+}
+
+function choosePrimaryTime(times: Array<PlanningCenterResource<SignupTimeAttributes>>) {
+	if (times.length === 0) {
+		return null;
+	}
+
+	const parsed = times
+		.filter((time) => Boolean(time.attributes.starts_at))
+		.map((time) => {
+			const startsAt = time.attributes.starts_at as string;
+			return {
+				startsAt,
+				ts: new Date(startsAt).getTime(),
+				endsAt: time.attributes.ends_at,
+				allDay: time.attributes.all_day
+			};
+		})
+		.filter((time) => Number.isFinite(time.ts))
+		.sort((a, b) => a.ts - b.ts);
+
+	if (parsed.length === 0) {
+		return null;
+	}
+
+	const now = Date.now();
+	const next = parsed.find((time) => time.ts >= now) ?? parsed[0];
+
+	return {
+		startAt: next.startsAt,
+		startText: formatDateRange(next.startsAt, next.endsAt, next.allDay)
+	};
+}
+
+function buildFallbackEventsListModel(): EventsListPageModel {
+	return {
+		events: [
+			{
+				id: EVENT_ID,
+				title: 'Family Life Weekend',
+				descriptionText:
+					'Join us for Family Life Weekend at First Baptist Church Wimberley. Register through Church Center to reserve your spot and view the latest schedule details.',
+				heroImageUrl: null,
+				registerUrl: REGISTER_URL,
+				eventUrl: EVENT_URL,
+				locationName: null,
+				locationDetail: null,
+				locationUrl: null,
+				locationType: null,
+				startAt: null,
+				startText: null,
+				registrationWindow: null
+			}
+		],
+		loadError: true
+	};
+}
+
+export async function getUpcomingEvents(limit = 12): Promise<EventsListPageModel> {
+	try {
+		const signups = await fetchCollection<SignupAttributes>('/registrations/v2/signups');
+		const events = await Promise.all(
+			signups.map(async (signup) => {
+				const signupId = signup.id;
+				const registrationUrl = signup.attributes.new_registration_url ?? undefined;
+
+				const [times, locationResponse] = await Promise.all([
+					fetchCollection<SignupTimeAttributes>(`/registrations/v2/signups/${signupId}/signup_times`).catch(() => []),
+					fetchJson<PlanningCenterDocumentResponse<SignupLocationAttributes>>(
+						`/registrations/v2/signups/${signupId}/signup_location`
+					).catch(() => null)
+				]);
+
+				const primaryTime = choosePrimaryTime(times);
+				const descriptionHtml = signup.attributes.description?.trim() ?? '';
+				const descriptionText = descriptionHtml ? stripHtml(descriptionHtml) : signup.attributes.name?.trim() ?? 'Event';
+				const location = locationResponse?.data?.attributes;
+
+				return {
+					id: signupId,
+					title: signup.attributes.name?.trim() || 'Event',
+					descriptionText,
+					heroImageUrl: signup.attributes.logo_url ?? null,
+					registerUrl: toChurchCenterRegistrationUrl(signupId, registrationUrl),
+					eventUrl: toChurchCenterEventUrl(signupId, registrationUrl),
+					locationName: location?.name ?? null,
+					locationDetail: location?.full_formatted_address ?? location?.formatted_address ?? null,
+					locationUrl: location?.url ?? null,
+					locationType: location?.location_type ?? null,
+					startAt: primaryTime?.startAt ?? null,
+					startText: primaryTime?.startText ?? null,
+					registrationWindow: formatRegistrationWindow(signup.attributes.open_at, signup.attributes.close_at)
+				} satisfies EventsListItem;
+			})
+		);
+
+		const now = Date.now();
+		const sorted = events
+			.filter((event) => event.title.trim().length > 0)
+			.sort((a, b) => {
+				const aTs = a.startAt ? new Date(a.startAt).getTime() : Number.POSITIVE_INFINITY;
+				const bTs = b.startAt ? new Date(b.startAt).getTime() : Number.POSITIVE_INFINITY;
+				const aUpcoming = aTs >= now;
+				const bUpcoming = bTs >= now;
+
+				if (aUpcoming !== bUpcoming) {
+					return aUpcoming ? -1 : 1;
+				}
+
+				if (aTs !== bTs) {
+					return aTs - bTs;
+				}
+
+				return a.title.localeCompare(b.title);
+			})
+			.slice(0, limit);
+
+		return {
+			events: sorted,
+			loadError: false
+		};
+	} catch (error) {
+		console.error('Failed to load events from Planning Center.', error);
+		return buildFallbackEventsListModel();
+	}
 }
 
 export async function getFamilyLifeWeekendEvent() {

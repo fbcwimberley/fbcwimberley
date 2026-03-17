@@ -3,7 +3,7 @@
 	<div class="container relative z-1 text-center">
 		<h2 class="text-[clamp(1.5rem,4vw,2.5rem)] text-white mb-8 max-w-[700px] mx-auto">Want to find out what's happening at FBC Wimberley?</h2>
 		<div class="flex flex-col gap-4 items-center sm:flex-row sm:justify-center">
-			<a href="https://fbcwimberley.churchcenter.com/registrations" class="btn btn-outline hover:btn-outline-hover">
+			<a href="/events" class="btn btn-outline hover:btn-outline-hover">
 				Find Upcoming Events
 			</a>
 			<a href="https://fbcwimberley.buzzsprout.com" class="btn btn-accent hover:btn-accent-hover">

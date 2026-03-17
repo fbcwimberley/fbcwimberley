@@ -37,11 +37,15 @@ src/
 │   │   ├── NextStep.svelte         # CTA section with dual images (light bg)
 │   │   ├── EventsCTA.svelte        # Events/newsletter CTA (dark bg)
 │   │   └── ThemeToggle.svelte      # Sun/moon toggle button
+│   ├── server/
+│   │   └── planningCenter.ts       # Planning Center Registrations API helpers
 │   └── stores/
 │       └── theme.ts                # Theme store: light | dark | system
 ├── routes/
 │   ├── +layout.svelte              # Root layout (Header + Footer + theme init)
 │   ├── +page.svelte                # Home page (composes section components)
+│   ├── events/+page.svelte         # Events listing page
+│   ├── events/+page.server.ts      # Planning Center event loader
 │   └── about-us/+page.svelte       # About page (staff, FAQs, mission, contact)
 ```
 
