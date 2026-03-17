@@ -26,29 +26,37 @@
 		return `${text.slice(0, max).trimEnd()}...`;
 	}
 
-	function getFeaturedHeroStyle(heroImageUrl: string | null | undefined): string | undefined {
-		if (!heroImageUrl) {
-			return undefined;
+	function sanitizeUrlForCss(url: string | null | undefined): string {
+		if (!url) {
+			return '';
 		}
 
-		let normalizedUrl: string;
 		try {
-			// Normalize and validate the URL; allow relative URLs by providing a base.
-			normalizedUrl = new URL(heroImageUrl, 'http://localhost').toString();
+			const normalizedUrl = new URL(url, 'http://localhost').toString();
+			return normalizedUrl.replace(/["\\)]/g, (match) => {
+				if (match === '"') return '\\"';
+				if (match === '\\') return '\\\\';
+				return '\\)';
+			});
 		} catch {
-			// If the URL is invalid, avoid injecting it into CSS.
-			return undefined;
+			return '';
 		}
+	}
 
-		// Escape characters that could break out of the CSS url(...) context.
-		const safeUrl = normalizedUrl.replace(/["\\)]/g, (match) => {
-			if (match === '"') return '\\"';
-			if (match === '\\') return '\\\\';
-			// Escape closing parenthesis to prevent ending url(...) early.
-			return '\\)';
-		});
+	function getFeaturedHeroStyle(heroImageUrl: string | null | undefined): string | undefined {
+		const safeUrl = sanitizeUrlForCss(heroImageUrl);
 
-		return `background-image: linear-gradient(180deg, rgba(7, 10, 19, 0.28) 0%, rgba(7, 10, 19, 0.62) 100%), url("${safeUrl}")`;
+		return safeUrl
+			? `background-image: linear-gradient(180deg, rgba(7, 10, 19, 0.28) 0%, rgba(7, 10, 19, 0.62) 100%), url("${safeUrl}")`
+			: undefined;
+	}
+
+	function getEventCardImageStyle(heroImageUrl: string | null | undefined): string | undefined {
+		const safeUrl = sanitizeUrlForCss(heroImageUrl);
+
+		return safeUrl
+			? `background-image: linear-gradient(180deg, rgba(13, 16, 28, 0.08) 0%, rgba(13, 16, 28, 0.32) 100%), url("${safeUrl}")`
+			: undefined;
 	}
 </script>
 
@@ -233,7 +241,7 @@
 									{#if event.heroImageUrl}
 										<div
 											class="event-card-image"
-											style={`background-image: linear-gradient(180deg, rgba(13, 16, 28, 0.08) 0%, rgba(13, 16, 28, 0.32) 100%), url('${event.heroImageUrl}')`}
+											style={getEventCardImageStyle(event.heroImageUrl)}
 											aria-hidden="true"
 										></div>
 									{/if}
