@@ -49,7 +49,7 @@
 	];
 
 	const ageFourTeachers = [
-		{ name: 'Barbara Scherff', image: '/images/kdo/barbara-scherff.jpg' },
+		{ name: 'Barbara Scherff', image: '/images/remote/fbcwimberley.com-Barbara-Scherff-2026.jpg' },
 		{ name: 'Caitlyn Scrogin', image: '/images/remote/fbcwimberley.com-Caitlyn-Scrogin-0861dd56dd.webp' }
 	];
 
