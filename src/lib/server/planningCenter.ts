@@ -473,10 +473,7 @@ function buildFallbackEventsListModel(): EventsListPageModel {
 
 export async function getUpcomingEvents(limit = Number.POSITIVE_INFINITY): Promise<EventsListPageModel> {
 	try {
-		const [signups, categories] = await Promise.all([
-			fetchCollection<SignupAttributes>('/registrations/v2/signups'),
-			fetchCollection<CategoryAttributes>('/registrations/v2/categories?order=name').catch(() => [])
-		]);
+		const signups = await fetchCollection<SignupAttributes>('/registrations/v2/signups');
 		const openSignups = signups.filter(isSignupCurrentlyOpen);
 		const events = await Promise.all(
 			openSignups.map(async (signup) => {
@@ -532,9 +529,10 @@ export async function getUpcomingEvents(limit = Number.POSITIVE_INFINITY): Promi
 			? [featuredEvent, ...sorted.filter((event) => event.id !== featuredEvent.id)]
 			: sorted;
 		const visibleEvents = Number.isFinite(limit) ? ordered.slice(0, limit) : ordered;
-		const availableCategories = categories
-			.map((category) => category.attributes.name?.trim() ?? '')
-			.filter((category, index, all): category is string => category.length > 0 && all.indexOf(category) === index);
+		const availableCategories = visibleEvents
+			.map((event) => event.category?.trim() ?? '')
+			.filter((category, index, all): category is string => category.length > 0 && all.indexOf(category) === index)
+			.sort((a, b) => a.localeCompare(b));
 
 		return {
 			events: visibleEvents,
