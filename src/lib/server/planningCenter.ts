@@ -6,6 +6,38 @@ const REGISTER_URL = `https://fbcwimberley.churchcenter.com/registrations/events
 const EVENT_URL = `https://fbcwimberley.churchcenter.com/registrations/events/${EVENT_ID}`;
 const ORGANIZATION_TIME_ZONE = 'America/Chicago';
 
+// Limit the number of concurrent upstream API requests when loading events.
+const EVENTS_CONCURRENCY_LIMIT = 5;
+
+async function mapWithConcurrency<T, R>(
+	items: T[],
+	concurrency: number,
+	mapper: (item: T, index: number) => Promise<R>
+): Promise<R[]> {
+	if (concurrency <= 0) {
+		throw new Error('concurrency must be greater than 0');
+	}
+
+	const results: R[] = new Array(items.length);
+	let currentIndex = 0;
+
+	async function worker() {
+		for (;;) {
+			const index = currentIndex++;
+			if (index >= items.length) {
+				break;
+			}
+			results[index] = await mapper(items[index], index);
+		}
+	}
+
+	const workersCount = Math.min(concurrency, items.length);
+	const workers = Array.from({ length: workersCount }, () => worker());
+	await Promise.all(workers);
+
+	return results;
+}
+
 type PlanningCenterResource<TAttributes = Record<string, unknown>> = {
 	id: string;
 	type: string;
@@ -31,6 +63,11 @@ type SignupAttributes = {
 	new_registration_url?: string;
 	open_at?: string;
 	close_at?: string;
+	archived?: boolean;
+};
+
+type CategoryAttributes = {
+	name?: string;
 };
 
 type SignupTimeAttributes = {
@@ -76,6 +113,7 @@ export type EventPageModel = {
 export type EventsListItem = {
 	id: string;
 	title: string;
+	category: string;
 	descriptionText: string;
 	heroImageUrl: string | null;
 	registerUrl: string;
@@ -91,6 +129,8 @@ export type EventsListItem = {
 
 export type EventsListPageModel = {
 	events: EventsListItem[];
+	categories: string[];
+	featuredEventId: string | null;
 	loadError: boolean;
 };
 
@@ -144,6 +184,38 @@ function stripHtml(value: string) {
 		.replace(/\n{3,}/g, '\n\n')
 		.replace(/[ \t]{2,}/g, ' ')
 		.trim();
+}
+
+function stripDescriptionToPlainText(value?: string) {
+	if (!value) {
+		return '';
+	}
+
+	return stripHtml(value)
+		.replace(/&nbsp;/gi, ' ')
+		.replace(/\s+/g, ' ')
+		.trim();
+}
+
+function parseDeadlineFromDescription(descriptionText: string) {
+	const lowered = descriptionText.toLowerCase();
+
+	if (!lowered.includes('deadline')) {
+		return null;
+	}
+
+	const monthDateYearMatch = descriptionText.match(
+		/\b(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2}(?:st|nd|rd|th)?(?:,)?\s+\d{4}\b/i
+	);
+
+	if (!monthDateYearMatch) {
+		return null;
+	}
+
+	const normalized = monthDateYearMatch[0].replace(/(\d)(st|nd|rd|th)\b/gi, '$1');
+	const parsed = new Date(normalized);
+
+	return Number.isNaN(parsed.getTime()) ? null : parsed.getTime();
 }
 
 function formatDateRange(startIso: string, endIso?: string, allDay?: boolean) {
@@ -321,12 +393,96 @@ function choosePrimaryTime(times: Array<PlanningCenterResource<SignupTimeAttribu
 	};
 }
 
+function isSignupCurrentlyOpen(signup: PlanningCenterResource<SignupAttributes>) {
+	const { archived, open_at: openAt, close_at: closeAt, description } = signup.attributes;
+
+	if (archived === true) {
+		return false;
+	}
+
+	const now = Date.now();
+	const openTs = openAt ? new Date(openAt).getTime() : Number.NEGATIVE_INFINITY;
+	const closeTs = closeAt ? new Date(closeAt).getTime() : Number.POSITIVE_INFINITY;
+	const descriptionDeadlineTs = parseDeadlineFromDescription(stripDescriptionToPlainText(description));
+
+	if (descriptionDeadlineTs !== null && descriptionDeadlineTs < now) {
+		return false;
+	}
+
+	return openTs <= now && now <= closeTs;
+}
+
+const CATEGORY_OVERRIDES: Record<string, string> = {
+	'3081226': 'Kids Ministry',
+	'3204911': 'Student Ministry',
+	'3206612': 'Kids Ministry',
+	'3340252': 'Student Ministry',
+	'3369755': 'Senior Adults',
+	'3391833': 'Church Family',
+	'3413058': 'Senior Adults',
+	'3413391': 'Church Family',
+	'3441306': 'Church Family',
+	'3449516': 'Church Family',
+	'3455058': 'Church Family',
+	'3455252': 'Church Family',
+	'3458551': 'Kids Ministry',
+	'3458935': 'Kids Ministry',
+	'3466682': 'Church Family',
+	'3468492': 'Church Family',
+	'3468497': 'Church Family'
+};
+
+function determineCategory(signupId: string, title: string, descriptionText: string) {
+	const override = CATEGORY_OVERRIDES[signupId];
+
+	if (override) {
+		return override;
+	}
+
+	const haystack = `${title} ${descriptionText}`.toLowerCase();
+
+	if (/(women|ladies|sisterhood)/.test(haystack)) {
+		return "Women's Ministry";
+	}
+
+	if (/(men|mens|men's)/.test(haystack)) {
+		return "Men's Ministry";
+	}
+
+	if (/(awana|vbs|kids camp|kid|ministry to kids|preteen|children)/.test(haystack)) {
+		return 'Kids Ministry';
+	}
+
+	if (/(student|youth|high school|junior high|6th|7th|8th|glorieta|camp)/.test(haystack)) {
+		return 'Student Ministry';
+	}
+
+	if (/(senior adult|railroad|highland lakes)/.test(haystack)) {
+		return 'Senior Adults';
+	}
+
+	if (/(life group|small group)/.test(haystack)) {
+		return 'Life Groups';
+	}
+
+	if (/(care|support|grief|recovery|counsel)/.test(haystack)) {
+		return 'Care and Support';
+	}
+
+	if (/(summer)/.test(haystack)) {
+		return 'Summer';
+	}
+
+	return 'Church Family';
+}
+
 function buildFallbackEventsListModel(): EventsListPageModel {
 	return {
 		events: [
 			{
 				id: EVENT_ID,
 				title: 'Family Life Weekend',
+				category: 'Church Family',
 				descriptionText:
 					'Join us for Family Life Weekend at First Baptist Church Wimberley. Register through Church Center to reserve your spot and view the latest schedule details.',
 				heroImageUrl: null,
@@ -341,71 +497,77 @@ function buildFallbackEventsListModel(): EventsListPageModel {
 				registrationWindow: null
 			}
 		],
+		categories: ['Church Family'],
+		featuredEventId: EVENT_ID,
 		loadError: true
 	};
 }
 
-export async function getUpcomingEvents(limit = 12): Promise<EventsListPageModel> {
+export async function getUpcomingEvents(limit = Number.POSITIVE_INFINITY): Promise<EventsListPageModel> {
 	try {
 		const signups = await fetchCollection<SignupAttributes>('/registrations/v2/signups');
-		const events = await Promise.all(
-			signups.map(async (signup) => {
-				const signupId = signup.id;
-				const registrationUrl = signup.attributes.new_registration_url ?? undefined;
+		const openSignups = signups.filter(isSignupCurrentlyOpen);
+		const events = await mapWithConcurrency(openSignups, EVENTS_CONCURRENCY_LIMIT, async (signup) => {
+			const signupId = signup.id;
+			const registrationUrl = signup.attributes.new_registration_url ?? undefined;
 
-				const [times, locationResponse] = await Promise.all([
-					fetchCollection<SignupTimeAttributes>(`/registrations/v2/signups/${signupId}/signup_times`).catch(() => []),
-					fetchJson<PlanningCenterDocumentResponse<SignupLocationAttributes>>(
-						`/registrations/v2/signups/${signupId}/signup_location`
-					).catch(() => null)
-				]);
+			const [times, locationResponse] = await Promise.all([
+				fetchCollection<SignupTimeAttributes>(`/registrations/v2/signups/${signupId}/signup_times`).catch(() => []),
+				fetchJson<PlanningCenterDocumentResponse<SignupLocationAttributes>>(
+					`/registrations/v2/signups/${signupId}/signup_location`
+				).catch(() => null)
+			]);
 
-				const primaryTime = choosePrimaryTime(times);
-				const descriptionHtml = signup.attributes.description?.trim() ?? '';
-				const descriptionText = descriptionHtml ? stripHtml(descriptionHtml) : signup.attributes.name?.trim() ?? 'Event';
-				const location = locationResponse?.data?.attributes;
+			const primaryTime = choosePrimaryTime(times);
+			const descriptionHtml = signup.attributes.description?.trim() ?? '';
+			const descriptionText = descriptionHtml ? stripHtml(descriptionHtml) : signup.attributes.name?.trim() ?? 'Event';
+			const location = locationResponse?.data?.attributes;
+			const title = signup.attributes.name?.trim() || 'Event';
 
-				return {
-					id: signupId,
-					title: signup.attributes.name?.trim() || 'Event',
-					descriptionText,
-					heroImageUrl: signup.attributes.logo_url ?? null,
-					registerUrl: toChurchCenterRegistrationUrl(signupId, registrationUrl),
-					eventUrl: toChurchCenterEventUrl(signupId, registrationUrl),
-					locationName: location?.name ?? null,
-					locationDetail: location?.full_formatted_address ?? location?.formatted_address ?? null,
-					locationUrl: location?.url ?? null,
-					locationType: location?.location_type ?? null,
-					startAt: primaryTime?.startAt ?? null,
-					startText: primaryTime?.startText ?? null,
-					registrationWindow: formatRegistrationWindow(signup.attributes.open_at, signup.attributes.close_at)
-				} satisfies EventsListItem;
-			})
-		);
+			return {
+				id: signupId,
+				title,
+				category: determineCategory(signupId, title, descriptionText),
+				descriptionText,
+				heroImageUrl: signup.attributes.logo_url ?? null,
+				registerUrl: toChurchCenterRegistrationUrl(signupId, registrationUrl),
+				eventUrl: toChurchCenterEventUrl(signupId, registrationUrl),
+				locationName: location?.name ?? null,
+				locationDetail: location?.full_formatted_address ?? location?.formatted_address ?? null,
+				locationUrl: location?.url ?? null,
+				locationType: location?.location_type ?? null,
+				startAt: primaryTime?.startAt ?? null,
+				startText: primaryTime?.startText ?? null,
+				registrationWindow: formatRegistrationWindow(signup.attributes.open_at, signup.attributes.close_at)
+			} satisfies EventsListItem;
+		});
 
-		const now = Date.now();
 		const sorted = events
 			.filter((event) => event.title.trim().length > 0)
 			.sort((a, b) => {
 				const aTs = a.startAt ? new Date(a.startAt).getTime() : Number.POSITIVE_INFINITY;
 				const bTs = b.startAt ? new Date(b.startAt).getTime() : Number.POSITIVE_INFINITY;
-				const aUpcoming = aTs >= now;
-				const bUpcoming = bTs >= now;
-
-				if (aUpcoming !== bUpcoming) {
-					return aUpcoming ? -1 : 1;
-				}
 
 				if (aTs !== bTs) {
 					return aTs - bTs;
 				}
 
 				return a.title.localeCompare(b.title);
-			})
-			.slice(0, limit);
+			});
+		const featuredEvent = sorted.find((event) => event.id === EVENT_ID) ?? sorted[0] ?? null;
+		const ordered = featuredEvent
+			? [featuredEvent, ...sorted.filter((event) => event.id !== featuredEvent.id)]
+			: sorted;
+		const visibleEvents = Number.isFinite(limit) ? ordered.slice(0, limit) : ordered;
+		const availableCategories = visibleEvents
+			.map((event) => event.category?.trim() ?? '')
+			.filter((category, index, all): category is string => category.length > 0 && all.indexOf(category) === index)
+			.sort((a, b) => a.localeCompare(b));
 
 		return {
-			events: sorted,
+			events: visibleEvents,
+			categories: availableCategories,
+			featuredEventId: featuredEvent?.id ?? null,
 			loadError: false
 		};
 	} catch (error) {
