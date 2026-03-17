@@ -6,6 +6,38 @@ const REGISTER_URL = `https://fbcwimberley.churchcenter.com/registrations/events
 const EVENT_URL = `https://fbcwimberley.churchcenter.com/registrations/events/${EVENT_ID}`;
 const ORGANIZATION_TIME_ZONE = 'America/Chicago';
 
+// Limit the number of concurrent upstream API requests when loading events.
+const EVENTS_CONCURRENCY_LIMIT = 5;
+
+async function mapWithConcurrency<T, R>(
+	items: T[],
+	concurrency: number,
+	mapper: (item: T, index: number) => Promise<R>
+): Promise<R[]> {
+	if (concurrency <= 0) {
+		throw new Error('concurrency must be greater than 0');
+	}
+
+	const results: R[] = new Array(items.length);
+	let currentIndex = 0;
+
+	async function worker() {
+		for (;;) {
+			const index = currentIndex++;
+			if (index >= items.length) {
+				break;
+			}
+			results[index] = await mapper(items[index], index);
+		}
+	}
+
+	const workersCount = Math.min(concurrency, items.length);
+	const workers = Array.from({ length: workersCount }, () => worker());
+	await Promise.all(workers);
+
+	return results;
+}
+
 type PlanningCenterResource<TAttributes = Record<string, unknown>> = {
 	id: string;
 	type: string;
@@ -475,42 +507,40 @@ export async function getUpcomingEvents(limit = Number.POSITIVE_INFINITY): Promi
 	try {
 		const signups = await fetchCollection<SignupAttributes>('/registrations/v2/signups');
 		const openSignups = signups.filter(isSignupCurrentlyOpen);
-		const events = await Promise.all(
-			openSignups.map(async (signup) => {
-				const signupId = signup.id;
-				const registrationUrl = signup.attributes.new_registration_url ?? undefined;
+		const events = await mapWithConcurrency(openSignups, EVENTS_CONCURRENCY_LIMIT, async (signup) => {
+			const signupId = signup.id;
+			const registrationUrl = signup.attributes.new_registration_url ?? undefined;
 
-				const [times, locationResponse] = await Promise.all([
-					fetchCollection<SignupTimeAttributes>(`/registrations/v2/signups/${signupId}/signup_times`).catch(() => []),
-					fetchJson<PlanningCenterDocumentResponse<SignupLocationAttributes>>(
-						`/registrations/v2/signups/${signupId}/signup_location`
-					).catch(() => null)
-				]);
+			const [times, locationResponse] = await Promise.all([
+				fetchCollection<SignupTimeAttributes>(`/registrations/v2/signups/${signupId}/signup_times`).catch(() => []),
+				fetchJson<PlanningCenterDocumentResponse<SignupLocationAttributes>>(
+					`/registrations/v2/signups/${signupId}/signup_location`
+				).catch(() => null)
+			]);
 
-				const primaryTime = choosePrimaryTime(times);
-				const descriptionHtml = signup.attributes.description?.trim() ?? '';
-				const descriptionText = descriptionHtml ? stripHtml(descriptionHtml) : signup.attributes.name?.trim() ?? 'Event';
-				const location = locationResponse?.data?.attributes;
-				const title = signup.attributes.name?.trim() || 'Event';
+			const primaryTime = choosePrimaryTime(times);
+			const descriptionHtml = signup.attributes.description?.trim() ?? '';
+			const descriptionText = descriptionHtml ? stripHtml(descriptionHtml) : signup.attributes.name?.trim() ?? 'Event';
+			const location = locationResponse?.data?.attributes;
+			const title = signup.attributes.name?.trim() || 'Event';
 
-				return {
-					id: signupId,
-					title,
-					category: determineCategory(signupId, title, descriptionText),
-					descriptionText,
-					heroImageUrl: signup.attributes.logo_url ?? null,
-					registerUrl: toChurchCenterRegistrationUrl(signupId, registrationUrl),
-					eventUrl: toChurchCenterEventUrl(signupId, registrationUrl),
-					locationName: location?.name ?? null,
-					locationDetail: location?.full_formatted_address ?? location?.formatted_address ?? null,
-					locationUrl: location?.url ?? null,
-					locationType: location?.location_type ?? null,
-					startAt: primaryTime?.startAt ?? null,
-					startText: primaryTime?.startText ?? null,
-					registrationWindow: formatRegistrationWindow(signup.attributes.open_at, signup.attributes.close_at)
-				} satisfies EventsListItem;
-			})
-		);
+			return {
+				id: signupId,
+				title,
+				category: determineCategory(signupId, title, descriptionText),
+				descriptionText,
+				heroImageUrl: signup.attributes.logo_url ?? null,
+				registerUrl: toChurchCenterRegistrationUrl(signupId, registrationUrl),
+				eventUrl: toChurchCenterEventUrl(signupId, registrationUrl),
+				locationName: location?.name ?? null,
+				locationDetail: location?.full_formatted_address ?? location?.formatted_address ?? null,
+				locationUrl: location?.url ?? null,
+				locationType: location?.location_type ?? null,
+				startAt: primaryTime?.startAt ?? null,
+				startText: primaryTime?.startText ?? null,
+				registrationWindow: formatRegistrationWindow(signup.attributes.open_at, signup.attributes.close_at)
+			} satisfies EventsListItem;
+		});
 
 		const sorted = events
 			.filter((event) => event.title.trim().length > 0)
