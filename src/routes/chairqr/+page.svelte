@@ -240,7 +240,7 @@
 					</div>
 				</div>
 
-				<div class="mt-7 flex flex-wrap gap-3">
+				<div class="mt-auto pt-7 flex flex-wrap gap-3">
 					<Button href="/about-us" variant="primary">
 						Plan Your Visit
 					</Button>
@@ -401,6 +401,7 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
+		white-space: nowrap;
 		padding: 0.42rem 0.7rem;
 		border-radius: 999px;
 		background: rgba(200, 145, 90, 0.18);
@@ -475,6 +476,8 @@
 	}
 
 	:global(.featured-card) {
+		display: flex;
+		flex-direction: column;
 		background:
 			linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.96) 100%);
 		border: 1px solid rgba(44, 95, 124, 0.12);
