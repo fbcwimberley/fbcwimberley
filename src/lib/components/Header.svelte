@@ -230,7 +230,7 @@
 						<li><a href="/serve-the-community" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Serve The Community</a></li>
 					</ul>
 				</li>
-				<li><a href="https://fbcwimberley.churchcenter.com/registrations" class="nav-item inline-flex items-center gap-1 py-2 px-3.5 text-[0.9rem] font-medium text-white rounded-[var(--radius-sm)] transition-all duration-200 hover:text-(--color-accent)">Events</a></li>
+				<li><a href="/events" class="nav-item inline-flex items-center gap-1 py-2 px-3.5 text-[0.9rem] font-medium text-white rounded-[var(--radius-sm)] transition-all duration-200 hover:text-(--color-accent)">Events</a></li>
 				<li>
 					<a href="https://onrealm.org/fbcwimberley/give/now" target="_blank" rel="noopener noreferrer" class="btn btn-accent hover:btn-accent-hover py-2 px-6 text-[0.85rem]">Give</a>
 				</li>
@@ -329,7 +329,7 @@
 						</ul>
 					{/if}
 				</li>
-				<li><a href="https://fbcwimberley.churchcenter.com/registrations" class="flex items-center justify-between w-full py-3.5 text-base font-medium text-(--color-text) border-b border-(--color-border-light) transition-colors duration-200" onclick={closeMobile}>Events</a></li>
+				<li><a href="/events" class="flex items-center justify-between w-full py-3.5 text-base font-medium text-(--color-text) border-b border-(--color-border-light) transition-colors duration-200" onclick={closeMobile}>Events</a></li>
 				<li class="pt-4">
 					<a href="https://onrealm.org/fbcwimberley/give/now" target="_blank" rel="noopener noreferrer" class="btn btn-accent hover:btn-accent-hover w-full justify-center" onclick={closeMobile}>Give</a>
 				</li>
