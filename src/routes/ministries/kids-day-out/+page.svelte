@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	const registerUrl = 'https://schools.procareconnect.com/register/e14a3225-928b-4d0a-a39c-69376116ac46';
+	const registerUrl = 'https://schools.procareconnect.com/form/2e214192-873f-470e-9c0f-8074c16e69b3';
 	const ajaxEndpoint = 'https://fbcwimberley.com/wp-admin/admin-ajax.php';
 	const kdoFormConfig = {
 		action: 'elementor_pro_forms_send_form',
