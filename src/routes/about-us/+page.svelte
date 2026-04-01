@@ -125,7 +125,7 @@
 		},
 		{
 			question: 'What Is Available For Kids?',
-			answer: 'The kids and student ministry at FBC Wimberley is an incredible opportunity for your kids to have fun and learn about Jesus in a safe environment each Sunday! All of our volunteers are trained and background checked. We also offer easy and secure check-in to make drop off a breeze.'
+			answer: 'The kids and student ministry at FBC Wimberley is an incredible opportunity for your kids to have fun and learn about Jesus in a safe environment each Sunday! All of our volunteers are trained and background checked. We also offer easy and secure check-in to make drop off a breeze. If your child is in Kindergarten or older, they are welcome in the Worship Center for our gathering.'
 		},
 		{
 			question: 'What Is A Typical Gathering Like?',

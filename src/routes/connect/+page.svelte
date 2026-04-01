@@ -112,7 +112,7 @@
 		</p>
 
 		<div class="flex flex-wrap justify-center gap-3.5 mb-6">
-			<a href="mailto:office@fbcwimberley.com" class="btn btn-outline-dark hover:btn-outline-dark-hover">Email Us</a>
+			<a href="mailto:prayer@fbcwimberley.com" class="btn btn-outline-dark hover:btn-outline-dark-hover">Submit a prayer request</a>
 			<a href="tel:+15128479035" class="btn btn-outline-dark hover:btn-outline-dark-hover">Call 512-847-9035</a>
 		</div>
 
