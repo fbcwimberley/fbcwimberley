@@ -27,7 +27,7 @@
 			eyebrow: 'New Here?',
 			title: 'Plan Your Visit',
 			description:
-				"If you're visiting, start here. You'll find service times, parking, what to expect, and info for kids before you ever walk in.",
+				"If you're visiting, start here. You'll find gathering times, parking, what to expect, and info for kids before you ever walk in.",
 			href: '/about-us',
 			cta: 'See what to expect'
 		},
@@ -44,8 +44,8 @@
 			title: 'Need Care Or Prayer?',
 			description:
 				"If life feels heavy right now, you don't have to carry it alone. Reach out for prayer, counseling, or support.",
-			href: '/ministries/care',
-			cta: 'Talk with someone'
+			href: 'mailto:prayer@fbcwimberley.com',
+			cta: 'Submit a prayer request'
 		}
 	];
 
@@ -91,7 +91,7 @@
 		{
 			eyebrow: 'Kids',
 			title: 'Secure Check-In',
-			detail: 'Kids spaces have secure check-in and trained, background-checked volunteers.'
+			detail: 'Kids spaces have secure check-in and trained, background-checked volunteers. If your child is in Kindergarten or older, they are welcome in the Worship Center for our gathering.'
 		},
 		{
 			eyebrow: 'What To Expect',
@@ -245,7 +245,7 @@
 						Plan Your Visit
 					</Button>
 					<Button href="/watch" variant="outline-dark">
-						Watch A Service
+						Watch A Gathering
 					</Button>
 				</div>
 			</Card>
