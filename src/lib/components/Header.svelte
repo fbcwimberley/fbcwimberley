@@ -258,17 +258,25 @@
 	{#if shouldShowFamilyLifeWeekendBanner}
 		<div class="relative border-t border-white/10 bg-[rgba(26,18,13,0.78)] text-white backdrop-blur-sm">
 			<div class="container px-12 py-3 sm:px-14">
-				<div class="flex items-center justify-center text-center">
+				<div class="flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:gap-4">
 					<p class="text-sm font-semibold tracking-[0.08em] uppercase sm:text-[0.95rem]">
-						EASTER - THIS SUNDAY AT FBCW - 9:30 &amp; 11:00A
+						LifeGroups Sock Hop | Thursday, April 16 | 6-8p
 					</p>
+					<a
+						href="https://fbcwimberley.churchcenter.com/registrations/events/3554292"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="btn btn-accent hover:btn-accent-hover py-2 px-5 text-[0.85rem]"
+					>
+						Register Today
+					</a>
 				</div>
 			</div>
 			<button
 				type="button"
 				class="absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-red-400 transition hover:text-red-300 sm:right-6"
 				onclick={dismissFamilyLifeWeekendBanner}
-				aria-label="Dismiss Easter banner"
+				aria-label="Dismiss event banner"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
 					<line x1="18" y1="6" x2="6" y2="18"></line>
