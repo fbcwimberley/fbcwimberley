@@ -67,6 +67,20 @@
 	<div class="absolute inset-0 bg-linear-to-t from-[rgba(0,0,0,0.7)] via-[rgba(0,0,0,0.3)] to-[rgba(0,0,0,0.15)] z-1"></div>
 
 	<div class="container relative z-2 text-center pb-24">
+		<div class="mx-auto mb-6 flex max-w-3xl flex-col items-center gap-4 rounded-[var(--radius-lg)] border border-white/20 bg-white/10 px-5 py-5 shadow-[0_12px_40px_rgba(0,0,0,0.18)] backdrop-blur-md">
+			<p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/80">Upcoming Event</p>
+			<p class="text-[clamp(1.15rem,2.5vw,1.7rem)] font-semibold tracking-[0.03em] text-white">
+				LifeGroups Sock Hop | Thursday, April 16 | 6-8p
+			</p>
+			<a
+				href="https://fbcwimberley.churchcenter.com/registrations/events/3554292"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="btn btn-accent hover:btn-accent-hover"
+			>
+				Register Today
+			</a>
+		</div>
 		<h1 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-bold text-white mb-4 drop-shadow-[0_2px_20px_rgba(0,0,0,0.3)] tracking-tight">To Truly Know Jesus<br />And To Make His Truth Known.</h1>
 		<p class="text-[clamp(1rem,2vw,1.35rem)] text-white/90 mb-8 font-normal tracking-[0.05em]">Sundays at 9:30AM and 11:00AM</p>
 		<a href="/watch" class="btn btn-outline hover:btn-outline-hover">Watch Now</a>
