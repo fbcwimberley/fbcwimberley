@@ -2,6 +2,40 @@
 
 First Baptist Church Wimberley website rebuild with SvelteKit.
 
+## Install Brain First
+
+For the best results when using AI tools to work in this repo, install [Brain](https://github.com/JimmyMcBride/brain) first. This project keeps shared repo context in Brain, and agents work better here when they can read and search that context instead of relying only on ad hoc prompts.
+
+### Install Brain
+
+Unix shell:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/JimmyMcBride/brain/main/scripts/install.sh | sh
+```
+
+Windows PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/JimmyMcBride/brain/main/scripts/install.ps1 | iex
+```
+
+### Install The Brain Skill Locally For This Project
+
+From the repo root:
+
+```bash
+brain skills install --scope local --agent codex --agent claude --project .
+```
+
+### Validate Brain In This Repo
+
+```bash
+brain doctor --project .
+brain find --project . fbcwimberley
+brain search --project . "fbcwimberley homepage events ministries"
+```
+
 ## What This Site Includes
 
 - Marketing-style church website with custom themed sections (home, about, connect, ministries, serve, watch)
