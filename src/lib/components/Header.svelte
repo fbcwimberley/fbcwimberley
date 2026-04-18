@@ -17,13 +17,9 @@
 	let familyLifeDesktopOpen = $state(false);
 	let serveOpen = $state(false);
 	let scrolled = $state(false);
-	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('default');
+	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('hidden');
 
-	const shouldShowFamilyLifeWeekendBanner = $derived(
-		page.url.pathname === '/'
-			&& !scrolled
-			&& (bannerVisibilityOverride === 'visible' || (bannerVisibilityOverride === 'default' && initialShowFamilyLifeWeekendBanner))
-	);
+	const shouldShowFamilyLifeWeekendBanner = $derived(false);
 
 	let ministriesTimer: ReturnType<typeof setTimeout> | undefined;
 	let serveTimer: ReturnType<typeof setTimeout> | undefined;
@@ -100,7 +96,7 @@
 
 	onMount(() => {
 		handleScroll();
-		syncBannerDismissState();
+		clearBannerHideUntilCookie();
 
 		return () => {
 			clearBannerResetTimer();
