@@ -1,42 +1,75 @@
-# Project Agent Contract
+# AGENTS
 
-<!-- brain:begin agents-contract -->
-Use this file as a Brain-managed project context entrypoint for `fbcwimberley`.
+## Project Summary
 
-Read the linked context files before substantial work. Prefer the `brain` skill and `brain` CLI for project memory, retrieval, and durable context updates.
+`fbcwimberley` is the public website for First Baptist Church Wimberley. It is a SvelteKit 2 + Svelte 5 + TypeScript app with a mix of shared homepage sections, route-local content pages, a Mailchimp newsletter endpoint, and Planning Center-backed event pages.
 
-## Table Of Contents
+The main user flows are:
 
-- [Overview](./.brain/context/overview.md)
-- [Architecture](./.brain/context/architecture.md)
-- [Standards](./.brain/context/standards.md)
-- [Workflows](./.brain/context/workflows.md)
-- [Memory Policy](./.brain/context/memory-policy.md)
-- [Current State](./.brain/context/current-state.md)
-- [Policy](./.brain/policy.yaml)
+- visitor onboarding through `/about-us`, `/connect`, and `/chairqr`
+- livestream viewing at `/watch`
+- ministry discovery through `/ministries/**`
+- event discovery and registration through `/events` and `/events/family-life-weekend`
+- newsletter signup through `/api/newsletter`
 
-## Human Docs
+## Brain First
 
-- [README.md](./README.md)
-- [architecture-overview.md](./docs/architecture-overview.md)
-- [coding-standards.md](./docs/coding-standards.md)
-- [common-tasks.md](./docs/common-tasks.md)
-- [component-guide.md](./docs/component-guide.md)
-- [design-system-governance.md](./docs/design-system-governance.md)
-- [theming-guide.md](./docs/theming-guide.md)
+This repo uses Brain as the durable project context layer.
 
-## Required Workflow
+Read order before substantial work:
 
-1. If no validated session is active, run `brain session start --task "<task>"`.
-2. If a session is already active, run `brain session validate` before substantial work.
-3. Read this file and the linked context files needed for the task.
-4. Compile the smallest justified working set with `brain context compile --task "<task>"`.
-5. Retrieve project memory with `brain find fbcwimberley` or `brain search "fbcwimberley <task>"` when the compiled packet is not enough.
-6. Use `brain edit` for durable context updates to AGENTS.md, docs, or .brain notes.
-7. Use `brain session run -- <command>` for required verification commands.
-8. Finish with `brain session finish` so policy checks can enforce verification and surface promotion review when durable follow-through is still needed.
-<!-- brain:end agents-contract -->
+1. `README.md`
+2. `docs/architecture-overview.md`
+3. `docs/coding-standards.md`
+4. `docs/design-system-governance.md`
+5. `docs/component-guide.md`
+6. `docs/theming-guide.md`
+7. `docs/project-overview.md`
+8. `docs/project-architecture.md`
+9. `docs/project-workflows.md`
+10. `.brain/policy.yaml`
+11. the relevant `.brain/context/*.md` files
 
-## Local Notes
+Use Brain for retrieval and durable updates:
 
-Add repo-specific notes here. `brain context refresh` preserves content outside managed blocks.
+- `brain doctor --project .`
+- `brain find --project . fbcwimberley`
+- `brain search --project . "fbcwimberley <task>"`
+- `brain session start --project . --task "<task>"`
+- `brain session run --project . -- <command>`
+- `brain session finish --project .`
+
+## High-Value Files
+
+- `src/app.html`: fonts, theme flash prevention, analytics
+- `src/routes/+layout.svelte`: global CSS, theme init, shared shell
+- `src/routes/+layout.server.ts`: cookie-driven home banner visibility
+- `src/lib/components/Header.svelte`: desktop/mobile nav, banner, header state
+- `src/lib/server/planningCenter.ts`: Planning Center integration and event shaping
+- `src/routes/api/newsletter/+server.ts`: Mailchimp upsert endpoint
+- `src/app.css`: tokens, shared utilities, light/dark theme values
+
+## External Surfaces
+
+- Planning Center Registrations API powers `/events` and `/events/family-life-weekend`
+- Mailchimp powers newsletter subscription
+- Church Center and Realm remain part of the public flow
+- LiveControl powers `/watch`
+- Procare powers Kids Day Out registration
+- some ministry pages still POST to legacy WordPress Elementor endpoints
+
+## Repo Conventions
+
+- Svelte 5 runes only; do not reintroduce legacy `$:` or `export let`
+- prefer route-local implementation for one-off content pages
+- use `src/lib/ui/*` and tokenized utilities for repeated interaction/styling patterns
+- keep `src/app.css` and both themes in sync when shared tokens change
+- prefer localized assets under `static/images/**`
+
+## Agent Files
+
+- root `AGENTS.md` and root `CLAUDE.md` are the only project overview files for agents
+- `.codex/skills/brain/` and `.claude/skills/brain/` are allowed and should contain only the local Brain skill install
+- `.openclaw/` should not exist in this repo
+- track the portable Brain workspace, including `.brain/context/**`, `.brain/policy.yaml`, and `.brain/state/brain.sqlite3`
+- keep session/private Brain artifacts ignored: `.brain/session.json`, `.brain/sessions/`, `.brain/policy.override.yaml`, `.brain/state/history.jsonl`, backups, and sqlite sidecars

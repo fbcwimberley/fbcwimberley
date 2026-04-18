@@ -5,40 +5,66 @@ Use this file for agent operating workflow inside the repo.
 
 ## Startup
 
-1. If no validated session is active, run `brain session start --task "<task>"`.
-2. If a session already exists, run `brain session validate`.
-3. Read `AGENTS.md`, `.brain/policy.yaml`, and the linked context files needed for the task.
-4. Run `brain context compile --task "<task>"` for the smallest justified working set.
-5. If project memory still matters, run `brain find fbcwimberley` or `brain search "fbcwimberley <task>"`.
+1. Start or validate a Brain session for the task.
+2. Read `README.md` plus the architecture, standards, component, and theming docs before changing source files.
+3. Read the repo-specific Brain docs in `docs/project-*.md` and `.brain/context/*.md`.
+4. Search Brain memory when the task touches architecture, conventions, or previous decisions.
 
 ## During Work
 
-- Keep durable discoveries, decisions, and risks in AGENTS.md, /docs, or .brain notes.
-- Update existing durable notes instead of duplicating context.
-- Run required verification commands through `brain session run -- <command>`.
-- If you change Brain command behavior or agent-facing workflow guidance, update `skills/brain/SKILL.md` in the same branch.
-- Re-read context before large changes if the task shifts.
-
-## Ticket Loop
-
-1. Start one task or ticket at a time and keep the scope narrow.
-2. Implement the task, then run focused tests for the touched packages.
-3. Run the required full checks through `brain session run -- go test ./...` and `brain session run -- go build ./...`.
-4. Review the diff against the task goal and user-facing behavior.
-5. If review finds issues, patch the work and repeat the test and review steps.
-6. When the task is clean, commit it, push it, and only then move to the next task.
+- Prefer editing route-local pages directly for one-off ministry/content changes.
+- Prefer primitives in `src/lib/ui/*` for repeated visual/interaction patterns.
+- Treat `Header.svelte`, `app.css`, `theme.ts`, `planningCenter.ts`, and `/api/newsletter` as shared surfaces with broader blast radius.
+- Run verification through `brain session run -- <command>` when source behavior changes.
 
 ## Close-Out
 
-- Refresh or update durable notes for meaningful behavior, config, or architecture changes.
-- If `brain session finish` blocks, inspect the promotion suggestions or run `brain distill --session` to review promotable updates before forcing closeout.
-- If `skills/brain/` changed, reinstall the local Brain skill for Codex and OpenClaw with `brain skills install --scope local --agent codex --agent openclaw --project .`.
-- When opening a PR, make the title and body release-note friendly because GitHub release notes are generated from merged PR metadata.
-- Summarize shipped behavior in the PR, not just implementation steps, so future changelogs stay human-readable.
+- Update docs or Brain context when routes, integrations, design conventions, or workflow expectations change.
+- Track the portable Brain workspace, including `.brain/context/**`, `.brain/policy.yaml`, and `.brain/state/brain.sqlite3`.
+- Keep session/private Brain artifacts ignored: `.brain/session.json`, `.brain/sessions/`, `.brain/policy.override.yaml`, `.brain/state/history.jsonl`, backups, and sqlite sidecars.
 - Finish with `brain session finish`.
-- If you must bypass enforcement, use `brain session finish --force --reason "..."` so the override is recorded.
 <!-- brain:end project-doc-workflows -->
 
 ## Local Notes
 
-Add repo-specific notes here. `brain context refresh` preserves content outside managed blocks.
+### Startup Read Order
+
+1. `README.md`
+2. `docs/architecture-overview.md`
+3. `docs/coding-standards.md`
+4. `docs/design-system-governance.md`
+5. `docs/component-guide.md`
+6. `docs/theming-guide.md`
+7. `docs/project-overview.md`, `docs/project-architecture.md`, and this file
+8. Relevant route files and shared components for the task
+
+### Branching And Review Workflow
+
+- The team workflow in `wiki/gitflow-basics.md` assumes every change starts from the latest remote `main`.
+- Branches are task-specific and PRs are reviewed with a Vercel preview before merge.
+- If you need to change multiple unrelated concerns, split them into separate branches instead of piling them into one content-heavy PR.
+
+### Editing Workflow By Surface
+
+- Homepage section changes usually belong in `src/lib/components/*`.
+- Most About, Connect, Serve, Ministry, Watch, and Chair QR changes belong directly in the route file under `src/routes/**`.
+- Navigation changes require checking desktop and mobile nav structures inside `Header.svelte`, plus any supporting links in the footer or index pages.
+- Theme or token changes start in `src/app.css` and sometimes require a check in `src/lib/stores/theme.ts`.
+- Event display or event categorization changes usually start in `src/lib/server/planningCenter.ts` and must be checked on both `/events` and `/events/family-life-weekend`.
+
+### Content And Asset Workflow
+
+- Prefer local static assets under `static/images/remote` or `static/images/kdo` over hotlinked remote images.
+- Use `bun run localize:images` when importing image-heavy content from the legacy site.
+- Use `node scripts/convert-images-to-webp-ffmpeg.mjs` when normalizing older assets to WebP.
+- When updating copy that is mirrored from Church Center or the legacy WordPress site, verify whether the external destination also needs to be updated to avoid drift.
+
+### Verification Expectations
+
+- Run `bun run check` for any source-file change.
+- Run `bun run build` when routing, server integration, environment assumptions, or layout shell behavior changes.
+- Re-check both light and dark themes when editing shared layout or style tokens.
+- Track the portable Brain workspace, including `.brain/context/**`, `.brain/policy.yaml`, and `.brain/state/brain.sqlite3`.
+- Keep session/private Brain artifacts ignored: `.brain/session.json`, `.brain/sessions/`, `.brain/policy.override.yaml`, `.brain/state/history.jsonl`, backups, and sqlite sidecars.
+- `.codex/skills/brain/` and `.claude/skills/brain/` are the only expected local agent folders.
+- `.openclaw/` should not exist in this repo.
