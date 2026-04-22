@@ -476,6 +476,13 @@ function determineCategory(signupId: string, title: string, descriptionText: str
 	return 'Church Family';
 }
 
+function isFeatureableEvent(event: EventsListItem) {
+	const haystack = `${event.title} ${event.category} ${event.descriptionText}`.toLowerCase();
+
+	// AWANA runs through most of the school year, so keep it in the list without pinning it as featured.
+	return !/\bawana\b/.test(haystack);
+}
+
 function buildFallbackEventsListModel(): EventsListPageModel {
 	return {
 		events: [
@@ -554,7 +561,9 @@ export async function getUpcomingEvents(limit = Number.POSITIVE_INFINITY): Promi
 
 				return a.title.localeCompare(b.title);
 			});
-		const featuredEvent = sorted.find((event) => event.id === EVENT_ID) ?? sorted[0] ?? null;
+		const featureableEvents = sorted.filter(isFeatureableEvent);
+		const featuredEvent =
+			featureableEvents.find((event) => event.id === EVENT_ID) ?? featureableEvents[0] ?? null;
 		const ordered = featuredEvent
 			? [featuredEvent, ...sorted.filter((event) => event.id !== featuredEvent.id)]
 			: sorted;
