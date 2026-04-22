@@ -1,3 +1,6 @@
+---
+updated: "2026-04-22T16:36:53Z"
+---
 # Architecture
 
 <!-- brain:begin context-architecture -->
@@ -28,6 +31,7 @@ Use this file for the structural shape of the repository.
 
 - Newsletter: `src/lib/components/Newsletter.svelte` -> `src/routes/api/newsletter/+server.ts` -> Mailchimp
 - Events: `src/routes/events/**` -> `src/lib/server/planningCenter.ts` -> Planning Center Registrations API
+- Events featured rule: `getUpcomingEvents()` may keep AWANA in the event list, but AWANA should not be selected as the featured event because it runs through most of the school year.
 - Legacy ministry forms: route-local `fetch()` calls -> WordPress Elementor `admin-ajax.php` with `no-cors`
 - Streaming and registration handoff: route-local CTAs -> LiveControl, Church Center, Realm, Procare
 

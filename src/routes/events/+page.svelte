@@ -14,9 +14,13 @@
 			: model.events.filter((event) => event.category === selectedCategory)
 	);
 	const featured = $derived(
-		model.events.find((event) => event.id === model.featuredEventId) ?? model.events[0] ?? null
+		model.featuredEventId
+			? model.events.find((event) => event.id === model.featuredEventId) ?? null
+			: null
 	);
-	const remainingEvents = $derived(filteredEvents.filter((event) => event.id !== featured?.id));
+	const listedEvents = $derived(
+		featured ? filteredEvents.filter((event) => event.id !== featured.id) : filteredEvents
+	);
 
 	function excerpt(text: string, max = 190) {
 		if (text.length <= max) {
@@ -142,51 +146,45 @@
 					</div>
 				</div>
 
-				<div class="space-y-6">
-					<div class="rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-7 shadow-(--shadow-sm)">
-						<p class="section-label">Quick Look</p>
-						<div class="space-y-5">
-							{#if featured.startText}
-								<div>
-									<p class="eyebrow">When</p>
-									<p class="detail-text">{featured.startText}</p>
-								</div>
-							{/if}
+				<div class="featured-side">
+					<div class="featured-detail-card rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-7 shadow-(--shadow-sm)">
+						<div>
+							<p class="section-label">Quick Look</p>
+							<div class="space-y-5">
+								{#if featured.startText}
+									<div>
+										<p class="eyebrow">When</p>
+										<p class="detail-text">{featured.startText}</p>
+									</div>
+								{/if}
 
-							{#if featured.locationName || featured.locationDetail}
-								<div>
-									<p class="eyebrow">Where</p>
-									<p class="detail-text">{featured.locationName ?? 'Location'}</p>
-									{#if featured.locationDetail}
-										<p class="detail-supporting">{featured.locationDetail}</p>
-									{/if}
-								</div>
-							{/if}
+								{#if featured.locationName || featured.locationDetail}
+									<div>
+										<p class="eyebrow">Where</p>
+										<p class="detail-text">{featured.locationName ?? 'Location'}</p>
+										{#if featured.locationDetail}
+											<p class="detail-supporting">{featured.locationDetail}</p>
+										{/if}
+									</div>
+								{/if}
 
-							{#if featured.registrationWindow}
-								<div>
-									<p class="eyebrow">Registration</p>
-									<p class="detail-text">{featured.registrationWindow}</p>
-								</div>
-							{/if}
+								{#if featured.registrationWindow}
+									<div>
+										<p class="eyebrow">Registration</p>
+										<p class="detail-text">{featured.registrationWindow}</p>
+									</div>
+								{/if}
+							</div>
 						</div>
 
-						{#if featured.locationUrl && featured.locationType === 'online'}
-							<a href={featured.locationUrl} target="_blank" rel="noopener noreferrer" class="inline-flex mt-6 font-semibold">
-								Attend online details
-							</a>
-						{/if}
-					</div>
-
-					<div class="rounded-[var(--radius-lg)] bg-(--color-footer-bg) p-7 text-white shadow-(--shadow-md)">
-						<p class="section-label">Reserve Your Spot</p>
-						<h3 class="text-[1.5rem] text-white mb-3">Register for Family Life Weekend</h3>
-						<p class="text-white/78 leading-[1.8]">
-							Save your spot through Church Center to get registration details, payment options, and your confirmation for the weekend.
-						</p>
-						<div class="mt-6">
-							<Button href={featured.registerUrl} variant="accent" target="_blank" rel="noopener noreferrer" class="w-full justify-center">
-								Register Now
+						<div class="quick-look-actions">
+							{#if featured.locationUrl && featured.locationType === 'online'}
+								<a href={featured.locationUrl} target="_blank" rel="noopener noreferrer" class="inline-flex mb-4 font-semibold">
+									Attend online details
+								</a>
+							{/if}
+							<Button href={featured.eventUrl} variant="outline-dark" target="_blank" rel="noopener noreferrer" class="w-full justify-center">
+								View Full Details
 							</Button>
 						</div>
 					</div>
@@ -194,12 +192,12 @@
 			</div>
 		{/if}
 
-		{#if featured}
-			<div class="mt-10">
+		{#if model.events.length > 0}
+			<div class={featured ? 'mt-10' : ''}>
 				<div class="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
 					<div>
-						<p class="section-label">More Events</p>
-						<h2 class="text-[clamp(1.65rem,4vw,2.35rem)]">Everything coming up</h2>
+						<p class="section-label">{featured ? 'More Events' : 'Upcoming Events'}</p>
+						<h2 class="text-[clamp(1.65rem,4vw,2.35rem)]">{featured ? 'Everything coming up' : 'All published registrations'}</h2>
 					</div>
 					<div class="filter-shell">
 						<label class="filter-label" for="event-category">Category</label>
@@ -211,9 +209,9 @@
 					</div>
 				</div>
 
-				{#if remainingEvents.length > 0}
+				{#if listedEvents.length > 0}
 					<div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-						{#each remainingEvents as event}
+						{#each listedEvents as event}
 							<article class="event-card rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-6 shadow-(--shadow-sm)">
 								<div class="flex min-h-full flex-col">
 									{#if event.heroImageUrl}
@@ -270,12 +268,12 @@
 				{:else}
 					<div class="rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-8 shadow-(--shadow-sm)">
 						<p class="max-w-[42rem] text-(--color-text-muted) leading-[1.8]">
-							No additional events for {selectedCategory} currently.
+							{featured ? 'No additional events' : 'No events'} for {selectedCategory} currently.
 						</p>
 					</div>
 				{/if}
 			</div>
-		{:else if !featured}
+		{:else}
 			<div class="rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-10 text-center shadow-(--shadow-sm)">
 				<p class="section-label">No Events Found</p>
 				<h2 class="text-[clamp(1.65rem,4vw,2.35rem)]">Nothing is published right now</h2>
@@ -333,6 +331,24 @@
 		background: rgba(255, 255, 255, 0.12);
 		color: rgba(255, 255, 255, 0.92);
 		backdrop-filter: blur(8px);
+	}
+
+	.featured-side {
+		display: flex;
+		min-height: 100%;
+	}
+
+	.featured-detail-card {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.quick-look-actions {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--color-border-light);
 	}
 
 	.event-category-badge {
