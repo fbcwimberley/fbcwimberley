@@ -1,3 +1,10 @@
+<script lang="ts">
+	import { pickFamilyMilestones } from '$lib/familyMilestones';
+	import FamilyMilestonePreview from '$lib/ui/FamilyMilestonePreview.svelte';
+
+	const preschoolMilestones = pickFamilyMilestones([1, 2]);
+</script>
+
 <svelte:head>
 	<title>Preschool - First Baptist Church Wimberley</title>
 	<meta name="description" content="First Look preschool ministry at FBC Wimberley for ages six weeks through Pre-K. Sunday mornings and Wednesday AWANA. Safe, fun, and Jesus-centered." />
@@ -43,6 +50,12 @@
 		</div>
 	</div>
 </section>
+
+<FamilyMilestonePreview
+	title="Family Milestones begin in the earliest years"
+	intro="Our Preschool ministry helps families start the pathway through Family Dedication and Gospel Foundations."
+	milestones={preschoolMilestones}
+/>
 
 <section class="relative py-20 overflow-hidden">
 	<div class="absolute inset-0 bg-cover bg-left-top" style="background-image: url('/images/remote/fbcwimberley.com-img-17-5101ecf5e9.webp')"></div>
