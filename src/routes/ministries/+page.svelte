@@ -7,8 +7,7 @@
 		{ name: 'Missions', href: '/ministries/missions' },
 		{ name: 'Preschool', href: '/ministries/preschool' },
 		{ name: 'Elementary', href: '/ministries/elementary' },
-		{ name: 'Junior High', href: '/ministries/junior-high' },
-		{ name: 'High School', href: '/ministries/high-school' },
+		{ name: 'Student Ministry', href: '/ministries/student-ministry' },
 		{ name: 'Kids Day Out', href: '/ministries/kids-day-out' }
 	];
 </script>
