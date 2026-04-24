@@ -8,13 +8,14 @@
 		{ name: 'Preschool', href: '/ministries/preschool' },
 		{ name: 'Elementary', href: '/ministries/elementary' },
 		{ name: 'Student Ministry', href: '/ministries/student-ministry' },
+		{ name: 'Family Milestones', href: '/ministries/family-milestones' },
 		{ name: 'Kids Day Out', href: '/ministries/kids-day-out' }
 	];
 </script>
 
 <svelte:head>
 	<title>Ministries - First Baptist Church Wimberley</title>
-	<meta name="description" content="Explore ministries at First Baptist Church Wimberley — Women's Ministry, Care, Missions, Family Life programs for all ages, and more." />
+	<meta name="description" content="Explore ministries at First Baptist Church Wimberley, including Women's Ministry, Care, Missions, Family Life programs, and Family Milestones." />
 </svelte:head>
 
 <section class="pt-32 pb-20">

@@ -198,6 +198,7 @@
 								<li><a href="/ministries/kids-day-out" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Kids Day Out</a></li>
 							</ul>
 						</li>
+						<li><a href="/ministries/family-milestones" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Family Milestones</a></li>
 					</ul>
 				</li>
 				<li><a href="https://fbcwimberley.churchcenter.com/groups/" class="nav-item inline-flex items-center gap-1 py-2 px-3.5 text-[0.9rem] font-medium text-white rounded-[var(--radius-sm)] transition-all duration-200 hover:text-(--color-accent)">Groups</a></li>
@@ -315,6 +316,7 @@
 									</ul>
 								{/if}
 							</li>
+							<li><a href="/ministries/family-milestones" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Family Milestones</a></li>
 						</ul>
 					{/if}
 				</li>

@@ -1,3 +1,10 @@
+<script lang="ts">
+	import { pickFamilyMilestones } from '$lib/familyMilestones';
+	import FamilyMilestonePreview from '$lib/ui/FamilyMilestonePreview.svelte';
+
+	const elementaryMilestones = pickFamilyMilestones([2, 3]);
+</script>
+
 <svelte:head>
 	<title>Elementary - First Baptist Church Wimberley</title>
 	<meta name="description" content="252 Kids elementary ministry at FBC Wimberley for K–5th grade. Sunday mornings, Wednesday AWANA, and discipleship opportunities for every child." />
@@ -43,6 +50,12 @@
 		</div>
 	</div>
 </section>
+
+<FamilyMilestonePreview
+	title="Elementary families continue the Family Milestones pathway"
+	intro="In Elementary, families keep building through Gospel Foundations and Preparing for Adolescence."
+	milestones={elementaryMilestones}
+/>
 
 <section class="relative py-20 overflow-hidden">
 	<div class="absolute inset-0 bg-cover bg-left-top" style="background-image: url('/images/remote/fbcwimberley.com-img-17-5101ecf5e9.webp')"></div>
