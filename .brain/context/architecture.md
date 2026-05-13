@@ -19,7 +19,7 @@ Use this file for the structural shape of the repository.
 
 - `src/app.html` handles font loading, theme flash prevention, and analytics injection.
 - `src/routes/+layout.svelte` applies global CSS, initializes theme listeners, resets scroll on route changes, and renders the skip link, header, and footer.
-- `src/routes/+layout.server.ts` decides whether the home-page banner should be shown based on a cookie.
+- `src/routes/+layout.server.ts` decides whether the home-page promo banner should be shown based on the current promo dismissal cookie.
 
 ### Shared UI Layers
 

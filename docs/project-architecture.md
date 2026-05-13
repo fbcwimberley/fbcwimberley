@@ -16,7 +16,7 @@ Use this file for the structural shape of the repository.
 
 - `src/app.html` is part of the runtime architecture, not just boilerplate. It preconnects to Google Fonts, preloads the Inter and Playfair Display stylesheet, applies a no-flash dark-theme script before paint, and injects the Plausible analytics script.
 - `src/routes/+layout.svelte` imports `src/app.css`, initializes the theme listener on mount, forces scroll-to-top on route changes without hashes, exposes an accessibility skip link, and wraps every page with `Header` and `Footer`.
-- `src/routes/+layout.server.ts` reads a dismissal cookie and decides whether the home-page event banner should render.
+- `src/routes/+layout.server.ts` reads a dismissal cookie and decides whether the home-page promo banner should render.
 
 ### Shared UI Layers
 
@@ -27,7 +27,7 @@ Use this file for the structural shape of the repository.
 ### Navigation And Banner Model
 
 - `Header.svelte` owns both desktop hover menus and mobile accordion menus, so navigation edits must stay in sync in two places.
-- The home-page promo banner is only shown on `/`, only while the header is not scrolled, and can be dismissed for one hour via the `family-life-weekend-banner-dismissed` cookie.
+- The home-page promo banner is only shown on `/`, only while the header is not scrolled, and can be dismissed for one hour via the current promo cookie such as `vbs-banner-dismissed`.
 - Header scroll state also controls logo variant swaps and transparent-vs-solid header styling.
 
 ### Styling And Theme System

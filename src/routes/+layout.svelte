@@ -35,7 +35,7 @@
 </svelte:head>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<Header showFamilyLifeWeekendBanner={data.showFamilyLifeWeekendBanner} />
+<Header showHomePromoBanner={data.showHomePromoBanner} />
 <main id="main-content">
 	{@render children()}
 </main>
