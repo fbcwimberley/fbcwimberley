@@ -1,7 +1,7 @@
 export type FamilyMilestoneIcon =
 	| 'family'
 	| 'bible'
-	| 'backpack'
+	| 'sprout'
 	| 'fingerprint'
 	| 'signpost'
 	| 'globe'
@@ -65,7 +65,7 @@ export const familyMilestones: FamilyMilestone[] = [
 		],
 		accent: '#d4a63c',
 		surface: 'rgba(212, 166, 60, 0.12)',
-		icon: 'backpack'
+		icon: 'sprout'
 	},
 	{
 		number: 4,
@@ -101,9 +101,9 @@ export const familyMilestones: FamilyMilestone[] = [
 		events: [
 			{ label: 'Church Event', value: 'Grad Sunday' },
 			{ label: 'Family Event', value: 'Written Blessing Letter Ceremony' }
-		],
+	],
 		parentTraining: [
-			'High School graduation is a momentous occasion in the life of every person\'s life. It marks the end of one chapter, as well as the beginning of the next. We celebrate on Sunday by recognizing graduates during our worship gathering, as well as a lunch after the service. It is during this lunch that you will present your graduate with a hand written blessing letter. In this letter, you affirm unique aspects of their lives where God has grown them and how you are excited to see them make a difference for His glory in the world.'
+			'High School graduation is a momentous occasion in every person\'s life. It marks the end of one chapter, as well as the beginning of the next. We celebrate on Sunday by recognizing graduates during our worship gathering, as well as a lunch after the service. It is during this lunch that you will present your graduate with a hand written blessing letter. In this letter, you affirm unique aspects of their lives where God has grown them and how you are excited to see them make a difference for His glory in the world.'
 		],
 		accent: '#3da7a5',
 		surface: 'rgba(61, 167, 165, 0.12)',

@@ -1,21 +1,20 @@
 <script lang="ts">
 	const ministries = [
-		{ name: "Women's Ministry", href: '/ministries/womens-ministry' },
-		{ name: 'Widows Ministry', href: 'https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/widows-ministry' },
-		{ name: "Men's Ministry", href: 'https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/men-s-ministry' },
-		{ name: 'Care', href: '/ministries/care' },
-		{ name: 'Missions', href: '/ministries/missions' },
-		{ name: 'Preschool', href: '/ministries/preschool' },
-		{ name: 'Elementary', href: '/ministries/elementary' },
-		{ name: 'Student Ministry', href: '/ministries/student-ministry' },
 		{ name: 'Family Milestones', href: '/ministries/family-milestones' },
-		{ name: 'Kids Day Out', href: '/ministries/kids-day-out' }
+		{ name: 'KDO', href: '/ministries/kids-day-out' },
+		{ name: 'Kids Ministry', href: '/ministries/kids-ministry' },
+		{ name: 'Student', href: '/ministries/student-ministry' },
+		{ name: "Women's", href: '/ministries/womens-ministry' },
+		{ name: "Men's", href: 'https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/men-s-ministry' },
+		{ name: 'Care', href: '/ministries/care' },
+		{ name: 'Widows', href: 'https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/widows-ministry' },
+		{ name: 'Missions', href: '/ministries/missions' }
 	];
 </script>
 
 <svelte:head>
 	<title>Ministries - First Baptist Church Wimberley</title>
-	<meta name="description" content="Explore ministries at First Baptist Church Wimberley, including Women's Ministry, Care, Missions, Family Life programs, and Family Milestones." />
+	<meta name="description" content="Explore ministries at First Baptist Church Wimberley, including Family Milestones, KDO, Kids Ministry, Student, Women's, Men's, Care, Widows, and Missions." />
 </svelte:head>
 
 <section class="pt-32 pb-20">

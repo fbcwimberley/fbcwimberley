@@ -112,8 +112,8 @@
 	}
 
 	.preview-card__icon :global(svg) {
-		width: 1.65rem;
-		height: 1.65rem;
+		width: 2.2rem;
+		height: 2.2rem;
 	}
 
 	.preview-card__number {

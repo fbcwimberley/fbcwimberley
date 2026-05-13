@@ -46,7 +46,7 @@ Components use Svelte 5 runes for local state. There is no global state beyond t
 
 | Component | State | Purpose |
 |-----------|-------|---------|
-| Header | `mobileMenuOpen`, `ministriesOpen`, `familyLifeOpen`, `serveOpen`, `scrolled` | Navigation UI |
+| Header | `mobileMenuOpen`, `ministriesOpen`, `serveOpen`, `scrolled` | Navigation UI |
 | Hero | `currentSlide` | Image carousel index |
 | Newsletter | `firstName`, `lastName`, `email`, `submitted` | Form fields + submission state |
 | About Us page | `openFaq`, `expandedStaff` | Accordion toggles |
@@ -86,21 +86,19 @@ This pattern works for content-heavy pages where the sections are unique to that
 
 ## Navigation Architecture
 
-The Header manages a three-level navigation hierarchy:
+The Header manages a two-level navigation hierarchy:
 
 ```
 Level 1: About Us | Ministries | Groups | Serve | Events | Give
-Level 2:            ├── Women's Ministry    ├── Serve The Church
-                    ├── Widows Ministry     └── Serve The Community
-                    ├── Men's Ministry
+Level 2:            ├── Family Milestones   ├── Serve The Church
+                    ├── KDO                 └── Serve The Community
+                    ├── Kids Ministry
+                    ├── Student
+                    ├── Women's
+                    ├── Men's
                     ├── Care
-                    ├── Missions
-                    └── Family Life
-Level 3:                ├── Preschool
-                        ├── Elementary
-                        ├── Junior High
-                        ├── High School
-                        └── Kids Day Out
+                    ├── Widows
+                    └── Missions
 ```
 
 **Desktop:** CSS hover-triggered dropdowns (`.has-dropdown:hover .dropdown`)

@@ -18,16 +18,14 @@
 				<p class="section-label">FBCW Milestones</p>
 				<h1 class="text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.96] mb-5">Family Milestones</h1>
 				<p class="text-[1.02rem] md:text-[1.12rem] leading-[1.9] text-(--color-text-muted)">
-					From childhood to a life in Christ, we want families to know Christ and make Him
-					known through every season. These milestones help mark key discipleship moments
-					across Kids Ministry, Student Ministry, and Adult Ministry.
+					Magnify Christ and Share the Gospel
 				</p>
 			</div>
 
 			<aside class="hero-quote">
 				<p class="hero-quote__eyebrow">Family Ministry Milestones</p>
-				<p class="hero-quote__title">From childhood to a life in Christ</p>
-				<p class="hero-quote__text">To know Christ and make Him known.</p>
+				<p class="hero-quote__title">Vision Statement</p>
+				<p class="hero-quote__text">Magnify Christ and Share the Gospel</p>
 				<p class="hero-quote__scripture">Matthew 28:19-20</p>
 			</aside>
 		</div>
@@ -214,8 +212,8 @@
 	}
 
 	.milestone-icon :global(svg) {
-		width: 2rem;
-		height: 2rem;
+		width: 2.75rem;
+		height: 2.75rem;
 	}
 
 	.milestone-body {
@@ -313,6 +311,11 @@
 		.milestone-icon {
 			width: 3.8rem;
 			height: 3.8rem;
+		}
+
+		.milestone-icon :global(svg) {
+			width: 2.35rem;
+			height: 2.35rem;
 		}
 	}
 </style>
