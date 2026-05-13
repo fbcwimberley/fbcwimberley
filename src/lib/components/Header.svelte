@@ -296,6 +296,14 @@
 							<small>Sec</small>
 						</div>
 					</div>
+					<a
+						href="https://fbcwimberley.churchcenter.com/registrations/events/3458551"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="btn btn-accent hover:btn-accent-hover whitespace-nowrap py-2 px-5 text-[0.85rem]"
+					>
+						Register Now
+					</a>
 				</div>
 			</div>
 			<button

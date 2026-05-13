@@ -1,5 +1,5 @@
 ---
-updated: "2026-05-13T00:17:52Z"
+updated: "2026-05-13T00:31:01Z"
 ---
 # Current State
 
@@ -36,6 +36,7 @@ This file is a deterministic snapshot of the repository state at the last refres
 
 - The highest-risk shared files are `src/routes/+layout.svelte`, `src/routes/+layout.server.ts`, `src/lib/components/Header.svelte`, `src/app.css`, `src/lib/stores/theme.ts`, `src/lib/server/planningCenter.ts`, and `src/routes/api/newsletter/+server.ts`.
 - The home-page promo banner is owned by `Header.svelte` and gated by `+layout.server.ts`; current VBS dismissal state uses the `vbs-banner-dismissed` cookie and should stay scoped to `/`.
+- The current VBS banner `Register Now` CTA links to Church Center registration event `3458551`.
 - Most route work is content-heavy and local to a single page. Changes in `src/routes/about-us/+page.svelte`, `src/routes/connect/+page.svelte`, `src/routes/ministries/**`, and `src/routes/chairqr/+page.svelte` usually do not require broader refactors.
 - `/events` and `/events/family-life-weekend` are linked through the same Planning Center helper and should be reviewed together when event logic changes.
 - The current codebase still includes legacy external dependencies: WordPress AJAX forms on women’s ministry and Kids Day Out, LiveControl for the watch page, and Procare for Kids Day Out registration.
