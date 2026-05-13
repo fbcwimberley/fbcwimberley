@@ -3,12 +3,13 @@
 	import { onMount } from 'svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 
-	const FAMILY_LIFE_WEEKEND_BANNER_KEY = 'family-life-weekend-banner-dismissed';
-	const FAMILY_LIFE_WEEKEND_DISMISS_DURATION_MS = 60 * 60 * 1000;
-	const FAMILY_LIFE_WEEKEND_COOKIE_ATTRIBUTES = '; Path=/; Max-Age=3600; SameSite=Lax';
+	const HOME_PROMO_BANNER_KEY = 'vbs-banner-dismissed';
+	const HOME_PROMO_DISMISS_DURATION_MS = 60 * 60 * 1000;
+	const HOME_PROMO_COOKIE_ATTRIBUTES = '; Path=/; Max-Age=3600; SameSite=Lax';
+	const VBS_COUNTDOWN_TARGET = new Date('2026-06-01T09:00:00-05:00').getTime();
 
-	let { showFamilyLifeWeekendBanner: initialShowFamilyLifeWeekendBanner } = $props<{
-		showFamilyLifeWeekendBanner: boolean;
+	let { showHomePromoBanner: initialShowHomePromoBanner } = $props<{
+		showHomePromoBanner: boolean;
 	}>();
 
 	let mobileMenuOpen = $state(false);
@@ -17,14 +18,28 @@
 	let familyLifeDesktopOpen = $state(false);
 	let serveOpen = $state(false);
 	let scrolled = $state(false);
-	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('hidden');
+	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('default');
+	let countdownNow = $state(Date.now());
 
-	const shouldShowFamilyLifeWeekendBanner = $derived(false);
+	const shouldShowHomePromoBanner = $derived(
+		initialShowHomePromoBanner &&
+		page.url.pathname === '/' &&
+		!scrolled &&
+		bannerVisibilityOverride !== 'hidden'
+	);
+	const countdownRemainingMs = $derived(Math.max(VBS_COUNTDOWN_TARGET - countdownNow, 0));
+	const countdownParts = $derived({
+		days: Math.floor(countdownRemainingMs / (24 * 60 * 60 * 1000)),
+		hours: Math.floor((countdownRemainingMs / (60 * 60 * 1000)) % 24),
+		minutes: Math.floor((countdownRemainingMs / (60 * 1000)) % 60),
+		seconds: Math.floor((countdownRemainingMs / 1000) % 60)
+	});
 
 	let ministriesTimer: ReturnType<typeof setTimeout> | undefined;
 	let serveTimer: ReturnType<typeof setTimeout> | undefined;
 	let familyLifeTimer: ReturnType<typeof setTimeout> | undefined;
 	let bannerResetTimer: ReturnType<typeof setTimeout> | undefined;
+	let countdownTimer: ReturnType<typeof setInterval> | undefined;
 
 	function handleScroll() {
 		scrolled = window.scrollY > 50;
@@ -40,7 +55,7 @@
 	function getBannerHideUntilFromCookie() {
 		const cookie = document.cookie
 			.split('; ')
-			.find((entry) => entry.startsWith(`${FAMILY_LIFE_WEEKEND_BANNER_KEY}=`));
+			.find((entry) => entry.startsWith(`${HOME_PROMO_BANNER_KEY}=`));
 		const value = cookie?.split('=')[1];
 		const hideUntil = value ? Number(decodeURIComponent(value)) : 0;
 
@@ -48,14 +63,14 @@
 	}
 
 	function setBannerHideUntilCookie(hideUntil: number) {
-		document.cookie = `${FAMILY_LIFE_WEEKEND_BANNER_KEY}=${encodeURIComponent(hideUntil.toString())}${FAMILY_LIFE_WEEKEND_COOKIE_ATTRIBUTES}`;
+		document.cookie = `${HOME_PROMO_BANNER_KEY}=${encodeURIComponent(hideUntil.toString())}${HOME_PROMO_COOKIE_ATTRIBUTES}`;
 	}
 
 	function clearBannerHideUntilCookie() {
-		document.cookie = `${FAMILY_LIFE_WEEKEND_BANNER_KEY}=; Path=/; Max-Age=0; SameSite=Lax`;
+		document.cookie = `${HOME_PROMO_BANNER_KEY}=; Path=/; Max-Age=0; SameSite=Lax`;
 	}
 
-	function showFamilyLifeWeekendBannerNow() {
+	function showHomePromoBannerNow() {
 		bannerVisibilityOverride = 'visible';
 		clearBannerHideUntilCookie();
 		clearBannerResetTimer();
@@ -64,7 +79,7 @@
 	function scheduleBannerReset(delayMs: number) {
 		clearBannerResetTimer();
 		bannerResetTimer = setTimeout(() => {
-			showFamilyLifeWeekendBannerNow();
+			showHomePromoBannerNow();
 		}, delayMs);
 	}
 
@@ -77,14 +92,14 @@
 			return;
 		}
 
-		showFamilyLifeWeekendBannerNow();
+		showHomePromoBannerNow();
 	}
 
-	function dismissFamilyLifeWeekendBanner() {
-		const hideUntil = Date.now() + FAMILY_LIFE_WEEKEND_DISMISS_DURATION_MS;
+	function dismissHomePromoBanner() {
+		const hideUntil = Date.now() + HOME_PROMO_DISMISS_DURATION_MS;
 		bannerVisibilityOverride = 'hidden';
 		setBannerHideUntilCookie(hideUntil);
-		scheduleBannerReset(FAMILY_LIFE_WEEKEND_DISMISS_DURATION_MS);
+		scheduleBannerReset(HOME_PROMO_DISMISS_DURATION_MS);
 	}
 
 	function closeMobile() {
@@ -96,10 +111,16 @@
 
 	onMount(() => {
 		handleScroll();
-		clearBannerHideUntilCookie();
+		syncBannerDismissState();
+		countdownTimer = setInterval(() => {
+			countdownNow = Date.now();
+		}, 1000);
 
 		return () => {
 			clearBannerResetTimer();
+			if (countdownTimer) {
+				clearInterval(countdownTimer);
+			}
 		};
 	});
 
@@ -250,27 +271,37 @@
 		</div>
 	</div>
 
-	{#if shouldShowFamilyLifeWeekendBanner}
-		<div class="relative border-t border-white/10 bg-[rgba(26,18,13,0.78)] text-white backdrop-blur-sm">
+	{#if shouldShowHomePromoBanner}
+		<div class="relative border-t border-white/10 bg-[rgba(26,18,13,0.82)] text-white backdrop-blur-sm">
 			<div class="container px-12 py-3 sm:px-14">
-				<div class="flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:gap-4">
-					<p class="text-sm font-semibold tracking-[0.08em] uppercase sm:text-[0.95rem]">
-						LifeGroups Sock Hop | Thursday, April 16 | 6-8p
+				<div class="flex flex-col items-center justify-center gap-3 text-center lg:flex-row lg:gap-5">
+					<p class="max-w-[38rem] text-sm font-semibold tracking-[0.06em] uppercase sm:text-[0.95rem]">
+						Let Your Light Shine — Illumination Station VBS Is Almost Here!
 					</p>
-					<a
-						href="https://fbcwimberley.churchcenter.com/registrations/events/3554292"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="btn btn-accent hover:btn-accent-hover py-2 px-5 text-[0.85rem]"
-					>
-						Register Today
-					</a>
+					<div class="grid grid-cols-4 gap-2" aria-label="Countdown to VBS on June 1 at 9:00 AM Central">
+						<div class="countdown-item">
+							<span>{countdownParts.days}</span>
+							<small>Days</small>
+						</div>
+						<div class="countdown-item">
+							<span>{countdownParts.hours.toString().padStart(2, '0')}</span>
+							<small>Hrs</small>
+						</div>
+						<div class="countdown-item">
+							<span>{countdownParts.minutes.toString().padStart(2, '0')}</span>
+							<small>Min</small>
+						</div>
+						<div class="countdown-item">
+							<span>{countdownParts.seconds.toString().padStart(2, '0')}</span>
+							<small>Sec</small>
+						</div>
+					</div>
 				</div>
 			</div>
 			<button
 				type="button"
 				class="absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-red-400 transition hover:text-red-300 sm:right-6"
-				onclick={dismissFamilyLifeWeekendBanner}
+				onclick={dismissHomePromoBanner}
 				aria-label="Dismiss event banner"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -355,6 +386,35 @@
 	}
 	:global(.dark) .logo-dark {
 		display: block !important;
+	}
+
+	.countdown-item {
+		display: flex;
+		min-width: 3.4rem;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		border-radius: var(--radius-sm);
+		background: rgba(255, 255, 255, 0.08);
+		padding: 0.35rem 0.45rem;
+		line-height: 1;
+	}
+
+	.countdown-item span {
+		font-family: var(--font-serif);
+		font-size: 1.2rem;
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.countdown-item small {
+		margin-top: 0.2rem;
+		font-size: 0.58rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.7);
 	}
 
 	.header.scrolled {
