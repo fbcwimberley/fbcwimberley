@@ -13,6 +13,7 @@
 	}>();
 
 	let mobileMenuOpen = $state(false);
+	let aboutOpen = $state(false);
 	let ministriesOpen = $state(false);
 	let careOpen = $state(false);
 	let careDesktopOpen = $state(false);
@@ -35,6 +36,7 @@
 		seconds: Math.floor((countdownRemainingMs / 1000) % 60)
 	});
 
+	let aboutTimer: ReturnType<typeof setTimeout> | undefined;
 	let ministriesTimer: ReturnType<typeof setTimeout> | undefined;
 	let careTimer: ReturnType<typeof setTimeout> | undefined;
 	let serveTimer: ReturnType<typeof setTimeout> | undefined;
@@ -104,6 +106,7 @@
 
 	function closeMobile() {
 		mobileMenuOpen = false;
+		aboutOpen = false;
 		ministriesOpen = false;
 		careOpen = false;
 		serveOpen = false;
@@ -126,6 +129,7 @@
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') {
+			aboutOpen = false;
 			ministriesOpen = false;
 			careDesktopOpen = false;
 			serveOpen = false;
@@ -133,6 +137,8 @@
 		}
 	}
 
+	function aboutEnter() { clearTimeout(aboutTimer); aboutOpen = true; }
+	function aboutLeave() { aboutTimer = setTimeout(() => { aboutOpen = false; }, 150); }
 	function ministriesEnter() { clearTimeout(ministriesTimer); ministriesOpen = true; }
 	function ministriesLeave() { ministriesTimer = setTimeout(() => { ministriesOpen = false; }, 150); }
 	function careEnter() { clearTimeout(careTimer); careDesktopOpen = true; }
@@ -166,7 +172,31 @@
 
 		<nav class="hidden lg:block" aria-label="Main navigation">
 			<ul class="flex items-center gap-1">
-				<li><a href="/about-us" class="nav-item inline-flex items-center gap-1 py-2 px-3.5 text-[0.9rem] font-medium text-white rounded-[var(--radius-sm)] transition-all duration-200 hover:text-(--color-accent)">About Us</a></li>
+				<li
+					class="has-dropdown relative"
+					onmouseenter={aboutEnter}
+					onmouseleave={aboutLeave}
+					onfocusout={(e) => { if (!(e.currentTarget as HTMLElement).contains(e.relatedTarget as Node)) aboutOpen = false; }}
+				>
+					<button
+						class="nav-item inline-flex items-center gap-1 py-2 px-3.5 text-[0.9rem] font-medium text-white rounded-[var(--radius-sm)] transition-all duration-200 hover:text-(--color-accent)"
+						onclick={() => aboutOpen = !aboutOpen}
+						aria-expanded={aboutOpen}
+						aria-controls="about-dropdown"
+					>
+						About Us
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+					</button>
+					<ul
+						id="about-dropdown"
+						class="dropdown absolute top-full left-0 min-w-[240px] bg-(--color-bg-card) border border-(--color-border) rounded-[var(--radius-md)] shadow-(--shadow-lg) p-2 z-50"
+						class:hidden={!aboutOpen}
+					>
+						<li><a href="/about-us/our-story" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Our Story</a></li>
+						<li><a href="/about-us/mission-vision-values" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Mission | Vision | Values</a></li>
+						<li><a href="/about-us/our-team" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Our Team</a></li>
+					</ul>
+				</li>
 				<li><a href="/connect" class="nav-item inline-flex items-center gap-1 py-2 px-3.5 text-[0.9rem] font-medium text-white rounded-[var(--radius-sm)] transition-all duration-200 hover:text-(--color-accent)">Connect</a></li>
 				<li
 					class="has-dropdown relative"
@@ -326,7 +356,19 @@
 		<nav id="mobile-nav" class="fixed top-0 right-0 bottom-0 w-[min(320px,85vw)] bg-(--color-bg) z-95 pt-12 px-6 pb-8 overflow-y-auto shadow-(--shadow-lg)" aria-label="Main navigation">
 			<a href="/" class="block font-serif text-xl font-bold text-(--color-heading) pb-4 mb-2 border-b-2 border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>First Baptist Church</a>
 			<ul>
-				<li><a href="/about-us" class="flex items-center justify-between w-full py-3.5 text-base font-medium text-(--color-text) border-b border-(--color-border-light) transition-colors duration-200" onclick={closeMobile}>About Us</a></li>
+				<li>
+					<button class="flex items-center justify-between w-full py-3.5 text-base font-medium text-(--color-text) border-b border-(--color-border-light) text-left" onclick={() => aboutOpen = !aboutOpen} aria-expanded={aboutOpen}>
+						About Us
+						<svg class:rotated={aboutOpen} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-200"><polyline points="6 9 12 15 18 9"></polyline></svg>
+					</button>
+					{#if aboutOpen}
+						<ul class="pl-4">
+							<li><a href="/about-us/our-story" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Our Story</a></li>
+							<li><a href="/about-us/mission-vision-values" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Mission | Vision | Values</a></li>
+							<li><a href="/about-us/our-team" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Our Team</a></li>
+						</ul>
+					{/if}
+				</li>
 				<li><a href="/connect" class="flex items-center justify-between w-full py-3.5 text-base font-medium text-(--color-text) border-b border-(--color-border-light) transition-colors duration-200" onclick={closeMobile}>Connect</a></li>
 				<li>
 					<button class="flex items-center justify-between w-full py-3.5 text-base font-medium text-(--color-text) border-b border-(--color-border-light) text-left" onclick={() => ministriesOpen = !ministriesOpen} aria-expanded={ministriesOpen}>
