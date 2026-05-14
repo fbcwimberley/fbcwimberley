@@ -1,7 +1,7 @@
 <script lang="ts">
 	const ministries = [
 		{ name: 'Family Milestones', href: '/ministries/family-milestones' },
-		{ name: 'KDO', href: '/ministries/kids-day-out' },
+		{ name: 'Kids Day Out', href: '/ministries/kids-day-out' },
 		{ name: 'Kids Ministry', href: '/ministries/kids-ministry' },
 		{ name: 'Student', href: '/ministries/student-ministry' },
 		{ name: "Women's", href: '/ministries/womens-ministry' },
@@ -19,7 +19,7 @@
 
 <svelte:head>
 	<title>Ministries - First Baptist Church Wimberley</title>
-	<meta name="description" content="Explore ministries at First Baptist Church Wimberley, including Family Milestones, KDO, Kids Ministry, Student, Women's, Men's, Care, Widows, Counseling, and Missions." />
+	<meta name="description" content="Explore ministries at First Baptist Church Wimberley, including Family Milestones, Kids Day Out, Kids Ministry, Student, Women's, Men's, Care, Widows, Counseling, and Missions." />
 </svelte:head>
 
 <section class="pt-32 pb-20">

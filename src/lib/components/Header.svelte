@@ -168,7 +168,7 @@
 						class:hidden={!ministriesOpen}
 					>
 						<li><a href="/ministries/family-milestones" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Family Milestones</a></li>
-						<li><a href="/ministries/kids-day-out" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">KDO</a></li>
+						<li><a href="/ministries/kids-day-out" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Kids Day Out</a></li>
 						<li><a href="/ministries/kids-ministry" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Kids Ministry</a></li>
 						<li><a href="/ministries/student-ministry" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Student</a></li>
 						<li><a href="/ministries/womens-ministry" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Women's</a></li>
@@ -297,7 +297,7 @@
 					{#if ministriesOpen}
 						<ul class="pl-4">
 							<li><a href="/ministries/family-milestones" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Family Milestones</a></li>
-							<li><a href="/ministries/kids-day-out" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>KDO</a></li>
+							<li><a href="/ministries/kids-day-out" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Kids Day Out</a></li>
 							<li><a href="/ministries/kids-ministry" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Kids Ministry</a></li>
 							<li><a href="/ministries/student-ministry" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Student</a></li>
 							<li><a href="/ministries/womens-ministry" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Women's</a></li>
