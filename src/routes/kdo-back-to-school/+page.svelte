@@ -1,50 +1,88 @@
 <script lang="ts">
-	import Alert from '$lib/ui/Alert.svelte';
-	import Button from '$lib/ui/Button.svelte';
-	import Card from '$lib/ui/Card.svelte';
+	const videoId = '1vbqIl5SQDsXq_fahZALEY3mBEZ5tNrGN';
+	const videoPreviewUrl = `https://drive.google.com/file/d/${videoId}/preview`;
+	const videoViewUrl = `https://drive.google.com/file/d/${videoId}/view?usp=drive_link`;
 
-	const admissionChecklist = [
-		'Immunization records or exemption (exemptions are good for 2 years)',
-		"Healthcare professional statement from your child's pediatrician (new students only)",
-		'Hearing/vision screening (4 year olds only)'
-	];
+	const actionLinks = {
+		handbook: 'https://drive.google.com/file/d/1Jf3lEhVdBXKrSs0SXjjSUNf_pFul0NM9/view?usp=sharing',
+		admission:
+			'https://www.cognitoforms.com/FirstBaptistChurchWimberley/AdmissionPaperwork20262027',
+		questionnaire: 'https://forms.gle/52c9UscFf9J3oxtT9'
+	};
 
-	const importantDates = [
+	const paperworkSteps = [
 		{
-			title: 'Meet the Teacher Night',
-			detail: 'Tuesday, August 11 from 5:30-7:00 PM',
-			description: "Come and go event for meeting your child's teacher and getting comfortable in the classroom."
+			number: '1',
+			title: 'Review the Parent Handbook',
+			body: 'The Parent Handbook has all policies and procedures outlined. It is important to read and understand as you will acknowledge your agreement to the handbook in the following Admission Form.',
+			href: actionLinks.handbook,
+			buttonText: 'Parent Handbook'
 		},
 		{
-			title: 'First Day of School',
-			detail: 'Tuesday, August 18',
-			description: 'August tuition is prorated for August 18-27, and the first semester supply fee is also due in August.'
+			number: '2',
+			title: 'Please Complete the Admission Form',
+			body: 'Before starting, ensure you have the following to upload to the form.',
+			href: actionLinks.admission,
+			buttonText: 'Admission Form',
+			items: [
+				'Immunization Records or Exemption (Exemptions are good for 2 years)',
+				"Healthcare Professional Statement from your child's pediatrician (NEW STUDENTS ONLY)",
+				'Hearing/Vision Screening (4 YEAR OLDS ONLY)'
+			]
+		},
+		{
+			number: '3',
+			title: 'Please Complete the Parent Questionnaire',
+			body: 'We value getting to know you and your child better before the school year starts. Please take a few minutes to answer some questions about your child. This questionnaire will help us make class lists for the upcoming school year.',
+			note: 'If you have more than one child enrolled in the program, please complete a questionnaire for both children.',
+			href: actionLinks.questionnaire,
+			buttonText: 'Parent Questionnaire'
 		}
 	];
 
-	const pendingResources = [
+	const infoBlocks = [
 		{
-			title: 'Parent Handbook',
-			description:
-				'Review all KDO policies and procedures before completing admission paperwork. Final link still pending from Shelby.'
+			label: 'Procare',
+			title: 'Procare',
+			body: [
+				"Procare is an app used to communicate with parents, pay tuition, and more. You will soon receive an email from Procare with details on how to create an account and sync your child's profile.",
+				'If you have any issues creating an account, please let us know.'
+			]
 		},
 		{
-			title: 'Admission Form',
-			description:
-				'Complete after gathering the required uploads below. Final form link still pending from Shelby.'
+			label: 'Transitions',
+			title: 'Transitions, Schedules, & Potty Training',
+			body: [
+				"We know that transitions are hard for children, so we want to be open about our daily schedule and routines here at Kid's Day Out. Please look over the schedule and see how you can help make the transition smoother. It may be by adjusting your child's nap or meal times.",
+				'Children must be potty trained to enter our 3 year old class in August. Fully potty trained means that they can communicate their potty needs to an adult, independently use the restroom, clean themselves, and pull their pants on. A child having 1 or more accidents a week is not potty trained.'
+			],
+			callout: 'Sample Schedule graphic still needed from Shelby.'
 		},
 		{
-			title: 'Parent Questionnaire',
-			description:
-				'Submit one questionnaire per enrolled child so KDO can build class lists. Final form link still pending from Shelby.'
+			label: 'Dates',
+			title: 'Save the Date!',
+			body: [
+				"Meet the Teacher Night is on Tue, Aug 11th from 5:30-7:00pm. This is a come and go event that is designed to meet your child's teacher while giving your child an opportunity to get a feel for the classroom.",
+				'The First Day of School is on Tue, Aug 18th.'
+			],
+			callout: 'Save the Date graphic still needed from Shelby.'
+		},
+		{
+			label: 'Tuition',
+			title: 'Tuition',
+			body: [
+				'The tuition for August will be prorated to reflect the two weeks of care from Aug 18-27. The first semester supply fee is also due in August.',
+				'You will receive an invoice via Procare later in August and these payments are due by the first day of school, Aug 18. You may set up online payments through Procare or pay by cash or check.'
+			]
+		},
+		{
+			label: 'Policy',
+			title: 'August Withdrawal Policy',
+			body: [
+				'In keeping with our commitment to faithful planning and stewardship, we begin preparing for the school year way in advance. Families who withdraw their child on or after August 1 will be responsible for 50% of the August tuition.',
+				'If you are on the fence about your child starting school in August, please reach out sooner rather than later.'
+			]
 		}
-	];
-
-	const pendingMedia = [
-		'Welcome video from Shelby',
-		'Back to School Needs graphic',
-		'Sample Schedule graphic',
-		'Save the Date graphic'
 	];
 </script>
 
@@ -54,395 +92,550 @@
 		name="description"
 		content="Hidden direct-link back-to-school information page for First Baptist Church Wimberley Kids Day Out families."
 	/>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap"
+		rel="stylesheet"
+	/>
 </svelte:head>
 
-<section class="hero-shell">
-	<div class="hero-overlay"></div>
-	<div class="container hero-content">
-		<p class="eyebrow">Kids Day Out</p>
-		<h1>KDO Back to School</h1>
-		<p class="hero-copy">
-			We are so excited to have you and your family be part of KDO for the 2026-2027
-			school year. This direct-link page gathers the confirmed back-to-school information
-			Shelby shared while the final forms, graphics, and welcome video are still being
-			wrapped up.
-		</p>
-		<div class="hero-actions">
-			<Button href="mailto:shelby@fbcwimberley.com" variant="accent">Email Shelby</Button>
-			<Button href="/ministries/kids-day-out" variant="outline-dark">Visit KDO Page</Button>
-		</div>
-	</div>
-</section>
-
-<section class="content-shell">
-	<div class="container content-grid">
-		<div class="main-stack">
-			<Alert type="error">
-				<strong>Blocked for final launch:</strong> Parent Handbook link, Admission Form
-				link, Parent Questionnaire link, welcome video, and approved graphics are still
-				pending from Shelby. This page intentionally avoids fake links and placeholder
-				downloads.
-			</Alert>
-
-			<Card class="section-card intro-card">
-				<p class="section-label">Start Here</p>
-				<h2>What to do before school starts</h2>
-				<p>
-					Review the handbook, complete the admission form, complete the parent
-					questionnaire, and watch for your Procare setup email. KDO also asks families to
-					look over the daily schedule and potty-training expectations before August.
+<section class="kdo-page" aria-labelledby="kdo-title">
+	<div class="paper-noise" aria-hidden="true"></div>
+	<div class="page-shell">
+		<header class="hero">
+			<div class="hero-copy">
+				<img
+					class="kdo-logo"
+					src="/images/kdo-back-to-school/kdo-logo.png"
+					alt="Kid's Day Out, First Baptist Church Wimberley"
+				/>
+				<p class="school-year">2026-2027 School Year</p>
+				<h1 id="kdo-title">Back to School</h1>
+				<p class="intro">
+					We are so excited to have you and your family be a part of KDO for the 2026-2027 school
+					year! Please watch the video below for important information that will help you complete
+					the back to school paperwork.
 				</p>
-			</Card>
-
-			<section class="section-block">
-				<div class="section-heading">
-					<p class="section-label">Forms</p>
-					<h2>Required paperwork</h2>
-					<p>
-						Shelby confirmed these resources will live on this page. The descriptions below
-						reflect finalized source copy, but the links themselves are still pending.
-					</p>
+				<div class="hero-actions" aria-label="Primary paperwork links">
+					<a href={actionLinks.handbook} target="_blank" rel="noreferrer">Parent Handbook</a>
+					<a href={actionLinks.admission} target="_blank" rel="noreferrer">Admission Form</a>
+					<a href={actionLinks.questionnaire} target="_blank" rel="noreferrer">Questionnaire</a>
 				</div>
+			</div>
 
-				<div class="resource-grid">
-					{#each pendingResources as resource}
-						<Card class="section-card resource-card">
-							<h3>{resource.title}</h3>
-							<p>{resource.description}</p>
-							<button type="button" class="pending-button" disabled>
-								Link Coming Soon
-							</button>
-						</Card>
-					{/each}
-				</div>
-			</section>
+			<div class="hero-card" aria-label="Back to school needs overview">
+				<img
+					src="/images/kdo-back-to-school/back-to-school-needs.png"
+					alt="Back to School Needs checklist"
+				/>
+			</div>
+		</header>
 
-			<section class="section-block">
-				<div class="section-heading">
-					<p class="section-label">Admission Form</p>
-					<h2>Gather these uploads first</h2>
-					<p>
-						Before starting the Admission Form, ensure you have the items below ready to
-						upload.
-					</p>
-				</div>
+		<section class="video-block" aria-labelledby="video-title">
+			<div>
+				<p class="section-kicker">Start Here</p>
+				<h2 id="video-title">Watch Shelby's welcome video</h2>
+			</div>
+			<div class="video-frame">
+				<iframe
+					src={videoPreviewUrl}
+					title="KDO Back to School welcome video"
+					allow="autoplay"
+					loading="lazy"
+				></iframe>
+			</div>
+			<a class="quiet-link" href={videoViewUrl} target="_blank" rel="noreferrer">
+				Open video in Google Drive
+			</a>
+		</section>
 
-				<Card class="section-card checklist-card">
-					<ol>
-						{#each admissionChecklist as item}
-							<li>{item}</li>
-						{/each}
-					</ol>
-				</Card>
-			</section>
+		<section class="paperwork-section" aria-labelledby="paperwork-title">
+			<div class="section-heading">
+				<p class="section-kicker">Step by Step</p>
+				<h2 id="paperwork-title">Complete these three items first</h2>
+			</div>
 
-			<section class="section-block">
-				<div class="section-heading">
-					<p class="section-label">Transition Help</p>
-					<h2>Schedules and potty training</h2>
-					<p>
-						KDO wants families to know transitions can be hard for children, so the team is
-						being upfront about daily routines and expectations.
-					</p>
-				</div>
+			<div class="paperwork-art">
+				<img
+					src="/images/kdo-back-to-school/steps-handbook-admission.png"
+					alt="Graphics for steps one and two"
+				/>
+				<img
+					src="/images/kdo-back-to-school/step-parent-questionnaire.png"
+					alt="Graphic for step three"
+				/>
+			</div>
 
-				<div class="two-up">
-					<Card class="section-card">
-						<h3>Daily schedule</h3>
-						<p>
-							Please look over the sample schedule when it is posted and see how you can
-							help make the transition smoother, whether that means adjusting nap times,
-							meal times, or both.
-						</p>
-						<p class="pending-note">Sample schedule graphic still pending.</p>
-					</Card>
-
-					<Card class="section-card">
-						<h3>Potty training expectation</h3>
-						<p>
-							Children must be potty trained to enter the 3 year old class in August.
-							Fully potty trained means they can communicate their potty needs to an
-							adult, independently use the restroom, clean themselves, and pull their
-							pants on.
-						</p>
-						<p>
-							A child having one or more accidents a week is not considered potty trained.
-						</p>
-					</Card>
-				</div>
-			</section>
-
-			<section class="section-block">
-				<div class="section-heading">
-					<p class="section-label">Billing</p>
-					<h2>Tuition and withdrawal details</h2>
-				</div>
-
-				<div class="two-up">
-					<Card class="section-card">
-						<h3>August tuition</h3>
-						<p>
-							August tuition will be prorated to reflect the two weeks of care from
-							August 18-27. The first semester supply fee is also due in August.
-						</p>
-						<p>
-							You will receive an invoice via Procare later in August, and these
-							payments are due by the first day of school on August 18.
-						</p>
-						<p>
-							You may set up online payments through Procare or pay by cash or check.
-						</p>
-					</Card>
-
-					<Card class="section-card">
-						<h3>August withdrawal policy</h3>
-						<p>
-							Families who withdraw their child on or after August 1 will be responsible
-							for 50% of the August tuition.
-						</p>
-						<p>
-							If you are on the fence about your child starting school in August, please
-							reach out sooner rather than later.
-						</p>
-					</Card>
-				</div>
-			</section>
-		</div>
-
-		<aside class="sidebar-stack">
-			<Card class="section-card sidebar-card">
-				<p class="section-label">Important Dates</p>
-				<h2>Mark your calendar</h2>
-				<div class="date-stack">
-					{#each importantDates as item}
-						<div class="date-item">
-							<h3>{item.title}</h3>
-							<p class="date-detail">{item.detail}</p>
-							<p>{item.description}</p>
+			<div class="step-stack">
+				{#each paperworkSteps as step}
+					<article class="kdo-box step-box">
+						<div class="number-dot" aria-hidden="true">{step.number}</div>
+						<div>
+							<h3>{step.title}</h3>
+							<p>{step.body}</p>
+							{#if step.items}
+								<ul>
+									{#each step.items as item}
+										<li>{item}</li>
+									{/each}
+								</ul>
+							{/if}
+							{#if step.note}
+								<p class="note">{step.note}</p>
+							{/if}
+							<a class="button-link" href={step.href} target="_blank" rel="noreferrer">
+								{step.buttonText}
+							</a>
 						</div>
+					</article>
+				{/each}
+			</div>
+		</section>
+
+		<section class="info-grid" aria-label="KDO back to school details">
+			{#each infoBlocks as block}
+				<article class="kdo-box info-box">
+					<p class="mini-label">{block.label}</p>
+					<h2>{block.title}</h2>
+					{#each block.body as paragraph}
+						<p>{paragraph}</p>
 					{/each}
-				</div>
-			</Card>
+					{#if block.callout}
+						<p class="asset-note">{block.callout}</p>
+					{/if}
+				</article>
+			{/each}
+		</section>
 
-			<Card class="section-card sidebar-card">
-				<p class="section-label">Procare</p>
-				<h2>Account setup is coming by email</h2>
-				<p>
-					Procare is used to communicate with parents, pay tuition, and more. You will
-					soon receive an email from Procare with details on how to create an account and
-					sync your child&apos;s profile.
-				</p>
-				<p>
-					If you have any issues creating your account, please contact Shelby directly.
-				</p>
-			</Card>
-
-			<Card class="section-card sidebar-card media-card">
-				<p class="section-label">Pending Media</p>
-				<h2>Still to be added</h2>
-				<ul>
-					{#each pendingMedia as item}
-						<li>{item}</li>
-					{/each}
-				</ul>
-			</Card>
-
-			<Card class="section-card sidebar-card">
-				<p class="section-label">Questions?</p>
-				<h2>Reach out anytime</h2>
-				<p>
-					If you have questions about any of the information above, please email Shelby.
-				</p>
-				<Button href="mailto:shelby@fbcwimberley.com" variant="primary">shelby@fbcwimberley.com</Button>
-			</Card>
-		</aside>
+		<section class="questions-box" aria-labelledby="questions-title">
+			<div>
+				<p class="section-kicker">Questions?</p>
+				<h2 id="questions-title">Reach out to Shelby</h2>
+				<p>If you have any questions regarding any of the above information, please reach out.</p>
+			</div>
+			<a href="mailto:Shelby@FBCWimberley.com">Shelby@FBCWimberley.com</a>
+		</section>
 	</div>
 </section>
 
 <style>
-	.hero-shell {
-		position: relative;
-		padding: 10rem 0 5rem;
-		background:
-			radial-gradient(circle at top left, rgba(212, 163, 106, 0.24), transparent 34%),
-			linear-gradient(135deg, #1f3755 0%, #2b5f7c 48%, #18314a 100%);
-		color: #fff;
-		overflow: hidden;
+	:global(body) {
+		background: oklch(90% 0.006 230);
 	}
 
-	.hero-overlay {
+	:global(body:has(.kdo-page) .header:not(.scrolled)) {
+		background: oklch(96% 0.007 225 / 0.82);
+		backdrop-filter: blur(14px);
+	}
+
+	:global(body:has(.kdo-page) .header:not(.scrolled) .logo-light) {
+		display: block;
+	}
+
+	:global(body:has(.kdo-page) .header:not(.scrolled) .logo-dark) {
+		display: none;
+	}
+
+	:global(body:has(.kdo-page) .header:not(.scrolled) .nav-item),
+	:global(body:has(.kdo-page) .header:not(.scrolled) .mobile-toggle) {
+		color: var(--kdo-ink);
+	}
+
+	.kdo-page {
+		--kdo-cyan: oklch(69% 0.15 219);
+		--kdo-cyan-deep: oklch(52% 0.13 222);
+		--kdo-yellow: oklch(82% 0.16 83);
+		--kdo-paper: oklch(88% 0.007 230);
+		--kdo-paper-light: oklch(96% 0.007 225);
+		--kdo-ink: oklch(19% 0.018 235);
+		--kdo-muted: oklch(39% 0.014 235);
+		--kdo-border: oklch(50% 0.008 235);
+		--kdo-white: oklch(98% 0.004 225);
+		--kdo-radius: clamp(2rem, 5vw, 4rem);
+		position: relative;
+		isolation: isolate;
+		min-height: 100vh;
+		padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem) clamp(4rem, 8vw, 7rem);
+		overflow: hidden;
+		background:
+			radial-gradient(circle at 9% 8%, oklch(82% 0.16 83 / 0.46), transparent 13rem),
+			radial-gradient(circle at 96% 4%, oklch(69% 0.15 219 / 0.22), transparent 18rem),
+			linear-gradient(180deg, var(--kdo-paper-light) 0%, var(--kdo-paper) 100%);
+		color: var(--kdo-ink);
+		font-family: 'Nunito', system-ui, sans-serif;
+	}
+
+	.paper-noise {
 		position: absolute;
 		inset: 0;
-		background:
-			linear-gradient(180deg, rgba(8, 16, 26, 0.08) 0%, rgba(8, 16, 26, 0.48) 100%),
-			repeating-linear-gradient(
-				135deg,
-				rgba(255, 255, 255, 0.05) 0,
-				rgba(255, 255, 255, 0.05) 1px,
-				transparent 1px,
-				transparent 18px
-			);
+		z-index: -1;
+		opacity: 0.42;
+		background-image:
+			linear-gradient(oklch(19% 0.018 235 / 0.05) 1px, transparent 1px),
+			linear-gradient(90deg, oklch(19% 0.018 235 / 0.04) 1px, transparent 1px);
+		background-size: 42px 42px;
+		mask-image: linear-gradient(
+			180deg,
+			transparent,
+			oklch(0% 0 0) 10%,
+			oklch(0% 0 0) 88%,
+			transparent
+		);
 	}
 
-	.hero-content {
+	.page-shell {
+		width: min(1180px, 100%);
+		margin: 0 auto;
+	}
+
+	.hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: clamp(2rem, 4vw, 4rem);
+		align-items: center;
+		min-height: min(760px, calc(100vh - 8rem));
+	}
+
+	.hero-copy {
 		position: relative;
-		z-index: 1;
-		max-width: 860px;
 	}
 
-	.eyebrow,
-	.section-label {
-		font-size: 0.8rem;
-		font-weight: 600;
+	.hero-copy::after {
+		content: '';
+		position: absolute;
+		right: clamp(0rem, 6vw, 5rem);
+		bottom: -2rem;
+		width: clamp(4rem, 10vw, 8rem);
+		aspect-ratio: 1;
+		border-radius: 44% 56% 54% 46%;
+		background: var(--kdo-yellow);
+		transform: rotate(-17deg);
+		z-index: -1;
+	}
+
+	.kdo-logo {
+		width: min(430px, 86vw);
+		margin-bottom: clamp(1.25rem, 3vw, 2.5rem);
+		filter: drop-shadow(0 1rem 1.8rem oklch(19% 0.018 235 / 0.12));
+	}
+
+	.school-year,
+	.section-kicker,
+	.mini-label {
+		margin: 0 0 0.7rem;
+		color: var(--kdo-cyan-deep);
+		font-family: 'Fredoka', system-ui, sans-serif;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.09em;
 		text-transform: uppercase;
-		letter-spacing: 0.15em;
-		color: var(--color-accent);
-		margin-bottom: 0.9rem;
+	}
+
+	h1,
+	h2,
+	h3,
+	p {
+		margin-top: 0;
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-family: 'Fredoka', system-ui, sans-serif;
+		color: var(--kdo-ink);
+		letter-spacing: 0;
 	}
 
 	h1 {
-		font-size: clamp(2.8rem, 6vw, 5rem);
-		line-height: 0.98;
-		margin: 0 0 1.35rem;
-		color: #fff;
+		max-width: 9ch;
+		margin-bottom: 1.2rem;
+		font-size: clamp(4.2rem, 13vw, 9.5rem);
+		line-height: 0.82;
+		color: var(--kdo-cyan);
+		text-shadow: 0.06em 0.06em 0 var(--kdo-yellow);
 	}
 
 	h2 {
-		font-size: clamp(1.8rem, 3vw, 2.6rem);
-		line-height: 1.08;
-		margin: 0 0 0.9rem;
-		color: var(--color-heading);
+		font-size: clamp(2rem, 5vw, 4rem);
+		line-height: 0.95;
 	}
 
 	h3 {
-		font-size: 1.2rem;
-		margin: 0 0 0.7rem;
-		color: var(--color-heading);
+		margin-bottom: 0.85rem;
+		font-size: clamp(1.55rem, 3vw, 2.35rem);
+		line-height: 1.02;
+		text-decoration: underline;
+		text-decoration-thickness: 0.08em;
+		text-underline-offset: 0.13em;
 	}
 
 	p,
 	li {
-		line-height: 1.7;
-		color: var(--color-text-muted);
+		font-size: clamp(1rem, 1.6vw, 1.18rem);
+		line-height: 1.55;
+		color: var(--kdo-muted);
 	}
 
-	.hero-copy {
-		max-width: 720px;
-		font-size: 1.08rem;
-		color: rgba(255, 255, 255, 0.85);
+	.intro {
+		max-width: 66ch;
+		margin-bottom: 1.5rem;
+		font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+		font-weight: 800;
+		color: var(--kdo-ink);
 	}
 
 	.hero-actions {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.9rem;
-		margin-top: 1.8rem;
+		gap: 0.75rem;
 	}
 
-	.content-shell {
-		padding: 3rem 0 5rem;
-	}
-
-	.content-grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 1.5rem;
-	}
-
-	.main-stack,
-	.sidebar-stack {
-		display: grid;
-		gap: 1.5rem;
-	}
-
-	.section-block {
-		display: grid;
-		gap: 1.2rem;
-	}
-
-	.section-heading p {
-		max-width: 60ch;
-	}
-
-	:global(.section-card) {
-		padding: 1.6rem;
-		border: 1px solid var(--color-border-light);
-		box-shadow: var(--shadow-sm);
-	}
-
-	.resource-grid,
-	.two-up {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1rem;
-	}
-
-	.pending-button {
-		margin-top: 1rem;
+	.hero-actions a,
+	.button-link,
+	.questions-box a,
+	.quiet-link {
 		display: inline-flex;
+		width: fit-content;
 		align-items: center;
 		justify-content: center;
-		padding: 0.9rem 1.2rem;
-		border-radius: var(--radius-full);
-		border: 1px dashed var(--color-border);
-		background: var(--color-bg-alt);
-		color: var(--color-text-muted);
-		font-weight: 600;
-		cursor: not-allowed;
+		border: 0.18rem solid var(--kdo-border);
+		border-radius: 999px;
+		background: var(--kdo-yellow);
+		box-shadow: 0 0.42rem 0 var(--kdo-border);
+		color: var(--kdo-ink);
+		font-family: 'Fredoka', system-ui, sans-serif;
+		font-weight: 700;
+		line-height: 1;
+		text-decoration: none;
+		transition:
+			transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
-	:global(.checklist-card) ol {
-		margin: 0;
-		padding-left: 1.2rem;
+	.hero-actions a,
+	.button-link {
+		padding: 0.9rem 1.1rem;
+	}
+
+	.hero-actions a:hover,
+	.button-link:hover,
+	.questions-box a:hover,
+	.quiet-link:hover {
+		transform: translateY(0.18rem);
+		box-shadow: 0 0.24rem 0 var(--kdo-border);
+	}
+
+	.hero-card {
+		justify-self: center;
+		width: min(420px, 100%);
+		transform: rotate(2.5deg);
+	}
+
+	.hero-card img,
+	.paperwork-art img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 1.4rem;
+		box-shadow: 0 1.4rem 3rem oklch(19% 0.018 235 / 0.16);
+	}
+
+	.video-block,
+	.paperwork-section,
+	.questions-box {
+		margin-top: clamp(3rem, 7vw, 6rem);
+	}
+
+	.video-block {
 		display: grid;
-		gap: 0.7rem;
+		gap: 1.4rem;
 	}
 
-	.pending-note {
-		margin-top: 0.8rem;
-		font-size: 0.95rem;
-		color: var(--color-primary);
+	.video-frame {
+		overflow: hidden;
+		border: 0.55rem solid var(--kdo-border);
+		border-radius: var(--kdo-radius);
+		background: var(--kdo-cyan);
+		box-shadow: 0 1rem 0 oklch(50% 0.008 235 / 0.35);
 	}
 
-	.date-stack {
+	.video-frame iframe {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		border: 0;
+		background: var(--kdo-cyan-deep);
+	}
+
+	.quiet-link {
+		padding: 0.85rem 1rem;
+		background: var(--kdo-white);
+	}
+
+	.section-heading {
+		max-width: 760px;
+		margin-bottom: clamp(1.4rem, 3vw, 2.5rem);
+	}
+
+	.paperwork-art {
 		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 		gap: 1rem;
+		margin-bottom: clamp(1.4rem, 3vw, 2.5rem);
 	}
 
-	.date-item + .date-item {
-		padding-top: 1rem;
-		border-top: 1px solid var(--color-border-light);
+	.paperwork-art img:first-child {
+		transform: rotate(-1.5deg);
 	}
 
-	.date-detail {
-		font-weight: 600;
-		color: var(--color-text);
-		margin-bottom: 0.35rem;
+	.paperwork-art img:last-child {
+		transform: rotate(1.5deg);
 	}
 
-	:global(.media-card) ul {
-		margin: 0;
-		padding-left: 1.2rem;
+	.step-stack,
+	.info-grid {
 		display: grid;
-		gap: 0.55rem;
+		gap: clamp(1rem, 2.2vw, 1.6rem);
 	}
 
-	@media (min-width: 768px) {
-		.resource-grid,
-		.two-up {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+	.kdo-box {
+		border: 0.42rem solid var(--kdo-border);
+		border-radius: var(--kdo-radius);
+		background: var(--kdo-cyan);
+		box-shadow: 0 0.8rem 0 oklch(50% 0.008 235 / 0.55);
+		color: var(--kdo-white);
+	}
+
+	.kdo-box p,
+	.kdo-box li,
+	.kdo-box h2,
+	.kdo-box h3 {
+		color: var(--kdo-white);
+	}
+
+	.step-box {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: clamp(1rem, 2.5vw, 2rem);
+		align-items: start;
+		padding: clamp(1.25rem, 4vw, 3rem);
+	}
+
+	.number-dot {
+		display: grid;
+		width: clamp(3.7rem, 8vw, 5.7rem);
+		aspect-ratio: 1;
+		place-items: center;
+		border-radius: 999px;
+		background: var(--kdo-paper);
+		color: var(--kdo-cyan);
+		font-family: 'Fredoka', system-ui, sans-serif;
+		font-size: clamp(2rem, 5vw, 3.2rem);
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	.step-box ul {
+		margin: 1rem 0 0;
+		padding-left: 1.25rem;
+	}
+
+	.note {
+		margin-top: 1.3rem;
+		font-style: italic;
+	}
+
+	.button-link {
+		margin-top: 1.35rem;
+	}
+
+	.info-grid {
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
+		margin-top: clamp(3rem, 7vw, 6rem);
+	}
+
+	.info-box {
+		padding: clamp(1.25rem, 3vw, 2rem);
+	}
+
+	.info-box:nth-child(2n) {
+		background: var(--kdo-yellow);
+	}
+
+	.info-box:nth-child(2n) p,
+	.info-box:nth-child(2n) h2 {
+		color: var(--kdo-ink);
+	}
+
+	.info-box:nth-child(2n) .mini-label {
+		color: var(--kdo-cyan-deep);
+	}
+
+	.info-box h2 {
+		margin-bottom: 1rem;
+		font-size: clamp(2rem, 3.5vw, 3rem);
+	}
+
+	.mini-label {
+		color: oklch(98% 0.004 225 / 0.88);
+	}
+
+	.asset-note {
+		margin-top: 1rem;
+		border-radius: 1.1rem;
+		background: oklch(98% 0.004 225 / 0.22);
+		padding: 0.8rem 1rem;
+		font-weight: 800;
+	}
+
+	.questions-box {
+		display: grid;
+		gap: 1.4rem;
+		align-items: center;
+		border: 0.42rem solid var(--kdo-border);
+		border-radius: var(--kdo-radius);
+		background: var(--kdo-white);
+		padding: clamp(1.5rem, 4vw, 3rem);
+		box-shadow: 0 0.8rem 0 oklch(50% 0.008 235 / 0.35);
+	}
+
+	.questions-box p {
+		max-width: 58ch;
+	}
+
+	.questions-box a {
+		padding: 1rem 1.2rem;
+	}
+
+	@media (min-width: 880px) {
+		.hero {
+			grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.75fr);
+		}
+
+		.questions-box {
+			grid-template-columns: minmax(0, 1fr) auto;
 		}
 	}
 
-	@media (min-width: 1024px) {
-		.content-grid {
-			grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.85fr);
-			align-items: start;
+	@media (max-width: 620px) {
+		.kdo-page {
+			padding-top: 1.2rem;
 		}
 
-		.sidebar-stack {
-			position: sticky;
-			top: 7rem;
+		.step-box {
+			grid-template-columns: 1fr;
+		}
+
+		.number-dot {
+			width: 4rem;
+		}
+
+		.hero-actions a,
+		.button-link,
+		.questions-box a,
+		.quiet-link {
+			width: 100%;
 		}
 	}
 </style>
