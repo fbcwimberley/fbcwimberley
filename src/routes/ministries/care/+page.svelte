@@ -1,6 +1,6 @@
 <svelte:head>
-	<title>Care Ministry - First Baptist Church Wimberley</title>
-	<meta name="description" content="Care Ministry at FBC Wimberley offers pastoral counseling and life coaching to walk alongside you through every season of life." />
+	<title>Counseling Ministry - First Baptist Church Wimberley</title>
+	<meta name="description" content="Counseling Ministry at FBC Wimberley offers pastoral counseling and life coaching to walk alongside you through every season of life." />
 </svelte:head>
 
 <section class="relative min-h-screen flex items-end justify-center overflow-hidden">
@@ -8,12 +8,12 @@
 	<div class="absolute inset-0 bg-linear-to-t from-[rgba(0,0,0,0.74)] to-[rgba(0,0,0,0.3)]"></div>
 	<div class="relative z-1 text-center pb-14 px-6">
 		<p class="section-label">Ministries</p>
-		<h1 class="text-[clamp(2.2rem,5vw,3.6rem)] text-white">Care Ministry</h1>
+		<h1 class="text-[clamp(2.2rem,5vw,3.6rem)] text-white">Counseling Ministry</h1>
 		<p class="text-white/85 text-[clamp(0.95rem,1.9vw,1.08rem)] leading-[1.7] max-w-[860px] mx-auto mt-4">
 			Whether you find yourself in a season of joy or a season of hardship, we don't want you to walk through it alone.
 		</p>
 		<p class="text-white/80 text-[clamp(0.95rem,1.9vw,1.08rem)] leading-[1.7] max-w-[860px] mx-auto mt-3">
-			Our Care Ministry is here to come alongside you and offer prayer, encouragement and resources specific to your situation.
+			Our Counseling Ministry is here to come alongside you and offer prayer, encouragement and resources specific to your situation.
 		</p>
 	</div>
 </section>
