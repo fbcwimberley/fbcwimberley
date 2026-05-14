@@ -97,8 +97,9 @@ Level 2:            ├── Family Milestones   ├── Serve The Church
                     ├── Women's
                     ├── Men's
                     ├── Care
-                    ├── Widows
                     └── Missions
+Level 3:                ├── Counseling
+                        └── Widows
 ```
 
 **Desktop:** CSS hover-triggered dropdowns (`.has-dropdown:hover .dropdown`)

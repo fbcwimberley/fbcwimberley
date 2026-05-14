@@ -13,6 +13,8 @@
 
 	let mobileMenuOpen = $state(false);
 	let ministriesOpen = $state(false);
+	let careOpen = $state(false);
+	let careDesktopOpen = $state(false);
 	let serveOpen = $state(false);
 	let scrolled = $state(false);
 	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('hidden');
@@ -20,6 +22,7 @@
 	const shouldShowFamilyLifeWeekendBanner = $derived(false);
 
 	let ministriesTimer: ReturnType<typeof setTimeout> | undefined;
+	let careTimer: ReturnType<typeof setTimeout> | undefined;
 	let serveTimer: ReturnType<typeof setTimeout> | undefined;
 	let bannerResetTimer: ReturnType<typeof setTimeout> | undefined;
 
@@ -87,6 +90,7 @@
 	function closeMobile() {
 		mobileMenuOpen = false;
 		ministriesOpen = false;
+		careOpen = false;
 		serveOpen = false;
 	}
 
@@ -102,6 +106,7 @@
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') {
 			ministriesOpen = false;
+			careDesktopOpen = false;
 			serveOpen = false;
 			if (mobileMenuOpen) closeMobile();
 		}
@@ -109,6 +114,8 @@
 
 	function ministriesEnter() { clearTimeout(ministriesTimer); ministriesOpen = true; }
 	function ministriesLeave() { ministriesTimer = setTimeout(() => { ministriesOpen = false; }, 150); }
+	function careEnter() { clearTimeout(careTimer); careDesktopOpen = true; }
+	function careLeave() { careTimer = setTimeout(() => { careDesktopOpen = false; }, 150); }
 	function serveEnter() { clearTimeout(serveTimer); serveOpen = true; }
 	function serveLeave() { serveTimer = setTimeout(() => { serveOpen = false; }, 150); }
 </script>
@@ -166,8 +173,30 @@
 						<li><a href="/ministries/student-ministry" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Student</a></li>
 						<li><a href="/ministries/womens-ministry" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Women's</a></li>
 						<li><a href="https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/men-s-ministry" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Men's</a></li>
-						<li><a href="/ministries/care" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Care</a></li>
-						<li><a href="https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/widows-ministry" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Widows</a></li>
+						<li
+							class="has-subdropdown relative"
+							onmouseenter={careEnter}
+							onmouseleave={careLeave}
+							onfocusout={(e) => { if (!(e.currentTarget as HTMLElement).contains(e.relatedTarget as Node)) careDesktopOpen = false; }}
+						>
+							<button
+								class="flex w-full items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] font-medium transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)"
+								onclick={() => careDesktopOpen = !careDesktopOpen}
+								aria-expanded={careDesktopOpen}
+								aria-controls="care-dropdown"
+							>
+								Care
+								<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+							</button>
+							<ul
+								id="care-dropdown"
+								class="subdropdown absolute top-0 left-full min-w-[180px] bg-(--color-bg-card) border border-(--color-border) rounded-[var(--radius-md)] shadow-(--shadow-lg) p-2"
+								class:hidden={!careDesktopOpen}
+							>
+								<li><a href="/ministries/care" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Counseling</a></li>
+								<li><a href="https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/widows-ministry" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Widows</a></li>
+							</ul>
+						</li>
 						<li><a href="/ministries/missions" class="dropdown-link flex items-center justify-between py-2.5 px-3.5 text-[0.875rem] text-(--color-text) rounded-[var(--radius-sm)] transition-all duration-200 hover:bg-(--color-primary-light) hover:text-(--color-primary)">Missions</a></li>
 					</ul>
 				</li>
@@ -273,8 +302,18 @@
 							<li><a href="/ministries/student-ministry" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Student</a></li>
 							<li><a href="/ministries/womens-ministry" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Women's</a></li>
 							<li><a href="https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/men-s-ministry" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Men's</a></li>
-							<li><a href="/ministries/care" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Care</a></li>
-							<li><a href="https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/widows-ministry" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Widows</a></li>
+							<li>
+								<button class="flex items-center justify-between w-full py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) text-left" onclick={() => careOpen = !careOpen} aria-expanded={careOpen}>
+									Care
+									<svg class:rotated={careOpen} xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-200"><polyline points="6 9 12 15 18 9"></polyline></svg>
+								</button>
+								{#if careOpen}
+									<ul class="pl-3">
+										<li><a href="/ministries/care" class="block py-3.5 text-[0.85rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Counseling</a></li>
+										<li><a href="https://fbcwimberley.churchcenter.com/groups/ministries-fbcw/widows-ministry" class="block py-3.5 text-[0.85rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Widows</a></li>
+									</ul>
+								{/if}
+							</li>
 							<li><a href="/ministries/missions" class="block py-3.5 text-[0.9rem] text-(--color-text-muted) border-b border-(--color-border-light) hover:text-(--color-primary)" onclick={closeMobile}>Missions</a></li>
 						</ul>
 					{/if}
