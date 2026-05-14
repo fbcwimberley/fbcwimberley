@@ -1,6 +1,6 @@
 <svelte:head>
 	<title>Missions - First Baptist Church Wimberley</title>
-	<meta name="description" content="FBC Wimberley's missions ministry focuses on local and global engagement, helping people know Jesus and make His truth known to neighbors and nations." />
+	<meta name="description" content="FBC Wimberley's missions ministry focuses on local and global engagement, helping people magnify Christ and share the Gospel with neighbors and nations." />
 </svelte:head>
 
 <section class="relative min-h-[44vh] md:min-h-[50vh] flex items-end justify-center overflow-hidden">
@@ -15,7 +15,7 @@
 <section class="py-20">
 	<div class="container max-w-[900px] text-center">
 		<p class="text-(--color-text-muted) text-[1.03rem] leading-[1.85] mb-6">
-			FBC Wimberley regularly emphasizes local and global mission engagement. Our church-wide vision includes helping people know Jesus and make His truth known to neighbors and nations.
+			FBC Wimberley regularly emphasizes local and global mission engagement. Our church-wide vision includes helping people magnify Christ and share the Gospel with neighbors and nations.
 		</p>
 		<p class="text-(--color-text-muted) text-[1.03rem] leading-[1.85] mb-8">
 			The official ministry menu currently routes Missions to media resources. Use the playlist below for missions-focused content and updates.

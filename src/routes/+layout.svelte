@@ -31,7 +31,7 @@
 
 <svelte:head>
 	<title>First Baptist Church Wimberley</title>
-	<meta name="description" content="To truly know Jesus and to make His truth known. Join us Sundays at 9:30AM and 11:00AM in Wimberley, Texas." />
+	<meta name="description" content="Magnify Christ and Share the Gospel. Join us Sundays at 9:30AM and 11:00AM in Wimberley, Texas." />
 </svelte:head>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>

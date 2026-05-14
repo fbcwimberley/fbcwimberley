@@ -210,7 +210,7 @@
 		<h2 class="text-[clamp(1.75rem,4vw,2.5rem)] text-white mb-8">Our Vision</h2>
 		<div class="glass-card p-6 md:p-10 lg:p-12">
 			<p class="text-[1.05rem] text-white/80 leading-[1.8] mb-8">
-				At First Baptist Church of Wimberley we exist to truly know Jesus and to make His Truth known. Our heartbeat is to sincerely experience a relationship with Jesus and help you do the same. We're not interested in knowing a Jesus of cold religion or a Jesus that doesn't challenge our living. Our desire is to experience the Truth of the real Jesus of the Bible and introduce him to the world. We'd love to have you join us.
+				At First Baptist Church of Wimberley we exist to magnify Christ and share the Gospel. Our heartbeat is to sincerely experience a relationship with Jesus and help you do the same. We're not interested in knowing a Jesus of cold religion or a Jesus that doesn't challenge our living. Our desire is to experience the Truth of the real Jesus of the Bible and introduce him to the world. We'd love to have you join us.
 			</p>
 			<blockquote class="font-serif text-[1.2rem] italic text-white border-l-3 border-(--color-accent) pl-5 text-left">
 				I am the way, and the Truth and the life. No one comes to the Father except through Me.
