@@ -50,7 +50,8 @@ Primary runtime: `node`
 - `/ministries`: index of ministry areas linking to both internal pages and external Church Center group destinations.
 - `/ministries/womens-ministry`: custom ministry page with hardcoded weekly group schedules, opportunities, and a hidden legacy contact form implementation.
 - `/ministries/care`, `/ministries/missions`: standalone ministry pages with static content and contact destinations.
-- `/ministries/preschool`, `/ministries/elementary`, `/ministries/junior-high`, `/ministries/high-school`: Family Life pages with a shared content style and Church Center CTAs.
+- `/ministries/kids-ministry`: canonical combined Kids Ministry page for preschool through 5th grade; `/ministries/preschool` and `/ministries/elementary` redirect here.
+- `/ministries/student-ministry`: Student Ministry page for 6th-12th grade with Family Milestones previews.
 - `/ministries/kids-day-out`: a more independent microsite-style page with a delayed YouTube hero video, Procare registration link, staff rosters, and a legacy contact form postback.
 - `/serve-the-church`, `/serve-the-community`: static serve pages that link outward to ministry information pages.
 - `/chairqr`: QR-driven first-visit landing page for guests in the building, with service basics, ministries, events, contact info, and podcast/giving/group links.

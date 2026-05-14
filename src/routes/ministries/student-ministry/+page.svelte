@@ -1,3 +1,10 @@
+<script lang="ts">
+	import { pickFamilyMilestones } from '$lib/familyMilestones';
+	import FamilyMilestonePreview from '$lib/ui/FamilyMilestonePreview.svelte';
+
+	const studentMilestones = pickFamilyMilestones([4, 5, 6]);
+</script>
+
 <svelte:head>
 	<title>Student Ministry - First Baptist Church Wimberley</title>
 	<meta
@@ -34,6 +41,12 @@
 		</div>
 	</div>
 </section>
+
+<FamilyMilestonePreview
+	title="Student Ministry carries key Family Milestones"
+	intro="Student Ministry supports families through Identity Formation, Passage to Adulthood, and Launch into the World."
+	milestones={studentMilestones}
+/>
 
 <section class="py-16 md:py-20">
 	<div class="container max-w-[1100px]">
