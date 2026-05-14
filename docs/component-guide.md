@@ -24,17 +24,16 @@
 | NextStep | `NextStep.svelte` | Light | Centered text, 2-image grid, primary CTA button |
 | EventsCTA | `EventsCTA.svelte` | Dark | Parallax bg, 2 CTA buttons, gradient overlay |
 
-### Page Sections (about-us, inline)
+### Page Sections (about-us)
 
 | Section | Type | Key Features |
 |---------|------|-------------|
-| Hero | Dark | Shorter (50vh), image bg, overlay |
-| Our Story | Light | Centered text, max-width 800px |
-| Our Vision | Dark (glass) | Glass card, blockquote with accent border |
-| Staff | Light (alt bg) | Group photo + 3-col card grid, expandable bio |
+| Shared Hero | Dark | Shorter (50vh), image bg, overlay, rendered from `about-us/+layout.svelte` |
+| Our Story | Light | Centered story copy, max-width 800px |
 | Plan Your Visit | Dark (glass) | Glass card with welcome text |
 | FAQs | Light | Accordion with chevron animation |
-| Our Mission | Dark (glass) | 4-value card grid |
+| Mission / Vision / Values | Light/Alt | Mission scripture cards, vision statement, and core value accordions |
+| Staff | Light (alt bg) | Group photo + 3-col card grid, expandable bio |
 | Contact | Light | 3-col icon cards + Google Maps embed |
 
 ## Anatomy of a Section Component

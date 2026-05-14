@@ -45,7 +45,8 @@ Primary runtime: `node`
 ### Route Families
 
 - Shared-section home page: `/`
-- Visitor and next-step content pages: `/about-us`, `/connect`, `/watch`, `/chairqr`
+- Visitor and next-step content pages: `/about-us/**`, `/connect`, `/watch`, `/chairqr`
+- About area: `/about-us` redirects to `/about-us/our-story`; child pages are `/about-us/our-story`, `/about-us/mission-vision-values`, and `/about-us/our-team`.
 - Event pages: `/events`, `/events/family-life-weekend`
 - Ministry pages: `/ministries` and child routes
 - Serve pages: `/serve-the-church`, `/serve-the-community`
