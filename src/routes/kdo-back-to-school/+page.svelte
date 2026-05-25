@@ -1,7 +1,21 @@
 <script lang="ts">
-	const videoId = '1vbqIl5SQDsXq_fahZALEY3mBEZ5tNrGN';
-	const videoPreviewUrl = `https://drive.google.com/file/d/${videoId}/preview`;
-	const videoViewUrl = `https://drive.google.com/file/d/${videoId}/view?usp=drive_link`;
+	type InfoBlock = {
+		label: string;
+		title: string;
+		body: string[];
+		action?: {
+			href: string;
+			text: string;
+		};
+		dates?: {
+			label: string;
+			value: string;
+			detail: string;
+		}[];
+	};
+
+	const videoSrc = '/videos/kdo-back-to-school-welcome.mp4';
+	const scheduleHref = '/documents/kdo-back-to-school/sample-2-year-schedule.pdf';
 
 	const actionLinks = {
 		handbook: 'https://drive.google.com/file/d/1Jf3lEhVdBXKrSs0SXjjSUNf_pFul0NM9/view?usp=sharing',
@@ -40,7 +54,14 @@
 		}
 	];
 
-	const infoBlocks = [
+	const startHereItems = [
+		'Watch the welcome video',
+		'Review the Parent Handbook',
+		'Complete the Admission Form',
+		'Complete the Parent Questionnaire'
+	];
+
+	const infoBlocks: InfoBlock[] = [
 		{
 			label: 'Procare',
 			title: 'Procare',
@@ -56,7 +77,10 @@
 				"We know that transitions are hard for children, so we want to be open about our daily schedule and routines here at Kid's Day Out. Please look over the schedule and see how you can help make the transition smoother. It may be by adjusting your child's nap or meal times.",
 				'Children must be potty trained to enter our 3 year old class in August. Fully potty trained means that they can communicate their potty needs to an adult, independently use the restroom, clean themselves, and pull their pants on. A child having 1 or more accidents a week is not potty trained.'
 			],
-			callout: 'Sample Schedule graphic still needed from Shelby.'
+			action: {
+				href: scheduleHref,
+				text: 'View Sample Schedule'
+			}
 		},
 		{
 			label: 'Dates',
@@ -65,7 +89,18 @@
 				"Meet the Teacher Night is on Tue, Aug 11th from 5:30-7:00pm. This is a come and go event that is designed to meet your child's teacher while giving your child an opportunity to get a feel for the classroom.",
 				'The First Day of School is on Tue, Aug 18th.'
 			],
-			callout: 'Save the Date graphic still needed from Shelby.'
+			dates: [
+				{
+					label: 'Meet the Teacher',
+					value: 'Tue, Aug 11',
+					detail: '5:30-7:00pm'
+				},
+				{
+					label: 'First Day of School',
+					value: 'Tue, Aug 18',
+					detail: 'Welcome back to KDO'
+				}
+			]
 		},
 		{
 			label: 'Tuition',
@@ -125,46 +160,32 @@
 			</div>
 
 			<div class="hero-card" aria-label="Back to school needs overview">
-				<img
-					src="/images/kdo-back-to-school/back-to-school-needs.png"
-					alt="Back to School Needs checklist"
-				/>
+				<p class="card-kicker">Start Here</p>
+				<ol class="needs-list">
+					{#each startHereItems as item}
+						<li>{item}</li>
+					{/each}
+				</ol>
 			</div>
 		</header>
 
 		<section class="video-block" aria-labelledby="video-title">
 			<div>
 				<p class="section-kicker">Start Here</p>
-				<h2 id="video-title">Watch Shelby's welcome video</h2>
+				<h2 id="video-title">Watch the welcome video</h2>
 			</div>
 			<div class="video-frame">
-				<iframe
-					src={videoPreviewUrl}
-					title="KDO Back to School welcome video"
-					allow="autoplay"
-					loading="lazy"
-				></iframe>
+				<!-- svelte-ignore a11y_media_has_caption (source video did not include captions) -->
+				<video src={videoSrc} controls playsinline preload="metadata">
+					<a href={videoSrc}>Watch the welcome video</a>
+				</video>
 			</div>
-			<a class="quiet-link" href={videoViewUrl} target="_blank" rel="noreferrer">
-				Open video in Google Drive
-			</a>
 		</section>
 
 		<section class="paperwork-section" aria-labelledby="paperwork-title">
 			<div class="section-heading">
 				<p class="section-kicker">Step by Step</p>
 				<h2 id="paperwork-title">Complete these three items first</h2>
-			</div>
-
-			<div class="paperwork-art">
-				<img
-					src="/images/kdo-back-to-school/steps-handbook-admission.png"
-					alt="Graphics for steps one and two"
-				/>
-				<img
-					src="/images/kdo-back-to-school/step-parent-questionnaire.png"
-					alt="Graphic for step three"
-				/>
 			</div>
 
 			<div class="step-stack">
@@ -201,8 +222,21 @@
 					{#each block.body as paragraph}
 						<p>{paragraph}</p>
 					{/each}
-					{#if block.callout}
-						<p class="asset-note">{block.callout}</p>
+					{#if block.action}
+						<a class="button-link" href={block.action.href} target="_blank" rel="noreferrer">
+							{block.action.text}
+						</a>
+					{/if}
+					{#if block.dates}
+						<div class="date-panel" aria-label="Important KDO back to school dates">
+							{#each block.dates as date}
+								<div>
+									<p class="date-label">{date.label}</p>
+									<p class="date-value">{date.value}</p>
+									<p class="date-detail">{date.detail}</p>
+								</div>
+							{/each}
+						</div>
 					{/if}
 				</article>
 			{/each}
@@ -393,8 +427,7 @@
 
 	.hero-actions a,
 	.button-link,
-	.questions-box a,
-	.quiet-link {
+	.questions-box a {
 		display: inline-flex;
 		width: fit-content;
 		align-items: center;
@@ -420,8 +453,7 @@
 
 	.hero-actions a:hover,
 	.button-link:hover,
-	.questions-box a:hover,
-	.quiet-link:hover {
+	.questions-box a:hover {
 		transform: translateY(0.18rem);
 		box-shadow: 0 0.24rem 0 var(--kdo-border);
 	}
@@ -429,16 +461,57 @@
 	.hero-card {
 		justify-self: center;
 		width: min(420px, 100%);
+		border: 0.42rem solid var(--kdo-border);
+		border-radius: var(--kdo-radius);
+		background:
+			radial-gradient(circle at 88% 12%, var(--kdo-yellow) 0 3.8rem, transparent 3.9rem),
+			linear-gradient(145deg, var(--kdo-white), oklch(93% 0.014 220));
+		padding: clamp(1.4rem, 4vw, 2.4rem);
+		box-shadow: 0 0.8rem 0 oklch(50% 0.008 235 / 0.45);
 		transform: rotate(2.5deg);
 	}
 
-	.hero-card img,
-	.paperwork-art img {
-		display: block;
-		width: 100%;
-		height: auto;
-		border-radius: 1.4rem;
-		box-shadow: 0 1.4rem 3rem oklch(19% 0.018 235 / 0.16);
+	.card-kicker {
+		margin: 0 0 1.1rem;
+		color: var(--kdo-cyan-deep);
+		font-family: 'Fredoka', system-ui, sans-serif;
+		font-size: clamp(1.35rem, 3vw, 2rem);
+		font-weight: 800;
+		line-height: 1;
+	}
+
+	.needs-list {
+		display: grid;
+		gap: 0.85rem;
+		margin: 0;
+		padding: 0;
+		counter-reset: needs;
+		list-style: none;
+	}
+
+	.needs-list li {
+		display: grid;
+		grid-template-columns: 2.4rem minmax(0, 1fr);
+		gap: 0.75rem;
+		align-items: center;
+		color: var(--kdo-ink);
+		font-family: 'Fredoka', system-ui, sans-serif;
+		font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+		font-weight: 700;
+		line-height: 1.1;
+		counter-increment: needs;
+	}
+
+	.needs-list li::before {
+		content: counter(needs);
+		display: grid;
+		aspect-ratio: 1;
+		place-items: center;
+		border: 0.16rem solid var(--kdo-border);
+		border-radius: 999px;
+		background: var(--kdo-cyan);
+		color: var(--kdo-white);
+		box-shadow: 0 0.2rem 0 var(--kdo-border);
 	}
 
 	.video-block,
@@ -460,37 +533,18 @@
 		box-shadow: 0 1rem 0 oklch(50% 0.008 235 / 0.35);
 	}
 
-	.video-frame iframe {
+	.video-frame video {
 		display: block;
 		width: 100%;
 		aspect-ratio: 16 / 9;
 		border: 0;
-		background: var(--kdo-cyan-deep);
-	}
-
-	.quiet-link {
-		padding: 0.85rem 1rem;
-		background: var(--kdo-white);
+		background: oklch(17% 0.018 235);
+		object-fit: contain;
 	}
 
 	.section-heading {
 		max-width: 760px;
 		margin-bottom: clamp(1.4rem, 3vw, 2.5rem);
-	}
-
-	.paperwork-art {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-		gap: 1rem;
-		margin-bottom: clamp(1.4rem, 3vw, 2.5rem);
-	}
-
-	.paperwork-art img:first-child {
-		transform: rotate(-1.5deg);
-	}
-
-	.paperwork-art img:last-child {
-		transform: rotate(1.5deg);
 	}
 
 	.step-stack,
@@ -581,11 +635,45 @@
 		color: oklch(98% 0.004 225 / 0.88);
 	}
 
-	.asset-note {
-		margin-top: 1rem;
-		border-radius: 1.1rem;
-		background: oklch(98% 0.004 225 / 0.22);
-		padding: 0.8rem 1rem;
+	.date-panel {
+		display: grid;
+		gap: 0.8rem;
+		margin-top: 1.35rem;
+	}
+
+	.date-panel > div {
+		border: 0.18rem solid var(--kdo-border);
+		border-radius: 1.2rem;
+		background: oklch(98% 0.004 225 / 0.24);
+		padding: 1rem;
+	}
+
+	.info-box:nth-child(2n) .date-panel > div {
+		background: oklch(98% 0.004 225 / 0.5);
+	}
+
+	.date-label,
+	.date-value,
+	.date-detail {
+		margin: 0;
+	}
+
+	.date-label {
+		font-family: 'Fredoka', system-ui, sans-serif;
+		font-size: 0.78rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.date-value {
+		font-family: 'Fredoka', system-ui, sans-serif;
+		font-size: clamp(1.6rem, 4vw, 2.25rem);
+		font-weight: 800;
+		line-height: 1;
+	}
+
+	.date-detail {
 		font-weight: 800;
 	}
 
@@ -633,8 +721,7 @@
 
 		.hero-actions a,
 		.button-link,
-		.questions-box a,
-		.quiet-link {
+		.questions-box a {
 			width: 100%;
 		}
 	}
