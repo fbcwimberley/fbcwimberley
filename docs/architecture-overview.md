@@ -12,7 +12,7 @@ app.html (shell)
         ├── <main> (page content via {@render children()})
         │     ├── +page.svelte (home — composes section components)
         │     ├── events/+page.svelte (Planning Center-backed event listing)
-        │     └── about-us/+page.svelte (self-contained page with inline sections)
+        │     └── about-us/** (shared About hero layout + three child pages)
         └── Footer.svelte (all pages)
 ```
 
@@ -46,10 +46,10 @@ Components use Svelte 5 runes for local state. There is no global state beyond t
 
 | Component | State | Purpose |
 |-----------|-------|---------|
-| Header | `mobileMenuOpen`, `ministriesOpen`, `familyLifeOpen`, `serveOpen`, `scrolled` | Navigation UI |
+| Header | `mobileMenuOpen`, `ministriesOpen`, `serveOpen`, `scrolled` | Navigation UI |
 | Hero | `currentSlide` | Image carousel index |
 | Newsletter | `firstName`, `lastName`, `email`, `submitted` | Form fields + submission state |
-| About Us page | `openFaq`, `expandedStaff` | Accordion toggles |
+| About Us pages | `openFaq`, `expandedStaff`, `openSubvalues` | FAQ, staff bio, and core values accordion toggles |
 
 ### Rendering Strategy
 
@@ -74,40 +74,40 @@ The home page has zero logic — it purely composes section components:
 
 Each section is fully self-contained with its own markup, styles, data, and interactivity.
 
-### About Us Page (Self-Contained)
+### About Us Pages (Shared Layout + Route-Local Sections)
 
-The about page defines all its data and sections inline in a single file. It contains:
-- Staff array (13 members with name, title, email, image, optional bio)
-- FAQs array (8 items with question, answer, optional link)
-- Mission values array (4 items)
-- Local state for accordion toggles
+The about route redirects `/about-us` to `/about-us/our-story` and uses a shared `about-us/+layout.svelte` hero for all child pages. About-specific staff and FAQ data live in `about-us/aboutData.ts`.
+
+The child pages are:
+- `/about-us/our-story` — story copy, Plan Your Visit, and FAQs
+- `/about-us/mission-vision-values` — mission and vision copy plus four core value groups with 12 expandable subvalue buttons
+- `/about-us/our-team` — staff roster and contact/map section
 
 This pattern works for content-heavy pages where the sections are unique to that page and unlikely to be reused.
 
 ## Navigation Architecture
 
-The Header manages a three-level navigation hierarchy:
+The Header manages a two-level navigation hierarchy:
 
 ```
 Level 1: About Us | Ministries | Groups | Serve | Events | Give
-Level 2:            ├── Women's Ministry    ├── Serve The Church
-                    ├── Widows Ministry     └── Serve The Community
-                    ├── Men's Ministry
-                    ├── Care
-                    ├── Missions
-                    └── Family Life
-Level 3:                ├── Preschool
-                        ├── Elementary
-                        ├── Junior High
-                        ├── High School
-                        └── Kids Day Out
+Level 2: ├── Our Story             ├── Family Milestones   ├── Serve The Church
+         ├── Mission/Vision/Values ├── KDO                 └── Serve The Community
+         └── Our Team              ├── Kids Ministry
+                                  ├── Student
+                                  ├── Women's
+                                  ├── Men's
+                                  ├── Care
+                                  └── Missions
+Level 3:                              ├── Counseling
+                                      └── Widows
 ```
 
 **Desktop:** CSS hover-triggered dropdowns (`.has-dropdown:hover .dropdown`)
 **Mobile:** JavaScript toggle-based accordions with `$state` booleans
 
 **Internal vs External links:**
-- `/about-us`, `/connect`, `/events`, ministry pages → Internal SvelteKit routes
+- `/about-us/**`, `/connect`, `/events`, ministry pages → Internal SvelteKit routes
 - Groups, directory, giving, and some registrations → External URLs (churchcenter, onrealm)
 
 ## Visual Rhythm

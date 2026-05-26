@@ -1,15 +1,17 @@
 import type { LayoutServerLoad } from './$types';
 
-const FAMILY_LIFE_WEEKEND_BANNER_KEY = 'family-life-weekend-banner-dismissed';
+const HOME_PROMO_BANNER_KEY = 'vbs-banner-dismissed';
 
-export const load: LayoutServerLoad = async ({ cookies }) => {
-	const rawHideUntil = cookies.get(FAMILY_LIFE_WEEKEND_BANNER_KEY);
+export const load: LayoutServerLoad = async ({ cookies, url }) => {
+	const rawHideUntil = cookies.get(HOME_PROMO_BANNER_KEY);
+	const hideUntil = rawHideUntil ? Number(decodeURIComponent(rawHideUntil)) : 0;
+	const bannerDismissed = Number.isFinite(hideUntil) && hideUntil > Date.now();
 
-	if (rawHideUntil) {
-		cookies.delete(FAMILY_LIFE_WEEKEND_BANNER_KEY, { path: '/' });
+	if (rawHideUntil && !bannerDismissed) {
+		cookies.delete(HOME_PROMO_BANNER_KEY, { path: '/' });
 	}
 
 	return {
-		showFamilyLifeWeekendBanner: false
+		showHomePromoBanner: url.pathname === '/' && !bannerDismissed
 	};
 };

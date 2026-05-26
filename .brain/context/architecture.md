@@ -19,7 +19,7 @@ Use this file for the structural shape of the repository.
 
 - `src/app.html` handles font loading, theme flash prevention, and analytics injection.
 - `src/routes/+layout.svelte` applies global CSS, initializes theme listeners, resets scroll on route changes, and renders the skip link, header, and footer.
-- `src/routes/+layout.server.ts` decides whether the home-page banner should be shown based on a cookie.
+- `src/routes/+layout.server.ts` decides whether the home-page promo banner should be shown based on the current promo dismissal cookie.
 
 ### Shared UI Layers
 
@@ -38,5 +38,6 @@ Use this file for the structural shape of the repository.
 ### Reuse Pattern
 
 - Home page uses extracted shared sections.
+- The About area uses a route-local shared hero layout plus child pages for Our Story, Mission/Vision/Values, and Our Team; `/about-us` redirects to `/about-us/our-story`.
 - Most ministry/content pages are inline route files because the content structure is unique and tightly coupled to the page.
 - Reusable design behavior should go into `src/lib/ui/*` or tokenized utilities in `src/app.css` instead of being duplicated across routes.

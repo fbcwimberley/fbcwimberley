@@ -1,3 +1,6 @@
+---
+updated: "2026-05-13T00:31:01Z"
+---
 # Current State
 
 <!-- brain:begin context-current-state -->
@@ -32,8 +35,13 @@ This file is a deterministic snapshot of the repository state at the last refres
 ### What Matters In Practice
 
 - The highest-risk shared files are `src/routes/+layout.svelte`, `src/routes/+layout.server.ts`, `src/lib/components/Header.svelte`, `src/app.css`, `src/lib/stores/theme.ts`, `src/lib/server/planningCenter.ts`, and `src/routes/api/newsletter/+server.ts`.
-- Most route work is content-heavy and local to a single page. Changes in `src/routes/about-us/+page.svelte`, `src/routes/connect/+page.svelte`, `src/routes/ministries/**`, and `src/routes/chairqr/+page.svelte` usually do not require broader refactors.
-- `src/routes/kdo-back-to-school/+page.svelte` is a hidden direct-link KDO route that stays out of public navigation and may intentionally ship with clearly marked pending links/assets while source materials are still incomplete.
+- The home-page promo banner is owned by `Header.svelte` and gated by `+layout.server.ts`; current VBS dismissal state uses the `vbs-banner-dismissed` cookie and should stay scoped to `/`.
+- The current VBS banner `Register Now` CTA links to Church Center registration event `3458551`.
+- Most route work is content-heavy and local to a single page. Changes in `src/routes/about-us/**`, `src/routes/connect/+page.svelte`, `src/routes/ministries/**`, and `src/routes/chairqr/+page.svelte` usually do not require broader refactors.
+- The About area uses `/about-us/+layout.svelte` for the shared hero, `/about-us/aboutData.ts` for route-local staff/FAQ data, and three child routes: `/about-us/our-story`, `/about-us/mission-vision-values`, and `/about-us/our-team`.
+- Family Milestones now lives at `src/routes/ministries/family-milestones/+page.svelte`, with shared milestone copy/data in `src/lib/familyMilestones.ts` and reusable preview/icon UI in `src/lib/ui/FamilyMilestonePreview.svelte` and `src/lib/ui/FamilyMilestoneIcon.svelte`; keep those shared files aligned with `src/lib/components/Header.svelte`, `/ministries/kids-ministry`, and the Student Ministry page when milestone content changes.
+- `/ministries/kids-ministry` is the canonical combined Kids Ministry page for preschool through 5th grade; `/ministries/preschool` and `/ministries/elementary` redirect there.
+- `src/routes/kdo-back-to-school/+page.svelte` is a hidden direct-link KDO route that stays out of public navigation and carries its own playful KDO visual treatment, native welcome video, sample schedule PDF, and back-to-school date panel.
 - `/events` and `/events/family-life-weekend` are linked through the same Planning Center helper and should be reviewed together when event logic changes.
 - The current codebase still includes legacy external dependencies: WordPress AJAX forms on women’s ministry and Kids Day Out, LiveControl for the watch page, and Procare for Kids Day Out registration.
 - `.brain/state/brain.sqlite3` is the portable Brain index/state database and should be committed with the shared workspace.
