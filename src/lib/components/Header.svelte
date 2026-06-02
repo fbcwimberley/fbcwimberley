@@ -6,7 +6,6 @@
 	const HOME_PROMO_BANNER_KEY = 'vbs-banner-dismissed';
 	const HOME_PROMO_DISMISS_DURATION_MS = 60 * 60 * 1000;
 	const HOME_PROMO_COOKIE_ATTRIBUTES = '; Path=/; Max-Age=3600; SameSite=Lax';
-	const VBS_COUNTDOWN_TARGET = new Date('2026-06-01T09:00:00-05:00').getTime();
 
 	let { showHomePromoBanner: initialShowHomePromoBanner } = $props<{
 		showHomePromoBanner: boolean;
@@ -20,7 +19,6 @@
 	let serveOpen = $state(false);
 	let scrolled = $state(false);
 	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('default');
-	let countdownNow = $state(Date.now());
 
 	const shouldShowHomePromoBanner = $derived(
 		initialShowHomePromoBanner &&
@@ -28,20 +26,12 @@
 		!scrolled &&
 		bannerVisibilityOverride !== 'hidden'
 	);
-	const countdownRemainingMs = $derived(Math.max(VBS_COUNTDOWN_TARGET - countdownNow, 0));
-	const countdownParts = $derived({
-		days: Math.floor(countdownRemainingMs / (24 * 60 * 60 * 1000)),
-		hours: Math.floor((countdownRemainingMs / (60 * 60 * 1000)) % 24),
-		minutes: Math.floor((countdownRemainingMs / (60 * 1000)) % 60),
-		seconds: Math.floor((countdownRemainingMs / 1000) % 60)
-	});
 
 	let aboutTimer: ReturnType<typeof setTimeout> | undefined;
 	let ministriesTimer: ReturnType<typeof setTimeout> | undefined;
 	let careTimer: ReturnType<typeof setTimeout> | undefined;
 	let serveTimer: ReturnType<typeof setTimeout> | undefined;
 	let bannerResetTimer: ReturnType<typeof setTimeout> | undefined;
-	let countdownTimer: ReturnType<typeof setInterval> | undefined;
 
 	function handleScroll() {
 		scrolled = window.scrollY > 50;
@@ -115,15 +105,9 @@
 	onMount(() => {
 		handleScroll();
 		syncBannerDismissState();
-		countdownTimer = setInterval(() => {
-			countdownNow = Date.now();
-		}, 1000);
 
 		return () => {
 			clearBannerResetTimer();
-			if (countdownTimer) {
-				clearInterval(countdownTimer);
-			}
 		};
 	});
 
@@ -304,36 +288,10 @@
 	{#if shouldShowHomePromoBanner}
 		<div class="relative border-t border-white/10 bg-[rgba(26,18,13,0.82)] text-white backdrop-blur-sm">
 			<div class="container px-12 py-3 sm:px-14">
-				<div class="flex flex-col items-center justify-center gap-3 text-center lg:flex-row lg:gap-5">
-					<p class="max-w-[38rem] text-sm font-semibold tracking-[0.06em] uppercase sm:text-[0.95rem]">
-						Let Your Light Shine — Illumination Station VBS Is Almost Here!
+				<div class="flex items-center justify-center text-center">
+					<p class="max-w-[40rem] text-sm font-semibold tracking-[0.06em] sm:text-[0.95rem]">
+						Let Your Light Shine - Illumination Station VBS is Happening Now!
 					</p>
-					<div class="grid grid-cols-4 gap-2" aria-label="Countdown to VBS on June 1 at 9:00 AM Central">
-						<div class="countdown-item">
-							<span>{countdownParts.days}</span>
-							<small>Days</small>
-						</div>
-						<div class="countdown-item">
-							<span>{countdownParts.hours.toString().padStart(2, '0')}</span>
-							<small>Hrs</small>
-						</div>
-						<div class="countdown-item">
-							<span>{countdownParts.minutes.toString().padStart(2, '0')}</span>
-							<small>Min</small>
-						</div>
-						<div class="countdown-item">
-							<span>{countdownParts.seconds.toString().padStart(2, '0')}</span>
-							<small>Sec</small>
-						</div>
-					</div>
-					<a
-						href="https://fbcwimberley.churchcenter.com/registrations/events/3458551"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="btn btn-accent hover:btn-accent-hover whitespace-nowrap py-2 px-5 text-[0.85rem]"
-					>
-						Register Now
-					</a>
 				</div>
 			</div>
 			<button
@@ -436,35 +394,6 @@
 	}
 	:global(.dark) .logo-dark {
 		display: block !important;
-	}
-
-	.countdown-item {
-		display: flex;
-		min-width: 3.4rem;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		border: 1px solid rgba(255, 255, 255, 0.18);
-		border-radius: var(--radius-sm);
-		background: rgba(255, 255, 255, 0.08);
-		padding: 0.35rem 0.45rem;
-		line-height: 1;
-	}
-
-	.countdown-item span {
-		font-family: var(--font-serif);
-		font-size: 1.2rem;
-		font-weight: 700;
-		color: #ffffff;
-	}
-
-	.countdown-item small {
-		margin-top: 0.2rem;
-		font-size: 0.58rem;
-		font-weight: 700;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.7);
 	}
 
 	.header.scrolled {
