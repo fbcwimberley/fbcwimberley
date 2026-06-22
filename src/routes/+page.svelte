@@ -7,6 +7,7 @@
 	import { homepageQuestions } from '$lib/homepageContent';
 	import { canonicalUrl, churchInfo, siteDescription, siteLastModified, siteName, siteUrl } from '$lib/seo';
 
+	const jsonLdTag = 'script';
 	const homeUrl = canonicalUrl('/');
 	const structuredData = JSON.stringify({
 		'@context': 'https://schema.org',
@@ -69,7 +70,7 @@
 </script>
 
 <svelte:head>
-	{@html `<script type="application/ld+json">${structuredData}</script>`}
+	<svelte:element this={jsonLdTag} type="application/ld+json">{structuredData}</svelte:element>
 </svelte:head>
 
 <Hero />

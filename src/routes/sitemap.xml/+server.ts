@@ -1,4 +1,7 @@
 import { canonicalUrl, sitemapRoutes, siteLastModified } from '$lib/seo';
+import type { RequestHandler } from './$types';
+
+export const prerender = true;
 
 function escapeXml(value: string) {
 	return value
@@ -9,7 +12,7 @@ function escapeXml(value: string) {
 		.replace(/'/g, '&apos;');
 }
 
-export function GET() {
+export const GET: RequestHandler = () => {
 	const urls = sitemapRoutes
 		.map(
 			(route) => `	<url>
@@ -31,4 +34,4 @@ ${urls}
 			'Cache-Control': 'public, max-age=0, must-revalidate'
 		}
 	});
-}
+};
