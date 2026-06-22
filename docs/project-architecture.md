@@ -1,3 +1,6 @@
+---
+updated: "2026-06-22T20:30:20Z"
+---
 # Project Architecture
 
 <!-- brain:begin project-doc-architecture -->
@@ -48,5 +51,6 @@ Use this file for the structural shape of the repository.
 
 - Home page: fully shared-section composition.
 - About, Connect, Serve, Watch, and most ministry pages: route-local static or semi-static content pages.
+- Family Milestones is a route-local animated roadmap page; it keeps milestone content in `src/lib/familyMilestones.ts` and owns page-specific motion/layout in `src/routes/ministries/family-milestones/+page.svelte`.
 - Events: the only notable SSR data-driven page family in the app.
 - Chair QR: a dedicated in-building guest landing page with its own information architecture and CTA mix.
