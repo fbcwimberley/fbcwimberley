@@ -23,33 +23,37 @@
 
 	const totalMilestones = familyMilestones.length;
 	let activeMilestone = $state(familyMilestones[0]?.number ?? 1);
+	let milestonePage: HTMLElement;
 
 	onMount(() => {
 		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		const revealItems = document.querySelectorAll<HTMLElement>('[data-reveal]');
-		const milestoneCards = document.querySelectorAll<HTMLElement>('[data-milestone]');
-
-		if (reduceMotion) {
-			revealItems.forEach((item) => item.classList.add('is-visible'));
-			return;
-		}
+		const revealItems = milestonePage.querySelectorAll<HTMLElement>('[data-reveal]');
+		const milestoneCards = milestonePage.querySelectorAll<HTMLElement>('[data-milestone]');
 
 		if (!('IntersectionObserver' in window)) {
 			revealItems.forEach((item) => item.classList.add('is-visible'));
 			return;
 		}
 
-		const revealObserver = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (entry.isIntersecting) {
-						entry.target.classList.add('is-visible');
-						revealObserver.unobserve(entry.target);
+		let revealObserver: IntersectionObserver | undefined;
+
+		if (reduceMotion) {
+			revealItems.forEach((item) => item.classList.add('is-visible'));
+		} else {
+			revealObserver = new IntersectionObserver(
+				(entries) => {
+					for (const entry of entries) {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('is-visible');
+							revealObserver?.unobserve(entry.target);
+						}
 					}
-				}
-			},
-			{ threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
-		);
+				},
+				{ threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
+			);
+
+			revealItems.forEach((item) => revealObserver?.observe(item));
+		}
 
 		const activeObserver = new IntersectionObserver(
 			(entries) => {
@@ -64,11 +68,10 @@
 			{ threshold: [0.32, 0.5, 0.68], rootMargin: '-18% 0px -42% 0px' }
 		);
 
-		revealItems.forEach((item) => revealObserver.observe(item));
 		milestoneCards.forEach((card) => activeObserver.observe(card));
 
 		return () => {
-			revealObserver.disconnect();
+			revealObserver?.disconnect();
 			activeObserver.disconnect();
 		};
 	});
@@ -82,7 +85,7 @@
 	/>
 </svelte:head>
 
-<section class="milestone-page">
+<section class="milestone-page" bind:this={milestonePage}>
 	<section class="milestones-hero">
 		<div class="container max-w-[1220px]">
 			<div class="hero-grid">
@@ -92,7 +95,7 @@
 					<p class="hero-lede">
 						A parent-focused roadmap for discipling children from their earliest years into a lifelong walk with Christ.
 					</p>
-					<div class="hero-actions" aria-label="Family Milestones actions">
+					<div class="hero-actions" role="group" aria-label="Family Milestones actions">
 						<a href="#milestone-roadmap" class="primary-action">Explore the Pathway</a>
 						<a href="/connect" class="secondary-action">Ask a Question</a>
 					</div>
@@ -142,6 +145,7 @@
 							<a
 								href={`#milestone-${milestone.number}`}
 								class:active={activeMilestone === milestone.number}
+								aria-current={activeMilestone === milestone.number ? 'location' : undefined}
 								style={`--milestone-accent: ${milestone.accent};`}
 							>
 								<span>{milestone.number}</span>
@@ -682,7 +686,7 @@
 		transition-delay: calc(var(--reveal-index, 0) * 70ms);
 	}
 
-	:global([data-reveal].is-visible) {
+	.milestone-page :global([data-reveal].is-visible) {
 		opacity: 1;
 		transform: translateY(0);
 	}
@@ -691,7 +695,7 @@
 		transform: translateY(2rem) scale(0.98);
 	}
 
-	:global(.hero-panel[data-reveal].is-visible) {
+	.milestone-page :global(.hero-panel[data-reveal].is-visible) {
 		transform: translateY(0) scale(1);
 	}
 
