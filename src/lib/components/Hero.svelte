@@ -68,7 +68,11 @@
 
 	<div class="container relative z-2 text-center pb-24">
 		<h1 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-bold text-white mb-4 drop-shadow-[0_2px_20px_rgba(0,0,0,0.3)] tracking-tight">Magnify Christ<br />And Share the Gospel</h1>
-		<p class="text-[clamp(1rem,2vw,1.35rem)] text-white/90 mb-8 font-normal tracking-[0.05em]">Sundays at 9:30AM and 11:00AM</p>
-		<a href="/watch" class="btn btn-outline hover:btn-outline-hover">Watch Now</a>
+		<p class="text-[clamp(1rem,2vw,1.35rem)] text-white/90 mb-3 font-normal tracking-[0.05em]">First Baptist Church Wimberley gathers Sundays at 9:30AM and 11:00AM.</p>
+		<p class="text-base md:text-lg text-white/80 mb-8 max-w-[620px] mx-auto leading-relaxed">Find worship, groups, ministries, events, and next steps for your family in Wimberley, Texas.</p>
+		<div class="flex flex-wrap justify-center gap-3">
+			<a href="/connect" class="btn btn-accent hover:btn-accent-hover">Plan Your Visit</a>
+			<a href="/watch" class="btn btn-outline hover:btn-outline-hover">Watch Now</a>
+		</div>
 	</div>
 </section>
