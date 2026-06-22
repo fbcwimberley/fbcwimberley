@@ -1,3 +1,6 @@
+---
+updated: "2026-06-22T19:53:44Z"
+---
 # Project Architecture
 
 <!-- brain:begin project-doc-architecture -->
@@ -17,6 +20,7 @@ Use this file for the structural shape of the repository.
 - `src/app.html` is part of the runtime architecture, not just boilerplate. It preconnects to Google Fonts, preloads the Inter and Playfair Display stylesheet, applies a no-flash dark-theme script before paint, and injects the Plausible analytics script.
 - `src/routes/+layout.svelte` imports `src/app.css`, initializes the theme listener on mount, forces scroll-to-top on route changes without hashes, exposes an accessibility skip link, and wraps every page with `Header` and `Footer`.
 - `src/routes/+layout.server.ts` reads a dismissal cookie and decides whether the home-page promo banner should render.
+- `src/lib/seo.ts` centralizes public site metadata, church identity, canonical URL construction, last-modified date, and sitemap route inventory; `+layout.svelte` emits the default canonical and description, while `/sitemap.xml` and `robots.txt` expose crawler discovery.
 
 ### Shared UI Layers
 

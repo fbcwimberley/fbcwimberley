@@ -1,12 +1,15 @@
 <script lang="ts">
 	import '../app.css';
 	import { afterNavigate, disableScrollHandling } from '$app/navigation';
+	import { page } from '$app/state';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import { canonicalUrl, siteDescription, siteName } from '$lib/seo';
 	import { initThemeListener } from '$lib/stores/theme';
 	import { onMount } from 'svelte';
 
 	let { children, data } = $props();
+	const canonical = $derived(canonicalUrl(page.url.pathname));
 
 	onMount(() => {
 		initThemeListener();
@@ -30,8 +33,9 @@
 </script>
 
 <svelte:head>
-	<title>First Baptist Church Wimberley</title>
-	<meta name="description" content="Magnify Christ and Share the Gospel. Join us Sundays at 9:30AM and 11:00AM in Wimberley, Texas." />
+	<title>{siteName}</title>
+	<meta name="description" content={siteDescription} />
+	<link rel="canonical" href={canonical} />
 </svelte:head>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
