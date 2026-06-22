@@ -1,5 +1,5 @@
 ---
-updated: "2026-04-22T16:36:53Z"
+updated: "2026-06-22T19:54:12Z"
 ---
 # Architecture
 
@@ -20,6 +20,7 @@ Use this file for the structural shape of the repository.
 - `src/app.html` handles font loading, theme flash prevention, and analytics injection.
 - `src/routes/+layout.svelte` applies global CSS, initializes theme listeners, resets scroll on route changes, and renders the skip link, header, and footer.
 - `src/routes/+layout.server.ts` decides whether the home-page promo banner should be shown based on the current promo dismissal cookie.
+- `src/lib/seo.ts` owns public site metadata, canonical URL construction, church identity, last-modified date, and sitemap route inventory used by `+layout.svelte` and `/sitemap.xml`.
 
 ### Shared UI Layers
 

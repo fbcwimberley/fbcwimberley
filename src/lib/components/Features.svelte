@@ -4,20 +4,20 @@
 	const features = [
 		{
 			icon: 'tv',
-			title: 'Watch Online',
-			description: 'Join us each Sunday for a live stream of our 9:30AM worship gathering or on-demand any time of the week!',
+			title: 'Watch Sunday Worship Online',
+			description: 'Join First Baptist Church Wimberley each Sunday for a live stream of our 9:30AM worship gathering or watch on demand any time of the week.',
 			href: '/watch'
 		},
 		{
 			icon: 'calendar',
-			title: 'Upcoming Events',
-			description: "There's always something happening in the life of our church. Check out all the upcoming events and registrations.",
+			title: 'Find Upcoming Church Events',
+			description: "There's always something happening in the life of our church. Browse upcoming events, gatherings, and registrations.",
 			href: '/events'
 		},
 		{
 			icon: 'users',
-			title: 'Join A Group',
-			description: 'Life is not meant to be lived alone! Find people who can help you grow in your desire to know Jesus.',
+			title: 'Join a Group in Wimberley',
+			description: 'Life is not meant to be lived alone. Find people who can help you grow in your desire to know Jesus.',
 			href: 'https://fbcwimberley.churchcenter.com/groups'
 		}
 	];

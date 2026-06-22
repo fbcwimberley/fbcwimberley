@@ -57,8 +57,8 @@
 
 	<div class="relative z-1 max-w-[680px] mx-auto px-6 text-center">
 		<p class="section-label">Stay In The Loop</p>
-		<h2 class="text-[clamp(1.75rem,4vw,2.5rem)] text-white mb-4">Sign up for our newsletter here!</h2>
-		<p class="text-base text-white/70 leading-[1.65] mb-10">Stay connected with what's happening at FBC Wimberley. Get weekly updates delivered straight to your inbox.</p>
+		<h2 class="text-[clamp(1.75rem,4vw,2.5rem)] text-white mb-4">Get weekly church updates.</h2>
+		<p class="text-base text-white/70 leading-[1.65] mb-10">Stay connected with First Baptist Church Wimberley events, ministry updates, and next steps delivered straight to your inbox.</p>
 
 		<div class="glass-card p-6 md:p-8 overflow-hidden">
 			<form class="flex flex-col gap-5" onsubmit={handleSubmit}>
