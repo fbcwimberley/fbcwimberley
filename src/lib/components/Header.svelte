@@ -20,12 +20,7 @@
 	let scrolled = $state(false);
 	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('default');
 
-	const shouldShowHomePromoBanner = $derived(
-		initialShowHomePromoBanner &&
-		page.url.pathname === '/' &&
-		!scrolled &&
-		bannerVisibilityOverride !== 'hidden'
-	);
+	const shouldShowHomePromoBanner = $derived(false);
 
 	let aboutTimer: ReturnType<typeof setTimeout> | undefined;
 	let ministriesTimer: ReturnType<typeof setTimeout> | undefined;
