@@ -20,7 +20,12 @@
 	let scrolled = $state(false);
 	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('default');
 
-	const shouldShowHomePromoBanner = $derived(false);
+	const shouldShowHomePromoBanner = $derived(
+		initialShowHomePromoBanner &&
+		page.url.pathname === '/' &&
+		!scrolled &&
+		bannerVisibilityOverride !== 'hidden'
+	);
 
 	let aboutTimer: ReturnType<typeof setTimeout> | undefined;
 	let ministriesTimer: ReturnType<typeof setTimeout> | undefined;
@@ -285,7 +290,7 @@
 			<div class="container px-12 py-3 sm:px-14">
 				<div class="flex items-center justify-center text-center">
 					<p class="max-w-[40rem] text-sm font-semibold tracking-[0.06em] sm:text-[0.95rem]">
-						Pray for our High School Students while they are at camp this week!
+						Pray for our Junior High  Students while they are at camp this week!
 					</p>
 				</div>
 			</div>
