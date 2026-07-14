@@ -290,7 +290,7 @@
 			<div class="container px-12 py-3 sm:px-14">
 				<div class="flex items-center justify-center text-center">
 					<p class="max-w-[40rem] text-sm font-semibold tracking-[0.06em] sm:text-[0.95rem]">
-						Pray for our Junior High  Students while they are at camp this week!
+						Pray for our students while they are at KidsCamp this week!
 					</p>
 				</div>
 			</div>
