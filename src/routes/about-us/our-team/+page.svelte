@@ -32,7 +32,7 @@
 				{#each elders as member}
 					<button class="staff-card flex w-full cursor-pointer flex-col items-center rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-6 text-center transition-all duration-300 hover:border-(--color-border) hover:shadow-(--shadow-sm)" class:expanded={expandedStaff === member.name} onclick={() => toggleStaff(member.name)} aria-expanded={expandedStaff === member.name}>
 						<div class="mb-4 h-[120px] w-[120px] overflow-hidden rounded-full border-3 border-(--color-border-light)">
-							<img src={member.image} alt={member.name} loading="lazy" class="h-full w-full object-cover" />
+							<img src={member.image} alt={member.name} loading="lazy" class="h-full w-full object-cover" class:legacy-headshot={member.image.startsWith('/images/remote/')} />
 						</div>
 						<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
 						<p class="mb-2 text-[0.85rem] text-(--color-text-muted)">{member.title}</p>
@@ -62,7 +62,7 @@
 				{#each team as member}
 					<button class="staff-card flex w-full cursor-pointer flex-col items-center rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-6 text-center transition-all duration-300 hover:border-(--color-border) hover:shadow-(--shadow-sm)" class:expanded={expandedStaff === member.name} onclick={() => toggleStaff(member.name)} aria-expanded={expandedStaff === member.name}>
 						<div class="mb-4 h-[120px] w-[120px] overflow-hidden rounded-full border-3 border-(--color-border-light)">
-							<img src={member.image} alt={member.name} loading="lazy" class="h-full w-full object-cover" />
+							<img src={member.image} alt={member.name} loading="lazy" class="h-full w-full object-cover" class:legacy-headshot={member.image.startsWith('/images/remote/')} />
 						</div>
 						<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
 						<p class="mb-2 text-[0.85rem] text-(--color-text-muted)">{member.title}</p>
@@ -128,3 +128,9 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	.legacy-headshot {
+		transform: scale(1.12);
+	}
+</style>
