@@ -71,10 +71,10 @@ const staff: StaffMember[] = [
 		group: 'team'
 	},
 	{
-		name: 'Marty Beard',
-		title: 'Church Administrative Professional',
-		email: 'marty@fbcwimberley.com',
-		image: '/images/remote/fbcwimberley.com-Marty-Beard-1024x683-87f60b485d.webp',
+		name: 'Amy Bock',
+		title: 'Office Manager',
+		email: 'amy@fbcwimberley.com',
+		image: '/images/team/amy-bock.webp',
 		group: 'team'
 	},
 	{
@@ -95,7 +95,7 @@ const staff: StaffMember[] = [
 		name: 'Shannon Tyson',
 		title: 'Finance',
 		email: 'financial@fbcwimberley.com',
-		image: '/images/remote/fbcwimberley.com-Your-paragraph-text-2-1024x683-81878c9601.webp',
+		image: '/images/team/shannon-tyson.webp',
 		group: 'team'
 	},
 	{
