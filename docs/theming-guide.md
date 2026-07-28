@@ -1,3 +1,6 @@
+---
+updated: "2026-07-28T21:16:29Z"
+---
 # Theming Guide
 
 > **Read when:** Working on light/dark mode, colors, or the CSS custom property system.
@@ -49,6 +52,7 @@ All components use `var(--color-*)` tokens which automatically switch.
 - `+layout.svelte` calls `initThemeListener()` on mount
 - `ThemeToggle.svelte` reads `$themePreference` and calls `toggleTheme()`
 - Components use `:global(.dark)` for theme-specific overrides when needed
+- Header dark-mode overrides must include the full `.header.scrolled` state when they compete with scrolled-state rules, so the dark selector wins by specificity.
 
 ## Complete Token Reference
 

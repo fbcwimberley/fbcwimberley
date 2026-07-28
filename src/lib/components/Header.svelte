@@ -383,7 +383,7 @@
 		filter: none;
 	}
 
-	:global(.dark) .brand-logo {
+	:global(.dark) .header.scrolled .brand-logo {
 		filter: brightness(0) invert(1);
 	}
 
