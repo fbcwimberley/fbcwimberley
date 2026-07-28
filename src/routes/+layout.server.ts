@@ -1,6 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 
 const HOME_PROMO_BANNER_KEY = 'vbs-banner-dismissed';
+const HOME_PROMO_BANNER_ENABLED = false;
 
 export const load: LayoutServerLoad = async ({ cookies, url }) => {
 	const rawHideUntil = cookies.get(HOME_PROMO_BANNER_KEY);
@@ -12,6 +13,6 @@ export const load: LayoutServerLoad = async ({ cookies, url }) => {
 	}
 
 	return {
-		showHomePromoBanner: url.pathname === '/' && !bannerDismissed
+		showHomePromoBanner: HOME_PROMO_BANNER_ENABLED && url.pathname === '/' && !bannerDismissed
 	};
 };
