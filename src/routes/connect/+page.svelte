@@ -24,7 +24,7 @@
 <section class="py-20 bg-(--color-bg-alt)">
 	<div class="container">
 		<div class="text-center mb-12">
-			<p class="section-label">Start Here</p>
+			<p class="section-label section-label-on-light">Start Here</p>
 			<h2 class="text-[clamp(1.75rem,4vw,2.5rem)] mb-4">Ways To Connect</h2>
 			<p class="text-(--color-text-muted) text-[1.02rem] leading-[1.75] max-w-[760px] mx-auto">
 				New to FBC Wimberley? Looking for community? Ready to support what God is doing here? Use these quick links to jump in.
@@ -33,7 +33,7 @@
 
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 			<Card href="/about-us" hover={false} class="card-hover-lift p-7 arrow-slide-hover">
-				<p class="section-label mb-3">New Here?</p>
+				<p class="section-label section-label-on-light mb-3">New Here?</p>
 				<h3 class="text-[1.25rem] mb-2">Sunday Mornings</h3>
 				<p class="text-(--color-text-muted) leading-[1.7] mb-5">Join us in person at 9:30AM and 11:00AM. We would love to meet you.</p>
 				<span class="inline-flex items-center gap-2 font-semibold text-(--color-primary)">
@@ -43,7 +43,7 @@
 			</Card>
 
 			<Card href="https://fbcwimberley.churchcenter.com/groups/" target="_blank" rel="noopener noreferrer" hover={false} class="card-hover-lift p-7 arrow-slide-hover">
-				<p class="section-label mb-3">Get Plugged In</p>
+				<p class="section-label section-label-on-light mb-3">Get Plugged In</p>
 				<h3 class="text-[1.25rem] mb-2">Join A Group</h3>
 				<p class="text-(--color-text-muted) leading-[1.7] mb-5">Find people to grow with through Bible studies, classes, and ministry groups.</p>
 				<span class="inline-flex items-center gap-2 font-semibold text-(--color-primary)">
@@ -53,7 +53,7 @@
 			</Card>
 
 			<Card href="https://onrealm.org/fbcwimberley/give/now" target="_blank" rel="noopener noreferrer" hover={false} class="card-hover-lift p-7 arrow-slide-hover">
-				<p class="section-label mb-3">Support The Mission</p>
+				<p class="section-label section-label-on-light mb-3">Support The Mission</p>
 				<h3 class="text-[1.25rem] mb-2">Give Online</h3>
 				<p class="text-(--color-text-muted) leading-[1.7] mb-5">Would you like to give to what God is doing at FBCW? Give securely online.</p>
 				<span class="inline-flex items-center gap-2 font-semibold text-(--color-primary)">
@@ -94,7 +94,7 @@
 				href={nextStepFormUrl}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="nextstep-submit inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-full bg-(--color-accent) text-white font-semibold text-[0.95rem] tracking-[0.02em] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-(--color-accent-hover) hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(200,145,90,0.3)]"
+				class="nextstep-submit inline-flex items-center justify-center gap-2 py-3.5 px-8 rounded-full bg-(--color-accent) text-(--color-text-on-accent) font-semibold text-[0.95rem] tracking-[0.02em] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-(--color-accent-hover) hover:text-(--color-text-on-accent) hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(200,145,90,0.3)]"
 			>
 				Open Next Step Form
 				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-300"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -105,7 +105,7 @@
 
 <section class="py-20">
 	<div class="container max-w-[760px] text-center">
-		<p class="section-label">Need Help?</p>
+			<p class="section-label section-label-on-light">Need Help?</p>
 		<h2 class="text-[clamp(1.75rem,4vw,2.4rem)] mb-4">Want To Ask More Questions? Let's Connect.</h2>
 		<p class="text-(--color-text-muted) text-[1.02rem] leading-[1.75] mb-8">
 			If you would rather talk with someone directly, our team is ready to help.
