@@ -3,7 +3,7 @@
 		<div class="grid grid-cols-1 gap-10 sm:grid-cols-3">
 			<!-- Quick Links -->
 			<div>
-				<h4 class="font-sans text-[0.85rem] font-semibold uppercase tracking-[0.1em] text-(--color-footer-heading) mb-5">Quick Links</h4>
+				<h2 class="font-sans text-[0.85rem] font-semibold uppercase tracking-[0.1em] text-(--color-footer-heading) mb-5">Quick Links</h2>
 				<ul class="flex flex-col gap-2.5">
 					<li><a href="/watch" class="footer-link">Watch Online</a></li>
 					<li><a href="/about-us" class="footer-link">About Us</a></li>
@@ -14,7 +14,7 @@
 
 			<!-- About / Contact -->
 			<div>
-				<h4 class="font-sans text-[0.85rem] font-semibold uppercase tracking-[0.1em] text-(--color-footer-heading) mb-5">About</h4>
+				<h2 class="font-sans text-[0.85rem] font-semibold uppercase tracking-[0.1em] text-(--color-footer-heading) mb-5">About</h2>
 				<address class="not-italic flex flex-col gap-3 text-[0.9rem] leading-relaxed">
 					<p>15951 Winters Mill Parkway<br />Wimberley, Texas 78676</p>
 					<p><strong class="text-(--color-footer-heading) text-[0.8rem] uppercase tracking-[0.05em]">Office Phone</strong><br />512-847-9035</p>
@@ -24,7 +24,7 @@
 
 			<!-- Resources -->
 			<div>
-				<h4 class="font-sans text-[0.85rem] font-semibold uppercase tracking-[0.1em] text-(--color-footer-heading) mb-5">Resources</h4>
+				<h2 class="font-sans text-[0.85rem] font-semibold uppercase tracking-[0.1em] text-(--color-footer-heading) mb-5">Resources</h2>
 				<ul class="flex flex-col gap-2.5">
 					<li><a href="/connect" class="footer-link">Connect</a></li>
 					<li><a href="/serve-the-community" class="footer-link">Serve The Community</a></li>

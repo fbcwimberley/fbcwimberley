@@ -14,7 +14,7 @@
 <section class="visit-answers">
 	<div class="container">
 		<div class="visit-intro">
-			<p class="section-label">Plan Your Visit</p>
+			<p class="section-label section-label-on-light">Plan Your Visit</p>
 			<h2>First Baptist Church Wimberley exists to magnify Christ and share the gospel.</h2>
 			<p>
 				Join us in Wimberley, Texas for Sunday worship, find a group, discover ministries for your family, or take a clear next step with our team.

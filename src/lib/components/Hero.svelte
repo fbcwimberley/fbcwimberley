@@ -5,17 +5,17 @@
 		{
 			src: '/images/remote/fbcwimberley.com-102A6470-scaled-9eb00dbc08-1600.webp',
 			srcset:
-				'/images/remote/fbcwimberley.com-102A6470-scaled-9eb00dbc08-960.webp 960w, /images/remote/fbcwimberley.com-102A6470-scaled-9eb00dbc08-1600.webp 1600w'
+				'/images/remote/fbcwimberley.com-102A6470-scaled-9eb00dbc08-768.webp 768w, /images/remote/fbcwimberley.com-102A6470-scaled-9eb00dbc08-960.webp 960w, /images/remote/fbcwimberley.com-102A6470-scaled-9eb00dbc08-1280.webp 1280w, /images/remote/fbcwimberley.com-102A6470-scaled-9eb00dbc08-1600.webp 1600w'
 		},
 		{
 			src: '/images/remote/fbcwimberley.com-102A6447-scaled-ea6e616800-1600.webp',
 			srcset:
-				'/images/remote/fbcwimberley.com-102A6447-scaled-ea6e616800-960.webp 960w, /images/remote/fbcwimberley.com-102A6447-scaled-ea6e616800-1600.webp 1600w'
+				'/images/remote/fbcwimberley.com-102A6447-scaled-ea6e616800-768.webp 768w, /images/remote/fbcwimberley.com-102A6447-scaled-ea6e616800-960.webp 960w, /images/remote/fbcwimberley.com-102A6447-scaled-ea6e616800-1280.webp 1280w, /images/remote/fbcwimberley.com-102A6447-scaled-ea6e616800-1600.webp 1600w'
 		},
 		{
 			src: '/images/remote/fbcwimberley.com-102A5443-scaled-9aa360e309-1600.webp',
 			srcset:
-				'/images/remote/fbcwimberley.com-102A5443-scaled-9aa360e309-960.webp 960w, /images/remote/fbcwimberley.com-102A5443-scaled-9aa360e309-1600.webp 1600w'
+				'/images/remote/fbcwimberley.com-102A5443-scaled-9aa360e309-768.webp 768w, /images/remote/fbcwimberley.com-102A5443-scaled-9aa360e309-960.webp 960w, /images/remote/fbcwimberley.com-102A5443-scaled-9aa360e309-1280.webp 1280w, /images/remote/fbcwimberley.com-102A5443-scaled-9aa360e309-1600.webp 1600w'
 		}
 	];
 
@@ -33,6 +33,9 @@
 		const preloadTimer = window.setTimeout(() => {
 			for (const image of images.slice(1)) {
 				const img = new Image();
+				img.srcset = image.srcset;
+				img.sizes = '100vw';
+				img.fetchPriority = 'low';
 				img.src = image.src;
 				img.decoding = 'async';
 			}

@@ -25,7 +25,7 @@
 
 <section class="py-20 md:py-28 bg-(--color-bg-alt)">
 	<div class="relative z-1 max-w-[1200px] mx-auto px-6 text-center">
-		<p class="section-label">Get Connected</p>
+		<p class="section-label section-label-on-light">Get Connected</p>
 		<h2 class="text-[clamp(1.75rem,4vw,2.75rem)] text-(--color-heading) mb-12">There's a place for you here.</h2>
 
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
@@ -47,7 +47,7 @@
 					</div>
 					<h3 class="font-serif text-[1.3rem] font-semibold text-(--color-heading)">{feature.title}</h3>
 					<p class="text-[0.95rem] text-(--color-text-muted) leading-[1.65] max-w-[320px]">{feature.description}</p>
-					<span class="feature-link inline-flex items-center gap-1.5 text-[0.85rem] font-semibold text-(--color-accent) tracking-[0.03em] opacity-0 translate-y-1.5 transition-all duration-300 mt-1">
+					<span class="feature-link inline-flex items-center gap-1.5 text-[0.85rem] font-semibold text-(--color-accent-foreground) tracking-[0.03em] opacity-0 translate-y-1.5 transition-all duration-300 mt-1">
 						Learn more
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-300"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
 					</span>

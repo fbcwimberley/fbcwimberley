@@ -138,19 +138,13 @@
 		<a href="/" class="shrink-0">
 			<img
 				src="/images/remote/fbcwimberley.com-First-Baptist-Church-of-wimberley-Wordmark-black-17cf094f99-320.webp"
+				srcset="/images/remote/fbcwimberley.com-First-Baptist-Church-of-wimberley-Wordmark-black-17cf094f99-160.webp 160w, /images/remote/fbcwimberley.com-First-Baptist-Church-of-wimberley-Wordmark-black-17cf094f99-240.webp 240w, /images/remote/fbcwimberley.com-First-Baptist-Church-of-wimberley-Wordmark-black-17cf094f99-320.webp 320w"
+				sizes="114px"
 				alt="First Baptist Church Wimberley"
 				width="320"
 				height="112"
 				decoding="async"
-				class="logo-light h-10 w-auto hidden"
-			/>
-			<img
-				src="/images/remote/fbcwimberley.com-First-Baptist-Church-of-wimberley-Wordmark-white-2-29ef5e03e3-320.webp"
-				alt="First Baptist Church Wimberley"
-				width="320"
-				height="112"
-				decoding="async"
-				class="logo-dark h-10 w-auto block"
+				class="brand-logo h-10 w-auto block"
 			/>
 		</a>
 
@@ -380,20 +374,17 @@
 </header>
 
 <style>
-	/* Logo switching: show white logo normally, dark logo when scrolled */
-	.header.scrolled .logo-light {
-		display: block;
-	}
-	.header.scrolled .logo-dark {
-		display: none;
+	/* One responsive wordmark adapts to each header state without a duplicate image request. */
+	.brand-logo {
+		filter: brightness(0) invert(1);
 	}
 
-	/* In dark mode, always show white logo */
-	:global(.dark) .logo-light {
-		display: none !important;
+	.header.scrolled .brand-logo {
+		filter: none;
 	}
-	:global(.dark) .logo-dark {
-		display: block !important;
+
+	:global(.dark) .brand-logo {
+		filter: brightness(0) invert(1);
 	}
 
 	.header.scrolled {
