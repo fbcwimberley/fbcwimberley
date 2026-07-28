@@ -107,7 +107,7 @@
 					</div>
 					<button
 						type="submit"
-						class="arrow-slide-hover inline-flex items-center justify-center gap-2 w-full py-3.5 px-8 rounded-full bg-(--color-accent) text-white font-semibold text-[0.95rem] tracking-[0.02em] border-none cursor-pointer transition-all duration-300 hover:bg-(--color-accent-hover) hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(200,145,90,0.3)] disabled:opacity-70 disabled:cursor-not-allowed disabled:translate-y-0 disabled:shadow-none"
+						class="arrow-slide-hover inline-flex items-center justify-center gap-2 w-full py-3.5 px-8 rounded-full bg-(--color-accent) text-(--color-text-on-accent) font-semibold text-[0.95rem] tracking-[0.02em] border-none cursor-pointer transition-all duration-300 hover:bg-(--color-accent-hover) hover:text-(--color-text-on-accent) hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(200,145,90,0.3)] disabled:opacity-70 disabled:cursor-not-allowed disabled:translate-y-0 disabled:shadow-none"
 						disabled={submitting}
 					>
 						{submitting ? 'Signing Up...' : 'Sign Up'}

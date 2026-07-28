@@ -10,7 +10,7 @@
 
 <section class="relative py-20 md:py-28 bg-(--color-bg-alt) overflow-hidden">
 	<div class="relative z-1 max-w-[900px] mx-auto px-6 text-center">
-		<p class="section-label">Your Journey</p>
+		<p class="section-label section-label-on-light">Your Journey</p>
 		<h2 class="text-[clamp(2rem,4vw,3rem)] text-(--color-heading) mb-5">Take Your Next Step.</h2>
 		<p class="text-[1.05rem] text-(--color-text-muted) leading-[1.7] max-w-[680px] mx-auto mb-12">
 			Whether you're new to FBCW and are ready to surrender your life to Jesus or you've been around a while and are looking to get more connected &mdash; we want to help you take your next step to discover and deepen a relationship with Jesus.

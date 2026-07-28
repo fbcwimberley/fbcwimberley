@@ -61,8 +61,12 @@ Use this file for agent operating workflow inside the repo.
 
 ### Verification Expectations
 
+- Select focused verification from `docs/testing-and-pr-verification.md` based on the changed behavior and risk.
 - Run `bun run check` for any source-file change.
 - Run `bun run build` when routing, server integration, environment assumptions, or layout shell behavior changes.
+- GitHub Actions runs both commands and Lighthouse CI for pull requests and pushes to `main`.
+- Lighthouse audits `/`, `/connect`, and `/about-us` three times against a local production preview. Accessibility regressions fail the check; performance regressions start as warnings because shared CI runner timing is variable.
+- Download the `lighthouse-reports` artifact from a workflow run when detailed HTML and JSON audit output is needed.
 - Re-check both light and dark themes when editing shared layout or style tokens.
 - Track the portable Brain workspace, including `.brain/context/**`, `.brain/policy.yaml`, and `.brain/state/brain.sqlite3`.
 - Keep session/private Brain artifacts ignored: `.brain/session.json`, `.brain/sessions/`, `.brain/policy.override.yaml`, `.brain/state/history.jsonl`, backups, and sqlite sidecars.

@@ -15,7 +15,7 @@
 
 <section class="py-20">
 	<div class="container max-w-[800px] text-center">
-		<p class="section-label">Est. 1884</p>
+		<p class="section-label section-label-on-light">Est. 1884</p>
 		<h2 class="mb-6 text-[clamp(1.75rem,4vw,2.5rem)]">Our Story</h2>
 		<p class="text-[1.05rem] leading-[1.8] text-(--color-text-muted)">
 			The history of FBC Wimberley spans back to 1884 when a faithful group of people followed God's call to establish a mission at Jacob's Well. The story of our church, like the story of every person's life, is filled with the marks of God's grace, presence, and calling. Along the way FBC Wimberley has been on mission to be a church FOR our community and our world. FBC Wimberley has had the opportunity to reach our next door neighbors and the nations with the love of Jesus. Join us each Sunday at 9:30AM and 11:00AM to see how God could be writing the next chapter of our story with you!
@@ -40,7 +40,7 @@
 
 <section class="py-20">
 	<div class="container max-w-[800px] text-center">
-		<p class="section-label">Got Questions?</p>
+		<p class="section-label section-label-on-light">Got Questions?</p>
 		<h2 class="mb-10 text-[clamp(1.75rem,4vw,2.5rem)]">FAQs</h2>
 
 		<div class="flex flex-col gap-3 text-left">

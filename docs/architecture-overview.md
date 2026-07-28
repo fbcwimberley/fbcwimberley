@@ -130,3 +130,11 @@ This creates a rhythmic visual flow. When adding new sections, maintain this alt
 All images are stored locally in the `static/` directory as `.webp` files for optimal performance. There are no externally hosted images (except favicon.svg which remains in `static/`). Images are referenced via root-relative paths (e.g., `/images/some-photo.webp`).
 
 WebP format is used exclusively across the project for its superior compression and quality compared to JPEG/PNG.
+
+The homepage hero uses portrait-specific 480px, 768px, and native-resolution 854px crops when the viewport is portrait, plus 768px, 960px, 1280px, and 1600px landscape candidates otherwise. The portrait crops preserve source-pixel density without forcing a landscape image to scale to the full `object-cover` width before cropping. Its first image is preloaded with the same `srcset` and `sizes` used by the rendered image, and later carousel images are warmed with the matching orientation-specific values.
+
+The header uses one responsive black wordmark and CSS filters for its white-on-transparent state. This avoids downloading separate black and white logo files.
+
+## Font Loading Strategy
+
+Google Fonts is loaded asynchronously from `app.html` with `display=optional`. Fallback fonts remain immediately paintable on constrained mobile connections, and the browser can skip a late font swap instead of delaying the hero text's LCP.

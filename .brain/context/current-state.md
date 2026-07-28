@@ -1,5 +1,5 @@
 ---
-updated: "2026-05-13T00:31:01Z"
+updated: "2026-07-28T19:45:34Z"
 ---
 # Current State
 
@@ -43,6 +43,7 @@ This file is a deterministic snapshot of the repository state at the last refres
 - `/ministries/kids-ministry` is the canonical combined Kids Ministry page for preschool through 5th grade; `/ministries/preschool` and `/ministries/elementary` redirect there.
 - `src/routes/kdo-back-to-school/+page.svelte` is a hidden direct-link KDO route that stays out of public navigation and carries its own playful KDO visual treatment, native welcome video, sample schedule PDF, and back-to-school date panel.
 - `/events` and `/events/family-life-weekend` are linked through the same Planning Center helper and should be reviewed together when event logic changes.
+- Pull requests and pushes to `main` run `.github/workflows/quality.yml`, which checks and builds the app, then runs three Lighthouse CI audits against `/`, `/connect`, and `/about-us`. Accessibility and CLS regressions fail the workflow; performance regressions begin as warnings.
 - The current codebase still includes legacy external dependencies: WordPress AJAX forms on women’s ministry and Kids Day Out, LiveControl for the watch page, and Procare for Kids Day Out registration.
 - `.brain/state/brain.sqlite3` is the portable Brain index/state database and should be committed with the shared workspace.
 - Session/private artifacts under `.brain/` can remain ignored.

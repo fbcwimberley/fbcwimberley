@@ -35,4 +35,10 @@ closeout:
         - publish
         - seed
     require_memory_update_on_repo_change: true
-    verification_profiles: []
+    verification_profiles:
+        - name: check
+          commands:
+              - bun run check
+        - name: build
+          commands:
+              - bun run build
