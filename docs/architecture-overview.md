@@ -131,7 +131,7 @@ All images are stored locally in the `static/` directory as `.webp` files for op
 
 WebP format is used exclusively across the project for its superior compression and quality compared to JPEG/PNG.
 
-The homepage hero includes 768px, 960px, 1280px, and 1600px responsive candidates. Its first image is preloaded with the same `srcset` and `sizes` used by the rendered image, and later carousel images are warmed with responsive preloads so mobile devices do not download desktop-sized assets.
+The homepage hero uses portrait-specific 480px, 768px, and native-resolution 854px crops when the viewport is portrait, plus 768px, 960px, 1280px, and 1600px landscape candidates otherwise. The portrait crops preserve source-pixel density without forcing a landscape image to scale to the full `object-cover` width before cropping. Its first image is preloaded with the same `srcset` and `sizes` used by the rendered image, and later carousel images are warmed with the matching orientation-specific values.
 
 The header uses one responsive black wordmark and CSS filters for its white-on-transparent state. This avoids downloading separate black and white logo files.
 
