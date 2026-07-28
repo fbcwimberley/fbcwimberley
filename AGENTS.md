@@ -27,8 +27,9 @@ Read order before substantial work:
 7. `docs/project-overview.md`
 8. `docs/project-architecture.md`
 9. `docs/project-workflows.md`
-10. `.brain/policy.yaml`
-11. the relevant `.brain/context/*.md` files
+10. `docs/testing-and-pr-verification.md`
+11. `.brain/policy.yaml`
+12. the relevant `.brain/context/*.md` files
 
 Use Brain for retrieval and durable updates:
 
@@ -65,6 +66,8 @@ Use Brain for retrieval and durable updates:
 - use `src/lib/ui/*` and tokenized utilities for repeated interaction/styling patterns
 - keep `src/app.css` and both themes in sync when shared tokens change
 - prefer localized assets under `static/images/**`
+- select PR verification from `docs/testing-and-pr-verification.md`; do not treat check, build, Lighthouse, Vercel preview, and focused behavioral tests as substitutes for one another
+- add or update regression coverage when a suitable harness exists; otherwise name the missing coverage and perform the documented focused preview checks
 
 ## Agent Files
 

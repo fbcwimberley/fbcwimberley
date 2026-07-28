@@ -61,6 +61,7 @@ Use this file for agent operating workflow inside the repo.
 
 ### Verification Expectations
 
+- Select focused verification from `docs/testing-and-pr-verification.md` based on the changed behavior and risk.
 - Run `bun run check` for any source-file change.
 - Run `bun run build` when routing, server integration, environment assumptions, or layout shell behavior changes.
 - GitHub Actions runs both commands and Lighthouse CI for pull requests and pushes to `main`.

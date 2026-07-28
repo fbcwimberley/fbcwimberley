@@ -29,7 +29,11 @@ Use this file for agent operating workflow inside the repo.
 ### Project-Specific Workflow
 
 - Start with `README.md`, `docs/architecture-overview.md`, `docs/coding-standards.md`, `docs/design-system-governance.md`, `docs/component-guide.md`, and `docs/theming-guide.md`.
+- Read `docs/testing-and-pr-verification.md` before planning verification or publishing a PR.
 - Use `wiki/gitflow-basics.md` for the expected branch-from-main, push, PR, and Vercel-preview process.
+- Choose focused tests from the changed behavior and risk. Always distinguish static checks, build verification, Lighthouse, browser interaction tests, and manual preview review.
+- If no suitable automated harness exists, record the gap in the PR instead of claiming that `check` or `build` covers the behavior.
+- Treat root tooling changes, including `package.json`, `bun.lock`, and `tsconfig.json`, as repository configuration work that requires both check and build verification.
 - If the task affects navigation, review both the desktop and mobile nav structures in `Header.svelte`.
 - If the task affects events, review both `/events` and `/events/family-life-weekend` plus `planningCenter.ts`.
 - If the task affects styling, check both light and dark themes and any Family Life color-token exceptions.
