@@ -107,10 +107,10 @@
 				<p class="leading-[1.75] mb-5">AWANA Club is a memory-verse, missions-focused night for children to connect with other kids and leaders. AWANA is open for kids 6 weeks through 5th grade. Join any Wednesday night during the school year.</p>
 				<p class="font-semibold mb-1">Wednesdays</p>
 				<p class="mb-6">6:15 pm</p>
-				<a href="https://fbcwimberley.churchcenter.com/registrations/events/1879085" target="_blank" rel="noopener noreferrer" class="btn btn-accent hover:btn-accent-hover">Register For AWANA</a>
+				<a href="https://fbcwimberley.churchcenter.com/registrations/events/3677610" target="_blank" rel="noopener noreferrer" class="btn btn-accent hover:btn-accent-hover">Register For AWANA</a>
 			</div>
 			<div class="lg:col-span-7">
-				<img src="/images/remote/fbcwimberley.com-baptism-kids-wimberley-ba79eca700.webp" alt="Kids ministry baptism" loading="lazy" class="w-full h-full min-h-[320px] object-cover" />
+				<img src="/images/remote/awana-club-kids-bibles.webp" alt="Children holding Bibles at AWANA Club" loading="lazy" class="w-full h-full min-h-[320px] object-cover object-[center_32%]" />
 			</div>
 		</div>
 	</div>
