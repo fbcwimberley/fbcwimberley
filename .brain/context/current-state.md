@@ -1,5 +1,5 @@
 ---
-updated: "2026-08-05T15:54:27Z"
+updated: "2026-08-05T16:22:23Z"
 ---
 # Current State
 
@@ -35,8 +35,7 @@ This file is a deterministic snapshot of the repository state at the last refres
 ### What Matters In Practice
 
 - The highest-risk shared files are `src/routes/+layout.svelte`, `src/routes/+layout.server.ts`, `src/lib/components/Header.svelte`, `src/app.css`, `src/lib/stores/theme.ts`, `src/lib/server/planningCenter.ts`, and `src/routes/api/newsletter/+server.ts`.
-- The home-page promo banner is owned by `Header.svelte` and gated by `+layout.server.ts`; current VBS dismissal state uses the `vbs-banner-dismissed` cookie and should stay scoped to `/`.
-- The current VBS banner `Register Now` CTA links to Church Center registration event `3458551`.
+- The home-page promo banner is owned by `Header.svelte` and gated by `+layout.server.ts`; the One Gathering banner counts down to August 23, 2026 at 10:30 AM Central, uses the `one-gathering-banner-dismissed` cookie, and stays scoped to `/` until the gathering begins.
 - Most route work is content-heavy and local to a single page. Changes in `src/routes/about-us/**`, `src/routes/connect/+page.svelte`, `src/routes/ministries/**`, and `src/routes/chairqr/+page.svelte` usually do not require broader refactors.
 - The About area uses `/about-us/+layout.svelte` for the shared hero, `/about-us/aboutData.ts` for route-local staff/FAQ data, and three child routes: `/about-us/our-story`, `/about-us/mission-vision-values`, and `/about-us/our-team`.
 - Family Milestones now lives at `src/routes/ministries/family-milestones/+page.svelte`, with shared milestone copy/data in `src/lib/familyMilestones.ts` and reusable preview/icon UI in `src/lib/ui/FamilyMilestonePreview.svelte` and `src/lib/ui/FamilyMilestoneIcon.svelte`; keep those shared files aligned with `src/lib/components/Header.svelte`, `/ministries/kids-ministry`, and the Student Ministry page when milestone content changes.

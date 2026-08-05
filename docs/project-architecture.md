@@ -31,7 +31,7 @@ Use this file for the structural shape of the repository.
 ### Navigation And Banner Model
 
 - `Header.svelte` owns both desktop hover menus and mobile accordion menus, so navigation edits must stay in sync in two places.
-- The home-page promo banner is only shown on `/`, only while the header is not scrolled, and can be dismissed for one hour via the current promo cookie such as `vbs-banner-dismissed`.
+- The home-page promo banner is only shown on `/`, only while the header is not scrolled, and can be dismissed for one hour. The current One Gathering campaign uses `one-gathering-banner-dismissed` and automatically stops rendering when its August 23, 2026 at 10:30 AM Central countdown reaches zero.
 - Header scroll state also controls logo variant swaps and transparent-vs-solid header styling.
 
 ### Styling And Theme System
