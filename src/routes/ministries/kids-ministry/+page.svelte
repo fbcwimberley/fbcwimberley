@@ -110,7 +110,7 @@
 				<a href="https://fbcwimberley.churchcenter.com/registrations/events/3677610" target="_blank" rel="noopener noreferrer" class="btn btn-accent hover:btn-accent-hover">Register For AWANA</a>
 			</div>
 			<div class="lg:col-span-7">
-				<img src="/images/remote/fbcwimberley.com-baptism-kids-wimberley-ba79eca700.webp" alt="Kids ministry baptism" loading="lazy" class="w-full h-full min-h-[320px] object-cover" />
+				<img src="/images/remote/awana-club-kids-bibles.webp" alt="Children holding Bibles at AWANA Club" loading="lazy" class="w-full h-full min-h-[320px] object-cover object-[center_32%]" />
 			</div>
 		</div>
 	</div>
