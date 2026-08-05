@@ -1,5 +1,5 @@
 ---
-updated: "2026-08-05T15:48:44Z"
+updated: "2026-08-05T15:54:27Z"
 ---
 # Current State
 
@@ -41,7 +41,7 @@ This file is a deterministic snapshot of the repository state at the last refres
 - The About area uses `/about-us/+layout.svelte` for the shared hero, `/about-us/aboutData.ts` for route-local staff/FAQ data, and three child routes: `/about-us/our-story`, `/about-us/mission-vision-values`, and `/about-us/our-team`.
 - Family Milestones now lives at `src/routes/ministries/family-milestones/+page.svelte`, with shared milestone copy/data in `src/lib/familyMilestones.ts` and reusable preview/icon UI in `src/lib/ui/FamilyMilestonePreview.svelte` and `src/lib/ui/FamilyMilestoneIcon.svelte`; keep those shared files aligned with `src/lib/components/Header.svelte`, `/ministries/kids-ministry`, and the Student Ministry page when milestone content changes.
 - `/ministries/kids-ministry` is the canonical combined Kids Ministry page for preschool through 5th grade; `/ministries/preschool` and `/ministries/elementary` redirect there.
-- The Kids Ministry AWANA section uses the localized `awana-club-kids-bibles.webp` photo, and its registration CTA points to Church Center event `3677610`.
+- The Kids Ministry AWANA section uses the localized `awana-club-kids-bibles.webp` photo, and its registration CTA points to Church Center event `3782742`.
 - `src/routes/kdo-back-to-school/+page.svelte` is a hidden direct-link KDO route that stays out of public navigation and carries its own playful KDO visual treatment, native welcome video, sample schedule PDF, and back-to-school date panel.
 - `/events` and `/events/family-life-weekend` are linked through the same Planning Center helper and should be reviewed together when event logic changes.
 - Pull requests and pushes to `main` run `.github/workflows/quality.yml`, which checks and builds the app, then runs three Lighthouse CI audits against `/`, `/connect`, and `/about-us`. Accessibility and CLS regressions fail the workflow; performance regressions begin as warnings.
