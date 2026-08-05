@@ -1,11 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import {
+		getHomePromoCountdown,
+		HOME_PROMO_BANNER_KEY,
+		HOME_PROMO_MESSAGE,
+		HOME_PROMO_STARTS_AT,
+		HOME_PROMO_STARTS_AT_MS
+	} from '$lib/homePromo';
 	import { onMount } from 'svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 
-	const HOME_PROMO_BANNER_KEY = 'vbs-banner-dismissed';
 	const HOME_PROMO_DISMISS_DURATION_MS = 60 * 60 * 1000;
 	const HOME_PROMO_COOKIE_ATTRIBUTES = '; Path=/; Max-Age=3600; SameSite=Lax';
+	const HOME_PROMO_COUNTDOWN_INTERVAL_MS = 1000;
 
 	let { showHomePromoBanner: initialShowHomePromoBanner } = $props<{
 		showHomePromoBanner: boolean;
@@ -19,12 +26,18 @@
 	let serveOpen = $state(false);
 	let scrolled = $state(false);
 	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('default');
+	let countdownNow = $state<number | null>(null);
+
+	const countdown = $derived(
+		countdownNow === null ? null : getHomePromoCountdown(countdownNow)
+	);
 
 	const shouldShowHomePromoBanner = $derived(
 		initialShowHomePromoBanner &&
 		page.url.pathname === '/' &&
 		!scrolled &&
-		bannerVisibilityOverride !== 'hidden'
+		bannerVisibilityOverride !== 'hidden' &&
+		(countdownNow === null || countdownNow < HOME_PROMO_STARTS_AT_MS)
 	);
 
 	let aboutTimer: ReturnType<typeof setTimeout> | undefined;
@@ -32,6 +45,7 @@
 	let careTimer: ReturnType<typeof setTimeout> | undefined;
 	let serveTimer: ReturnType<typeof setTimeout> | undefined;
 	let bannerResetTimer: ReturnType<typeof setTimeout> | undefined;
+	let countdownTimer: ReturnType<typeof setInterval> | undefined;
 
 	function handleScroll() {
 		scrolled = window.scrollY > 50;
@@ -41,6 +55,22 @@
 		if (bannerResetTimer) {
 			clearTimeout(bannerResetTimer);
 			bannerResetTimer = undefined;
+		}
+	}
+
+	function clearCountdownTimer() {
+		if (countdownTimer) {
+			clearInterval(countdownTimer);
+			countdownTimer = undefined;
+		}
+	}
+
+	function updateCountdown() {
+		const now = Date.now();
+		countdownNow = now;
+
+		if (now >= HOME_PROMO_STARTS_AT_MS) {
+			clearCountdownTimer();
 		}
 	}
 
@@ -105,9 +135,15 @@
 	onMount(() => {
 		handleScroll();
 		syncBannerDismissState();
+		updateCountdown();
+
+		if (Date.now() < HOME_PROMO_STARTS_AT_MS) {
+			countdownTimer = setInterval(updateCountdown, HOME_PROMO_COUNTDOWN_INTERVAL_MS);
+		}
 
 		return () => {
 			clearBannerResetTimer();
+			clearCountdownTimer();
 		};
 	});
 
@@ -281,16 +317,33 @@
 
 	{#if shouldShowHomePromoBanner}
 		<div class="relative border-t border-white/10 bg-[rgba(26,18,13,0.82)] text-white backdrop-blur-sm">
-			<div class="container px-12 py-3 sm:px-14">
-				<div class="flex items-center justify-center text-center">
-					<p class="max-w-[40rem] text-sm font-semibold tracking-[0.06em] sm:text-[0.95rem]">
-						Pray for our students while they are at KidsCamp this week!
+			<div class="container px-12 py-2.5 sm:px-14">
+				<div class="flex flex-col items-center justify-center gap-1.5 text-center sm:flex-row sm:gap-3">
+					<p class="text-sm font-semibold tracking-[0.04em] sm:text-[0.95rem]">
+						<time datetime={HOME_PROMO_STARTS_AT} aria-label="One Gathering begins August 23, 2026 at 10:30 AM Central Time">
+							{HOME_PROMO_MESSAGE}
+						</time>
 					</p>
+					{#if countdown}
+						<span class="hidden text-white/40 sm:inline" aria-hidden="true">•</span>
+						<p
+							class="flex items-baseline justify-center gap-2 whitespace-nowrap text-[0.78rem] font-semibold tracking-[0.06em] text-white/90 tabular-nums sm:text-sm"
+							role="timer"
+							aria-label={`${countdown.days} days, ${countdown.hours} hours, ${countdown.minutes} minutes, ${countdown.seconds} seconds until One Gathering`}
+						>
+							<span>{countdown.days}<span class="ml-0.5 text-[0.62rem] uppercase text-white/60">d</span></span>
+							<span>{countdown.hours}<span class="ml-0.5 text-[0.62rem] uppercase text-white/60">h</span></span>
+							<span>{countdown.minutes}<span class="ml-0.5 text-[0.62rem] uppercase text-white/60">m</span></span>
+							<span>{countdown.seconds}<span class="ml-0.5 text-[0.62rem] uppercase text-white/60">s</span></span>
+						</p>
+					{:else}
+						<p class="h-5 w-[11rem]" aria-hidden="true"></p>
+					{/if}
 				</div>
 			</div>
 			<button
 				type="button"
-				class="absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-red-400 transition hover:text-red-300 sm:right-6"
+				class="absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-white/65 transition-colors hover:text-white sm:right-6"
 				onclick={dismissHomePromoBanner}
 				aria-label="Dismiss event banner"
 			>
