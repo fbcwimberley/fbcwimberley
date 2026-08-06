@@ -30,30 +30,31 @@
 
 	const ageOneTeachers = [
 		{ name: 'Evonne Dingman', image: '/images/remote/fbcwimberley.com-Evonne-Dingman-9eced58b45.webp' },
-		{ name: 'Abigail Morehous', image: '/images/remote/fbcwimberley.com-Abigail-Morehous-2136d9df80.webp' },
+		{ name: 'Lisa Vrana', image: '/images/remote/fbcwimberley.com-Lisa-Vrana-4b4ac522de.webp' },
 		{ name: 'Brianna Pietrowski', image: '/images/remote/fbcwimberley.com-Brianna-Pietrowski-8fe2752759.webp' },
-		{ name: 'Lisa Vrana', image: '/images/remote/fbcwimberley.com-Lisa-Vrana-4b4ac522de.webp' }
+		{ name: 'Shea Schmidt', image: '/images/kdo/shea-schmidt.jpg' }
 	];
 
 	const ageTwoTeachers = [
-		{ name: 'Shannon Atkins', image: '/images/remote/fbcwimberley.com-Shannon-Atkins-ae5256c66a.webp' },
-		{ name: 'Jenna Dysart', image: '/images/remote/fbcwimberley.com-Jenna-Dysart-4333c767c9.webp' },
-		{ name: 'Kristin Knipp', image: '/images/remote/fbcwimberley.com-Kristin-Knipp-9612a1fe67.webp' },
-		{ name: 'Rebekah Presley', image: '/images/remote/fbcwimberley.com-Rebekah-Presley-3ef803f787.webp' }
+		{ name: 'Abigail Morehous', image: '/images/remote/fbcwimberley.com-Abigail-Morehous-2136d9df80.webp' },
+		{ name: 'Tabetha Raquet', image: '/images/kdo/tabetha-raquet.jpg' },
+		{ name: 'Bailey Wilganowski', image: '/images/kdo/bailey-wilganowski.jpg' },
+		{ name: 'Kellie Cook', image: '/images/kdo/kellie-cook.jpg' }
 	];
 
 	const ageThreeTeachers = [
+		{ name: 'Shannon Atkins', image: '/images/kdo/shannon-atkins.jpg' },
+		{ name: 'Sara Richart', image: '/images/remote/fbcwimberley.com-Sara-Richart-b6723d1ecd.webp' },
 		{ name: 'Lauren Badillo', image: '/images/remote/fbcwimberley.com-Lauren-Badillo-ce17e801f4.webp' },
-		{ name: 'Joyce Hurt', image: '/images/remote/fbcwimberley.com-Joyce-Hurt-75848d562d.webp' },
 		{ name: 'Michelle Robinson', image: '/images/remote/fbcwimberley.com-Michelle-Robinson-23001d70cb.webp' }
 	];
 
 	const ageFourTeachers = [
-		{ name: 'Barbara Scherff', image: '/images/remote/fbcwimberley.com-Barbara-Scherff-2026.jpg' },
+		{ name: 'Joyce Hurt', image: '/images/remote/fbcwimberley.com-Joyce-Hurt-75848d562d.webp' },
 		{ name: 'Caitlyn Scrogin', image: '/images/remote/fbcwimberley.com-Caitlyn-Scrogin-0861dd56dd.webp' }
 	];
 
-	const supportTeachers = [{ name: 'Sara Richart', image: '/images/remote/fbcwimberley.com-Sara-Richart-b6723d1ecd.webp' }];
+	const supportTeachers = [{ name: 'Lauren Whatley', image: '/images/kdo/lauren-whatley.jpg' }];
 
 	let name = $state('');
 	let email = $state('');
