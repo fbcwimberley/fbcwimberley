@@ -241,7 +241,7 @@
 		</div>
 
 		<div class="staff-group">
-			<h3>Specials &amp; Support Teachers</h3>
+			<h3>Specials and Support Teacher</h3>
 			<div class="staff-grid staff-grid--one">
 				{#each supportTeachers as person}
 					<div class="staff-card">
