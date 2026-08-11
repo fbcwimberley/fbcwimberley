@@ -9,7 +9,7 @@
 	<title>Student Ministry - First Baptist Church Wimberley</title>
 	<meta
 		name="description"
-		content="Student Ministry at FBC Wimberley helping 6th-12th graders build a faith of their own. Sundays 9:30AM and Wednesdays 6:15-8:00PM."
+		content="Student Ministry at FBC Wimberley helping 6th-12th graders build a faith of their own. Sundays 9:30AM and Wednesdays 6:15-7:45PM."
 	/>
 </svelte:head>
 
@@ -36,7 +36,7 @@
 				<p class="mb-4">9:30 am</p>
 
 				<p class="font-semibold mb-1">Wednesday</p>
-				<p>6:15 - 8:00 pm</p>
+				<p>6:15 - 7:45 pm</p>
 			</div>
 		</div>
 	</div>
