@@ -420,6 +420,7 @@ const CATEGORY_OVERRIDES: Record<string, string> = {
 	'3369755': 'Senior Adults',
 	'3391833': 'Church Family',
 	'3413058': 'Senior Adults',
+	'3758706': 'Senior Adults',
 	'3413391': 'Church Family',
 	'3441306': 'Church Family',
 	'3449516': 'Church Family',
