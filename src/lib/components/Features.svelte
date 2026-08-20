@@ -6,19 +6,22 @@
 			icon: 'tv',
 			title: 'Watch Sunday Worship Online',
 			description: 'Join First Baptist Church Wimberley each Sunday for a live stream of our 9:30AM worship gathering or watch on demand any time of the week.',
-			href: '/watch'
+			href: '/watch',
+			external: false
 		},
 		{
 			icon: 'calendar',
 			title: 'Find Upcoming Church Events',
 			description: "There's always something happening in the life of our church. Browse upcoming events, gatherings, and registrations.",
-			href: '/events'
+			href: '/events',
+			external: false
 		},
 		{
 			icon: 'users',
 			title: 'Join a Group in Wimberley',
 			description: 'Life is not meant to be lived alone. Find people who can help you grow in your desire to know Jesus.',
-			href: 'https://fbcwimberley.churchcenter.com/groups'
+			href: 'https://fbcwimberley.churchcenter.com/groups',
+			external: true
 		}
 	];
 </script>
@@ -34,7 +37,8 @@
 					href={feature.href}
 					hover={false}
 					class="feature-card group flex flex-col items-center text-center gap-4 py-10 px-8 lg:py-12 lg:px-8 no-underline transition-all duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1.5 hover:shadow-[var(--shadow-lg)]"
-					target={feature.href.startsWith('https://fbcwimberley.com') ? undefined : '_blank'}
+					target={feature.external ? '_blank' : undefined}
+					rel={feature.external ? 'noopener noreferrer' : undefined}
 				>
 					<div class="flex items-center justify-center w-16 h-16 bg-[rgba(200,145,90,0.15)] text-(--color-accent) rounded-full border border-[rgba(200,145,90,0.25)]">
 						{#if feature.icon === 'tv'}

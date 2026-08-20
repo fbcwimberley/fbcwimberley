@@ -8,6 +8,7 @@ const ORGANIZATION_TIME_ZONE = 'America/Chicago';
 
 // Limit the number of concurrent upstream API requests when loading events.
 const EVENTS_CONCURRENCY_LIMIT = 5;
+const PLANNING_CENTER_REQUEST_TIMEOUT_MS = 8_000;
 
 async function mapWithConcurrency<T, R>(
 	items: T[],
@@ -152,7 +153,8 @@ async function fetchJson<T>(pathOrUrl: string) {
 		headers: {
 			Authorization: getBasicAuthHeader(),
 			Accept: 'application/json'
-		}
+		},
+		signal: AbortSignal.timeout(PLANNING_CENTER_REQUEST_TIMEOUT_MS)
 	});
 
 	if (!response.ok) {
