@@ -5,9 +5,11 @@ const EVENT_ID = '3413391';
 const REGISTER_URL = `https://fbcwimberley.churchcenter.com/registrations/events/${EVENT_ID}/reservations/new`;
 const EVENT_URL = `https://fbcwimberley.churchcenter.com/registrations/events/${EVENT_ID}`;
 const ORGANIZATION_TIME_ZONE = 'America/Chicago';
+const UNARCHIVED_SIGNUPS_PATH = '/registrations/v2/signups?filter=unarchived';
 
 // Limit the number of concurrent upstream API requests when loading events.
 const EVENTS_CONCURRENCY_LIMIT = 5;
+const PLANNING_CENTER_REQUEST_TIMEOUT_MS = 8_000;
 
 async function mapWithConcurrency<T, R>(
 	items: T[],
@@ -152,7 +154,8 @@ async function fetchJson<T>(pathOrUrl: string) {
 		headers: {
 			Authorization: getBasicAuthHeader(),
 			Accept: 'application/json'
-		}
+		},
+		signal: AbortSignal.timeout(PLANNING_CENTER_REQUEST_TIMEOUT_MS)
 	});
 
 	if (!response.ok) {
@@ -353,12 +356,11 @@ function buildFallbackModel(): EventPageModel {
 }
 
 async function findSignupForEvent() {
-	const signups = await fetchCollection<SignupAttributes>('/registrations/v2/signups');
+	const response = await fetchJson<PlanningCenterDocumentResponse<SignupAttributes>>(
+		`/registrations/v2/signups/${EVENT_ID}`
+	);
 
-	return signups.find((signup) => {
-		const url = signup.attributes.new_registration_url ?? '';
-		return url.includes(`/${EVENT_ID}/`) || url.endsWith(`/${EVENT_ID}`) || url.includes(EVENT_ID);
-	});
+	return response.data;
 }
 
 function choosePrimaryTime(times: Array<PlanningCenterResource<SignupTimeAttributes>>) {
@@ -513,7 +515,7 @@ function buildFallbackEventsListModel(): EventsListPageModel {
 
 export async function getUpcomingEvents(limit = Number.POSITIVE_INFINITY): Promise<EventsListPageModel> {
 	try {
-		const signups = await fetchCollection<SignupAttributes>('/registrations/v2/signups');
+		const signups = await fetchCollection<SignupAttributes>(UNARCHIVED_SIGNUPS_PATH);
 		const openSignups = signups.filter(isSignupCurrentlyOpen);
 		const events = await mapWithConcurrency(openSignups, EVENTS_CONCURRENCY_LIMIT, async (signup) => {
 			const signupId = signup.id;
