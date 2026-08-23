@@ -1,17 +1,23 @@
-export const homepageQuestions = [
-	{
-		question: 'What time are Sunday services at First Baptist Church Wimberley?',
-		answer: 'First Baptist Church Wimberley gathers for Sunday worship at 9:30 AM and 11:00 AM.'
-	},
-	{
-		question: 'Where is First Baptist Church Wimberley located?',
-		answer: 'First Baptist Church Wimberley is located at 15951 Winters Mill Parkway in Wimberley, Texas 78676.'
-	},
-	{
-		question: "What is the best next step if I'm new?",
-		answer: 'Start with Plan Your Visit, watch a Sunday service online, or use the Connect page so the church team can help you find groups, ministries, and events.'
-	}
-] as const;
+import { getGatheringSchedule } from '$lib/gatheringSchedule';
+
+export function getHomepageQuestions(now = new Date()) {
+	const schedule = getGatheringSchedule(now);
+
+	return [
+		{
+			question: 'What time are Sunday services at First Baptist Church Wimberley?',
+			answer: schedule.service
+		},
+		{
+			question: 'Where is First Baptist Church Wimberley located?',
+			answer: 'First Baptist Church Wimberley is located at 15951 Winters Mill Parkway in Wimberley, Texas 78676.'
+		},
+		{
+			question: "What is the best next step if I'm new?",
+			answer: 'Start with Plan Your Visit, watch a Sunday service online, or use the Connect page so the church team can help you find groups, ministries, and events.'
+		}
+	] as const;
+}
 
 export const visitorActions = [
 	{

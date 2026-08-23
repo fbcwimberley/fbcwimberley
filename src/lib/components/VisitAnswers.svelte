@@ -1,7 +1,11 @@
 <script lang="ts">
-	import { homepageQuestions, visitorActions } from '$lib/homepageContent';
+	import { onMount } from 'svelte';
+	import { watchGatheringSchedule } from '$lib/gatheringSchedule';
+	import { getHomepageQuestions, visitorActions } from '$lib/homepageContent';
 	import { siteLastModified } from '$lib/seo';
 	import Button from '$lib/ui/Button.svelte';
+
+	let homepageQuestions = $state(getHomepageQuestions());
 
 	const formattedDate = new Intl.DateTimeFormat('en-US', {
 		month: 'long',
@@ -9,6 +13,12 @@
 		year: 'numeric',
 		timeZone: 'UTC'
 	}).format(new Date(`${siteLastModified}T00:00:00Z`));
+
+	onMount(() => {
+		return watchGatheringSchedule(() => {
+			homepageQuestions = getHomepageQuestions();
+		});
+	});
 </script>
 
 <section class="visit-answers">

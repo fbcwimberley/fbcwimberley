@@ -4,10 +4,11 @@
 	import Features from '$lib/components/Features.svelte';
 	import Newsletter from '$lib/components/Newsletter.svelte';
 	import NextStep from '$lib/components/NextStep.svelte';
-	import { homepageQuestions } from '$lib/homepageContent';
+	import { getHomepageQuestions } from '$lib/homepageContent';
 	import { canonicalUrl, churchInfo, siteDescription, siteLastModified, siteName, siteUrl } from '$lib/seo';
 
 	const jsonLdTag = 'script';
+	const homepageQuestions = getHomepageQuestions();
 	const homeUrl = canonicalUrl('/');
 	const structuredData = JSON.stringify({
 		'@context': 'https://schema.org',
