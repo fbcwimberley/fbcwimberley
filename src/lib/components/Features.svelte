@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { getGatheringSchedule, watchGatheringSchedule } from '$lib/gatheringSchedule';
 	import Card from '$lib/ui/Card.svelte';
+
+	let gatheringSchedule = $state(getGatheringSchedule());
 
 	const features = [
 		{
@@ -24,6 +28,12 @@
 			external: true
 		}
 	];
+
+	onMount(() => {
+		return watchGatheringSchedule(() => {
+			gatheringSchedule = getGatheringSchedule();
+		});
+	});
 </script>
 
 <section class="py-20 md:py-28 bg-(--color-bg-alt)">
@@ -50,7 +60,7 @@
 						{/if}
 					</div>
 					<h3 class="font-serif text-[1.3rem] font-semibold text-(--color-heading)">{feature.title}</h3>
-					<p class="text-[0.95rem] text-(--color-text-muted) leading-[1.65] max-w-[320px]">{feature.description}</p>
+					<p class="text-[0.95rem] text-(--color-text-muted) leading-[1.65] max-w-[320px]">{feature.icon === 'tv' ? gatheringSchedule.online : feature.description}</p>
 					<span class="feature-link inline-flex items-center gap-1.5 text-[0.85rem] font-semibold text-(--color-accent-foreground) tracking-[0.03em] opacity-0 translate-y-1.5 transition-all duration-300 mt-1">
 						Learn more
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform duration-300"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
