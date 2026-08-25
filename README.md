@@ -63,16 +63,32 @@ bun install
 
 ### 2) Configure environment variables
 
-Create `.env` with:
+Create `.env.local` from `.env.example`, then replace the placeholders with real values:
+
+```bash
+cp .env.example .env.local
+```
+
+The required variables are:
 
 ```bash
 MAILCHIMP_API_KEY=your-key-usXX
 MAILCHIMP_AUDIENCE_ID=your-audience-id
 PLANNINGCENTER_CLIENT_ID=your-client-id
 PLANNINGCENTER_PAT=your-personal-access-token
-# Optional fallback name used by the API route:
+# Optional legacy fallback name used by the API route:
 # MAILCHIMP_LIST_ID=your-audience-id
 ```
+
+### Mailchimp setup
+
+The newsletter endpoint needs one Mailchimp Marketing API key and the ID of the audience that should receive website signups.
+
+1. In Mailchimp, open **Audience**, select the audience, choose **More options → Audience settings**, and copy **Audience ID**.
+2. Open your profile, choose **Profile → Extras → API keys**, select **Create A Key**, and copy the new key immediately. The key includes a data-center suffix such as `-us21`; the endpoint uses that suffix to select the Mailchimp API region.
+3. In the Vercel project, open **Settings → Environment Variables** and add `MAILCHIMP_API_KEY` and `MAILCHIMP_AUDIENCE_ID`. Apply them to **Production** and **Preview** as needed, then redeploy. Environment variable changes do not affect an existing deployment until it is redeployed.
+
+Never commit `.env.local` or paste the API key into source control. If a key is lost, generate a new one in Mailchimp and replace the Vercel value.
 
 ### 3) Run the app
 
