@@ -68,10 +68,6 @@ type SignupAttributes = {
 	archived?: boolean;
 };
 
-type CategoryAttributes = {
-	name?: string;
-};
-
 type SignupTimeAttributes = {
 	starts_at?: string;
 	ends_at?: string;
@@ -115,7 +111,6 @@ export type EventPageModel = {
 export type EventsListItem = {
 	id: string;
 	title: string;
-	category: string;
 	descriptionText: string;
 	heroImageUrl: string | null;
 	registerUrl: string;
@@ -131,7 +126,6 @@ export type EventsListItem = {
 
 export type EventsListPageModel = {
 	events: EventsListItem[];
-	categories: string[];
 	featuredEventId: string | null;
 	loadError: boolean;
 };
@@ -414,73 +408,8 @@ function isSignupCurrentlyOpen(signup: PlanningCenterResource<SignupAttributes>)
 	return openTs <= now && now <= closeTs;
 }
 
-const CATEGORY_OVERRIDES: Record<string, string> = {
-	'3081226': 'Kids Ministry',
-	'3204911': 'Student Ministry',
-	'3206612': 'Kids Ministry',
-	'3340252': 'Student Ministry',
-	'3369755': 'Senior Adults',
-	'3391833': 'Church Family',
-	'3413058': 'Senior Adults',
-	'3758706': 'Senior Adults',
-	'3413391': 'Church Family',
-	'3441306': 'Church Family',
-	'3449516': 'Church Family',
-	'3455058': 'Church Family',
-	'3455252': 'Church Family',
-	'3458551': 'Kids Ministry',
-	'3458935': 'Kids Ministry',
-	'3466682': 'Church Family',
-	'3468492': 'Church Family',
-	'3468497': 'Church Family'
-};
-
-function determineCategory(signupId: string, title: string, descriptionText: string) {
-	const override = CATEGORY_OVERRIDES[signupId];
-
-	if (override) {
-		return override;
-	}
-
-	const haystack = `${title} ${descriptionText}`.toLowerCase();
-
-	if (/(women|ladies|sisterhood)/.test(haystack)) {
-		return "Women's Ministry";
-	}
-
-	if (/(men|mens|men's)/.test(haystack)) {
-		return "Men's Ministry";
-	}
-
-	if (/(awana|vbs|kids camp|kid|ministry to kids|preteen|children)/.test(haystack)) {
-		return 'Kids Ministry';
-	}
-
-	if (/(student|youth|high school|junior high|6th|7th|8th|glorieta|camp)/.test(haystack)) {
-		return 'Student Ministry';
-	}
-
-	if (/(senior adult|railroad|highland lakes)/.test(haystack)) {
-		return 'Senior Adults';
-	}
-
-	if (/(life group|small group)/.test(haystack)) {
-		return 'Life Groups';
-	}
-
-	if (/(care|support|grief|recovery|counsel)/.test(haystack)) {
-		return 'Care and Support';
-	}
-
-	if (/(summer)/.test(haystack)) {
-		return 'Summer';
-	}
-
-	return 'Church Family';
-}
-
 function isFeatureableEvent(event: EventsListItem) {
-	const haystack = `${event.title} ${event.category} ${event.descriptionText}`.toLowerCase();
+	const haystack = `${event.title} ${event.descriptionText}`.toLowerCase();
 
 	// AWANA runs through most of the school year, so keep it in the list without pinning it as featured.
 	return !/\bawana\b/.test(haystack);
@@ -492,7 +421,6 @@ function buildFallbackEventsListModel(): EventsListPageModel {
 			{
 				id: EVENT_ID,
 				title: 'Family Life Weekend',
-				category: 'Church Family',
 				descriptionText:
 					'Join us for Family Life Weekend at First Baptist Church Wimberley. Register through Church Center to reserve your spot and view the latest schedule details.',
 				heroImageUrl: null,
@@ -507,7 +435,6 @@ function buildFallbackEventsListModel(): EventsListPageModel {
 				registrationWindow: null
 			}
 		],
-		categories: ['Church Family'],
 		featuredEventId: EVENT_ID,
 		loadError: true
 	};
@@ -537,7 +464,6 @@ export async function getUpcomingEvents(limit = Number.POSITIVE_INFINITY): Promi
 			return {
 				id: signupId,
 				title,
-				category: determineCategory(signupId, title, descriptionText),
 				descriptionText,
 				heroImageUrl: signup.attributes.logo_url ?? null,
 				registerUrl: toChurchCenterRegistrationUrl(signupId, registrationUrl),
@@ -571,14 +497,8 @@ export async function getUpcomingEvents(limit = Number.POSITIVE_INFINITY): Promi
 			? [featuredEvent, ...sorted.filter((event) => event.id !== featuredEvent.id)]
 			: sorted;
 		const visibleEvents = Number.isFinite(limit) ? ordered.slice(0, limit) : ordered;
-		const availableCategories = visibleEvents
-			.map((event) => event.category?.trim() ?? '')
-			.filter((category, index, all): category is string => category.length > 0 && all.indexOf(category) === index)
-			.sort((a, b) => a.localeCompare(b));
-
 		return {
 			events: visibleEvents,
-			categories: availableCategories,
 			featuredEventId: featuredEvent?.id ?? null,
 			loadError: false
 		};

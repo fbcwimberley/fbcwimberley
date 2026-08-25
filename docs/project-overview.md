@@ -45,7 +45,7 @@ Primary runtime: `node`
 - `/about-us`: redirects to `/about-us/our-story`; the About area is split into `/about-us/our-story`, `/about-us/mission-vision-values`, and `/about-us/our-team`.
 - `/connect`: next-step funnel for Sunday attendance, groups, online giving, and a Church Center next-step form.
 - `/watch`: livestream embed page using a LiveControl iframe.
-- `/events`: server-rendered Planning Center event list with a featured event, category filter, and direct registration/detail links.
+- `/events`: server-rendered Planning Center event list with a featured event and direct registration/detail links.
 - `/events/family-life-weekend`: server-rendered detail page for the featured Family Life Weekend registration sourced from Planning Center.
 - `/kdo-back-to-school`: hidden direct-link landing page for KDO families that consolidates back-to-school details, pending paperwork links, and launch-specific reminders outside public navigation.
 - `/ministries`: index of ministry areas linking to both internal pages and external Church Center group destinations.
