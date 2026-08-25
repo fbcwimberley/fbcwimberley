@@ -6,20 +6,13 @@
 	let { data }: { data: PageData } = $props();
 
 	const model = $derived(data.events);
-	let selectedCategory = $state('All Categories');
-	const categoryOptions = $derived(['All Categories', ...model.categories]);
-	const filteredEvents = $derived(
-		selectedCategory === 'All Categories'
-			? model.events
-			: model.events.filter((event) => event.category === selectedCategory)
-	);
 	const featured = $derived(
 		model.featuredEventId
 			? model.events.find((event) => event.id === model.featuredEventId) ?? null
 			: null
 	);
 	const listedEvents = $derived(
-		featured ? filteredEvents.filter((event) => event.id !== featured.id) : filteredEvents
+		featured ? model.events.filter((event) => event.id !== featured.id) : model.events
 	);
 
 	function excerpt(text: string, max = 190) {
@@ -124,7 +117,6 @@
 							<div class="featured-hero-overlay"></div>
 							<div class="relative z-1 p-7 md:p-10">
 								<p class="section-label text-white!">Featured Event</p>
-								<p class="featured-category-badge">{featured.category}</p>
 								<h2 class="max-w-[12ch] text-[clamp(1.9rem,4.2vw,3rem)] text-white">
 									{featured.title}
 								</h2>
@@ -199,14 +191,6 @@
 						<p class="section-label">{featured ? 'More Events' : 'Upcoming Events'}</p>
 						<h2 class="text-[clamp(1.65rem,4vw,2.35rem)]">{featured ? 'Everything coming up' : 'All published registrations'}</h2>
 					</div>
-					<div class="filter-shell">
-						<label class="filter-label" for="event-category">Category</label>
-						<select id="event-category" bind:value={selectedCategory} class="event-filter-select">
-							{#each categoryOptions as category}
-								<option value={category}>{category}</option>
-							{/each}
-						</select>
-					</div>
 				</div>
 
 				{#if listedEvents.length > 0}
@@ -222,7 +206,6 @@
 										></div>
 									{/if}
 									<div>
-										<p class="event-category-badge">{event.category}</p>
 										{#if event.startText}
 											<p class="text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-(--color-accent)">
 												{event.startText}
@@ -268,7 +251,7 @@
 				{:else}
 					<div class="rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-8 shadow-(--shadow-sm)">
 						<p class="max-w-[42rem] text-(--color-text-muted) leading-[1.8]">
-							{featured ? 'No additional events' : 'No events'} for {selectedCategory} currently.
+							{featured ? 'No additional events' : 'No events'} currently.
 						</p>
 					</div>
 				{/if}
@@ -314,25 +297,6 @@
 			linear-gradient(180deg, rgba(8, 10, 19, 0.16) 0%, rgba(8, 10, 19, 0.72) 100%);
 	}
 
-	.featured-category-badge,
-	.event-category-badge {
-		display: inline-flex;
-		align-items: center;
-		border-radius: 999px;
-		padding: 0.38rem 0.72rem;
-		font-size: 0.72rem;
-		font-weight: 700;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-	}
-
-	.featured-category-badge {
-		margin-top: 0.9rem;
-		background: rgba(255, 255, 255, 0.12);
-		color: rgba(255, 255, 255, 0.92);
-		backdrop-filter: blur(8px);
-	}
-
 	.featured-side {
 		display: flex;
 		min-height: 100%;
@@ -349,48 +313,6 @@
 		margin-top: 2rem;
 		padding-top: 1.5rem;
 		border-top: 1px solid var(--color-border-light);
-	}
-
-	.event-category-badge {
-		margin-bottom: 0.9rem;
-		background: rgba(68, 111, 137, 0.12);
-		color: var(--color-accent);
-	}
-
-	.filter-shell {
-		display: flex;
-		flex-direction: column;
-		gap: 0.45rem;
-		min-width: min(100%, 260px);
-	}
-
-	.filter-label {
-		font-size: 0.8rem;
-		font-weight: 700;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--color-text-muted);
-	}
-
-	.event-filter-select {
-		appearance: none;
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius-md);
-		background:
-			linear-gradient(180deg, color-mix(in srgb, var(--color-bg-card) 94%, white) 0%, color-mix(in srgb, var(--color-bg-card) 88%, var(--color-bg)) 100%),
-			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23989d9f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-				no-repeat right 0.9rem center / 1rem;
-		color: var(--color-text);
-		padding: 0.92rem 2.8rem 0.92rem 1rem;
-		font: inherit;
-		box-shadow: var(--shadow-sm);
-		color-scheme: light dark;
-	}
-
-	.event-filter-select:focus {
-		outline: 2px solid rgba(200, 145, 90, 0.22);
-		outline-offset: 2px;
-		border-color: var(--color-accent);
 	}
 
 	.eyebrow {

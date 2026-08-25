@@ -45,7 +45,7 @@ Use this file for the structural shape of the repository.
 
 - Newsletter signup is client-to-server within this repo: `Newsletter.svelte` posts JSON to `/api/newsletter`, then the server route upserts a Mailchimp subscriber and tags them with `Weekly Contact (God Time/Shoutout)`.
 - Events are server-rendered from `src/lib/server/planningCenter.ts`, which fetches signups, signup times, locations, and pricing metadata from the Planning Center Registrations API.
-- `planningCenter.ts` also normalizes Church Center event/registration URLs, derives categories, sorts events, chooses a featured event by hardcoded `EVENT_ID`, and returns fallback models on failure.
+- `planningCenter.ts` also normalizes Church Center event/registration URLs, sorts events, chooses a featured event by hardcoded `EVENT_ID`, and returns fallback models on failure.
 - The women’s ministry and Kids Day Out pages still rely on legacy WordPress Elementor form postbacks with `mode: 'no-cors'`, which means success is inferred from an opaque response rather than a structured JSON API.
 
 ### Page Families

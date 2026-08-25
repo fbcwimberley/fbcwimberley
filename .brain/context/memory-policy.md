@@ -28,7 +28,7 @@ Use this file to decide what is worth keeping in project memory.
 
 - Capture changes to external service assumptions:
 - Mailchimp env var names, tags, or endpoint behavior
-- Planning Center event IDs, category logic, fallback behavior, or credential expectations
+- Planning Center event IDs, fallback behavior, or credential expectations
 - LiveControl, Procare, Realm, Church Center, or WordPress form destinations that are part of public flows
 - Capture navigation structure changes, especially when desktop and mobile nav diverge or banner behavior changes.
 - Capture design-token or theming conventions that affect multiple pages.
