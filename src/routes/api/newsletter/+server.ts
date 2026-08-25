@@ -11,13 +11,18 @@ async function toSubscriberHash(email: string): Promise<string> {
 }
 
 export const POST: RequestHandler = async ({ request, fetch }) => {
-	const apiKey = env.MAILCHIMP_API_KEY;
-	const audienceId = env.MAILCHIMP_AUDIENCE_ID ?? env.MAILCHIMP_LIST_ID;
+	const apiKey = env.MAILCHIMP_API_KEY?.trim();
+	const audienceId = (env.MAILCHIMP_AUDIENCE_ID ?? env.MAILCHIMP_LIST_ID)?.trim();
 
 	if (!apiKey || !audienceId) {
+		const missing = [
+			!apiKey ? 'MAILCHIMP_API_KEY' : null,
+			!audienceId ? 'MAILCHIMP_AUDIENCE_ID (or MAILCHIMP_LIST_ID)' : null
+		].filter((name): name is string => name !== null);
+
 		return json(
 			{
-				error: 'Newsletter configuration is missing. Set MAILCHIMP_API_KEY and MAILCHIMP_AUDIENCE_ID (or MAILCHIMP_LIST_ID).'
+				error: `Newsletter configuration is missing: ${missing.join(' and ')}.`
 			},
 			{ status: 500 }
 		);
