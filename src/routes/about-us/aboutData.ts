@@ -1,3 +1,5 @@
+import { getGatheringSchedule } from '$lib/gatheringSchedule';
+
 export type StaffMember = {
 	name: string;
 	title: string;
@@ -126,7 +128,10 @@ export const team = staff
 	.filter((member) => member.group === 'team')
 	.sort((a, b) => getLastName(a.name).localeCompare(getLastName(b.name)));
 
-export const faqs: Faq[] = [
+export function getFaqs(now = new Date()): Faq[] {
+	const gatheringSchedule = getGatheringSchedule(now);
+
+	return [
 	{
 		question: 'Where Do I Park?',
 		answer: "Parking at FBC Wimberley is easy. We've got tons of paved parking just out front of our Worship Center."
@@ -145,7 +150,7 @@ export const faqs: Faq[] = [
 	},
 	{
 		question: 'What Times Are Your Sunday Gatherings?',
-		answer: 'You can join us each Sunday at 9:30AM and 11:00AM for our worship gatherings. Childcare is provided during both gatherings.'
+		answer: `You can join us each Sunday at ${gatheringSchedule.timesCompact} for our worship gatherings. Childcare is provided during ${gatheringSchedule.sundayTimes.length === 1 ? 'the gathering' : 'both gatherings'}.`
 	},
 	{
 		question: 'What Do You Believe?',
@@ -161,4 +166,5 @@ export const faqs: Faq[] = [
 		answer: 'Groups are the heartbeat of FBC Wimberley because we believe God did not mean for life to be lived alone.',
 		link: { text: 'See all of our available groups', href: 'https://fbcwimberley.churchcenter.com/groups' }
 	}
-];
+	];
+}

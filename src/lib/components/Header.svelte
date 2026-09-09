@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import {
-		getHomePromoCountdown,
 		HOME_PROMO_BANNER_KEY,
 		HOME_PROMO_MESSAGE,
-		HOME_PROMO_STARTS_AT,
 		HOME_PROMO_STARTS_AT_MS
 	} from '$lib/homePromo';
 	import { onMount } from 'svelte';
@@ -12,7 +10,6 @@
 
 	const HOME_PROMO_DISMISS_DURATION_MS = 60 * 60 * 1000;
 	const HOME_PROMO_COOKIE_ATTRIBUTES = '; Path=/; Max-Age=3600; SameSite=Lax';
-	const HOME_PROMO_COUNTDOWN_INTERVAL_MS = 1000;
 
 	let { showHomePromoBanner: initialShowHomePromoBanner } = $props<{
 		showHomePromoBanner: boolean;
@@ -26,18 +23,13 @@
 	let serveOpen = $state(false);
 	let scrolled = $state(false);
 	let bannerVisibilityOverride = $state<'default' | 'hidden' | 'visible'>('default');
-	let countdownNow = $state<number | null>(null);
-
-	const countdown = $derived(
-		countdownNow === null ? null : getHomePromoCountdown(countdownNow)
-	);
+	let homePromoActiveOverride = $state(false);
 
 	const shouldShowHomePromoBanner = $derived(
-		initialShowHomePromoBanner &&
+		(initialShowHomePromoBanner || homePromoActiveOverride) &&
 		page.url.pathname === '/' &&
 		!scrolled &&
-		bannerVisibilityOverride !== 'hidden' &&
-		(countdownNow === null || countdownNow < HOME_PROMO_STARTS_AT_MS)
+		bannerVisibilityOverride !== 'hidden'
 	);
 
 	let aboutTimer: ReturnType<typeof setTimeout> | undefined;
@@ -45,7 +37,7 @@
 	let careTimer: ReturnType<typeof setTimeout> | undefined;
 	let serveTimer: ReturnType<typeof setTimeout> | undefined;
 	let bannerResetTimer: ReturnType<typeof setTimeout> | undefined;
-	let countdownTimer: ReturnType<typeof setInterval> | undefined;
+	let bannerStartTimer: ReturnType<typeof setTimeout> | undefined;
 
 	function handleScroll() {
 		scrolled = window.scrollY > 50;
@@ -58,20 +50,20 @@
 		}
 	}
 
-	function clearCountdownTimer() {
-		if (countdownTimer) {
-			clearInterval(countdownTimer);
-			countdownTimer = undefined;
+	function clearBannerStartTimer() {
+		if (bannerStartTimer) {
+			clearTimeout(bannerStartTimer);
+			bannerStartTimer = undefined;
 		}
 	}
 
-	function updateCountdown() {
-		const now = Date.now();
-		countdownNow = now;
+	function scheduleBannerStart() {
+		const delay = HOME_PROMO_STARTS_AT_MS - Date.now();
+		if (delay <= 0) return;
 
-		if (now >= HOME_PROMO_STARTS_AT_MS) {
-			clearCountdownTimer();
-		}
+		bannerStartTimer = setTimeout(() => {
+			homePromoActiveOverride = true;
+		}, delay + 1000);
 	}
 
 	function getBannerHideUntilFromCookie() {
@@ -135,15 +127,11 @@
 	onMount(() => {
 		handleScroll();
 		syncBannerDismissState();
-		updateCountdown();
-
-		if (Date.now() < HOME_PROMO_STARTS_AT_MS) {
-			countdownTimer = setInterval(updateCountdown, HOME_PROMO_COUNTDOWN_INTERVAL_MS);
-		}
+		scheduleBannerStart();
 
 		return () => {
 			clearBannerResetTimer();
-			clearCountdownTimer();
+			clearBannerStartTimer();
 		};
 	});
 
@@ -320,25 +308,8 @@
 			<div class="container px-12 py-2.5 sm:px-14">
 				<div class="flex flex-col items-center justify-center gap-1.5 text-center sm:flex-row sm:gap-3">
 					<p class="text-sm font-semibold tracking-[0.04em] sm:text-[0.95rem]">
-						<time datetime={HOME_PROMO_STARTS_AT} aria-label="One Gathering begins August 23, 2026 at 10:30 AM Central Time">
-							{HOME_PROMO_MESSAGE}
-						</time>
+						<span>{HOME_PROMO_MESSAGE}</span>
 					</p>
-					{#if countdown}
-						<span class="hidden text-white/40 sm:inline" aria-hidden="true">•</span>
-						<p
-							class="flex items-baseline justify-center gap-2 whitespace-nowrap text-[0.78rem] font-semibold tracking-[0.06em] text-white/90 tabular-nums sm:text-sm"
-							role="timer"
-							aria-label={`${countdown.days} days, ${countdown.hours} hours, ${countdown.minutes} minutes, ${countdown.seconds} seconds until One Gathering`}
-						>
-							<span>{countdown.days}<span class="ml-0.5 text-[0.62rem] uppercase text-white/60">d</span></span>
-							<span>{countdown.hours}<span class="ml-0.5 text-[0.62rem] uppercase text-white/60">h</span></span>
-							<span>{countdown.minutes}<span class="ml-0.5 text-[0.62rem] uppercase text-white/60">m</span></span>
-							<span>{countdown.seconds}<span class="ml-0.5 text-[0.62rem] uppercase text-white/60">s</span></span>
-						</p>
-					{:else}
-						<p class="h-5 w-[11rem]" aria-hidden="true"></p>
-					{/if}
 				</div>
 			</div>
 			<button
