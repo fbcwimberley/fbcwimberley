@@ -1,7 +1,12 @@
+import { getGatheringSchedule } from '$lib/gatheringSchedule';
+
 export const siteUrl = 'https://fbcwimberley.com';
 export const siteName = 'First Baptist Church Wimberley';
-export const siteDescription =
-	'First Baptist Church Wimberley is a church in Wimberley, Texas with Sunday worship at 9:30 and 11:00 AM, groups, ministries, events, and next steps for families.';
+
+export function getSiteDescription(now = new Date()) {
+	return `First Baptist Church Wimberley is a church in Wimberley, Texas with Sunday worship at ${getGatheringSchedule(now).times}, groups, ministries, events, and next steps for families.`;
+}
+
 export const siteLastModified = '2026-06-22';
 
 export const churchInfo = {

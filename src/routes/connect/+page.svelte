@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { getGatheringSchedule } from '$lib/gatheringSchedule';
 	import Card from '$lib/ui/Card.svelte';
 
 	const nextStepFormUrl = 'https://fbcwimberley.churchcenter.com/people/forms/40958';
+	const gatheringSchedule = getGatheringSchedule();
 </script>
 
 <svelte:head>
@@ -35,7 +37,7 @@
 			<Card href="/about-us" hover={false} class="card-hover-lift p-7 arrow-slide-hover">
 				<p class="section-label section-label-on-light mb-3">New Here?</p>
 				<h3 class="text-[1.25rem] mb-2">Sunday Mornings</h3>
-				<p class="text-(--color-text-muted) leading-[1.7] mb-5">Join us in person at 9:30AM and 11:00AM. We would love to meet you.</p>
+				<p class="text-(--color-text-muted) leading-[1.7] mb-5">Join us in person at {gatheringSchedule.timesCompact}. We would love to meet you.</p>
 				<span class="inline-flex items-center gap-2 font-semibold text-(--color-primary)">
 					Plan Your Visit
 					<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>

@@ -2,21 +2,36 @@ export type GatheringSchedule = {
 	hero: string;
 	online: string;
 	service: string;
+	times: string;
+	timesCompact: string;
+	timesSpaced: string;
+	timesLower: string;
+	sundayTimes: string[];
 };
 
 const temporaryScheduleEndsAt = new Date('2026-09-20T12:30:00-05:00');
 const maximumTimeout = 2_147_000_000;
 
 const regularSchedule: GatheringSchedule = {
-	hero: 'First Baptist Church Wimberley gathers Sundays at 9:30AM and 11:00AM.',
-	online: 'Join First Baptist Church Wimberley each Sunday for a live stream of our 9:30AM worship gathering or watch on demand any time of the week.',
-	service: 'First Baptist Church Wimberley gathers for Sunday worship at 9:30 AM and 11:00 AM.'
+	hero: 'First Baptist Church Wimberley gathers Sundays at 9:00 a.m. and 10:30 a.m.',
+	online: 'Join First Baptist Church Wimberley each Sunday for a live stream of our 9:00AM worship gathering or watch on demand any time of the week.',
+	service: 'First Baptist Church Wimberley gathers for Sunday worship at 9:00 a.m. and 10:30 a.m.',
+	times: '9:00 a.m. and 10:30 a.m.',
+	timesCompact: '9:00AM and 10:30AM',
+	timesSpaced: '9:00 AM and 10:30 AM',
+	timesLower: '9:00 am and 10:30 am',
+	sundayTimes: ['9:00 am', '10:30 am']
 };
 
 const temporarySchedule: GatheringSchedule = {
 	hero: 'First Baptist Church Wimberley gathers Sundays at 10:30 a.m. through September 20th.',
 	online: 'Join First Baptist Church Wimberley each Sunday for a live stream of our 10:30AM worship gathering or watch on demand any time of the week.',
-	service: 'First Baptist Church Wimberley gathers for Sunday worship at 10:30 a.m.'
+	service: 'First Baptist Church Wimberley gathers for Sunday worship at 10:30 a.m.',
+	times: '10:30 a.m.',
+	timesCompact: '10:30AM',
+	timesSpaced: '10:30 AM',
+	timesLower: '10:30 am',
+	sundayTimes: ['10:30 am']
 };
 
 export function getGatheringSchedule(now = new Date()): GatheringSchedule {

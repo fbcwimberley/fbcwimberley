@@ -1,15 +1,17 @@
 <script lang="ts">
+	import { getGatheringSchedule } from '$lib/gatheringSchedule';
 	import { pickFamilyMilestones } from '$lib/familyMilestones';
 	import FamilyMilestonePreview from '$lib/ui/FamilyMilestonePreview.svelte';
 
 	const studentMilestones = pickFamilyMilestones([4, 5, 6]);
+	const gatheringSchedule = getGatheringSchedule();
 </script>
 
 <svelte:head>
 	<title>Student Ministry - First Baptist Church Wimberley</title>
 	<meta
 		name="description"
-		content="Student Ministry at FBC Wimberley helping 6th-12th graders build a faith of their own. Sundays 9:30AM and Wednesdays 6:15-7:45PM."
+		content={`Student Ministry at FBC Wimberley helping 6th-12th graders build a faith of their own. Sundays ${gatheringSchedule.timesCompact} and Wednesdays 6:15-7:45PM.`}
 	/>
 </svelte:head>
 
@@ -33,7 +35,7 @@
 				<p class="leading-[1.75] mb-6">Many opportunities for students to grow in their faith and build Godly relationships with other students.</p>
 
 				<p class="font-semibold mb-1">Sunday Morning - Student Building</p>
-				<p class="mb-4">9:30 am</p>
+				<p class="mb-4">{gatheringSchedule.timesLower}</p>
 
 				<p class="font-semibold mb-1">Wednesday</p>
 				<p>6:15 - 7:45 pm</p>

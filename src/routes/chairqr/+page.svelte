@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getGatheringSchedule } from '$lib/gatheringSchedule';
 	import Button from '$lib/ui/Button.svelte';
 	import Card from '$lib/ui/Card.svelte';
 
@@ -21,6 +22,7 @@
 	const givingUrl = 'https://onrealm.org/fbcwimberley/give/now';
 	const podcastUrl = 'https://fbcwimberley.buzzsprout.com';
 	const directionsUrl = 'https://maps.google.com/?q=15951+Winters+Mill+Parkway+Wimberley+TX+78676';
+	const gatheringSchedule = getGatheringSchedule();
 
 	const featuredLinks: QuickLink[] = [
 		{
@@ -85,7 +87,7 @@
 	const guestEssentials: GuestEssential[] = [
 		{
 			eyebrow: 'Sunday Mornings',
-			title: '9:30 AM and 11:00 AM',
+			title: gatheringSchedule.timesSpaced,
 			detail: "Join either gathering. If you're new, coming a few minutes early makes the morning easier."
 		},
 		{
@@ -152,7 +154,7 @@
 			</div>
 
 			<div class="mt-8 flex flex-wrap gap-2.5">
-				<span class="hero-chip">Sundays at 9:30 AM and 11:00 AM</span>
+				<span class="hero-chip">Sundays at {gatheringSchedule.timesSpaced}</span>
 				<span class="hero-chip">15951 Winters Mill Parkway</span>
 				<span class="hero-chip">Wimberley, Texas 78676</span>
 			</div>

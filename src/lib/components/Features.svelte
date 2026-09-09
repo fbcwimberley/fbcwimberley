@@ -9,7 +9,7 @@
 		{
 			icon: 'tv',
 			title: 'Watch Sunday Worship Online',
-			description: 'Join First Baptist Church Wimberley each Sunday for a live stream of our 9:30AM worship gathering or watch on demand any time of the week.',
+			description: 'Join First Baptist Church Wimberley each Sunday for a live stream of our worship gathering or watch on demand any time of the week.',
 			href: '/watch',
 			external: false
 		},

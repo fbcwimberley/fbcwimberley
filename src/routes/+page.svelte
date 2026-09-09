@@ -5,10 +5,11 @@
 	import Newsletter from '$lib/components/Newsletter.svelte';
 	import NextStep from '$lib/components/NextStep.svelte';
 	import { getHomepageQuestions } from '$lib/homepageContent';
-	import { canonicalUrl, churchInfo, siteDescription, siteLastModified, siteName, siteUrl } from '$lib/seo';
+	import { canonicalUrl, churchInfo, getSiteDescription, siteLastModified, siteName, siteUrl } from '$lib/seo';
 
 	const jsonLdTag = 'script';
 	const homepageQuestions = getHomepageQuestions();
+	const siteDescription = getSiteDescription();
 	const homeUrl = canonicalUrl('/');
 	const structuredData = JSON.stringify({
 		'@context': 'https://schema.org',

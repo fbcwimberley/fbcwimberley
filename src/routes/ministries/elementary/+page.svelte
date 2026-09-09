@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { getGatheringSchedule } from '$lib/gatheringSchedule';
 	import { pickFamilyMilestones } from '$lib/familyMilestones';
 	import FamilyMilestonePreview from '$lib/ui/FamilyMilestonePreview.svelte';
 
 	const elementaryMilestones = pickFamilyMilestones([2, 3]);
+	const gatheringSchedule = getGatheringSchedule();
 </script>
 
 <svelte:head>
@@ -30,8 +32,9 @@
 				<div class="grid grid-cols-2 gap-4">
 					<div>
 						<p class="font-semibold text-(--color-heading)">Sundays</p>
-						<p class="text-(--color-primary) mt-1">9:30 am</p>
-						<p class="text-(--color-primary)">11:00 am</p>
+						{#each gatheringSchedule.sundayTimes as time, i}
+							<p class="text-(--color-primary)" class:mt-1={i === 0}>{time}</p>
+						{/each}
 					</div>
 					<div>
 						<p class="font-semibold text-(--color-heading)">Wednesdays</p>

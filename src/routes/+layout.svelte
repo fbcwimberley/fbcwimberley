@@ -4,12 +4,13 @@
 	import { page } from '$app/state';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { canonicalUrl, siteDescription, siteName } from '$lib/seo';
+	import { canonicalUrl, getSiteDescription, siteName } from '$lib/seo';
 	import { initThemeListener } from '$lib/stores/theme';
 	import { onMount } from 'svelte';
 
 	let { children, data } = $props();
 	const canonical = $derived(canonicalUrl(page.url.pathname));
+	const siteDescription = getSiteDescription();
 
 	onMount(() => {
 		initThemeListener();
