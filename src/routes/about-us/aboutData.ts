@@ -32,7 +32,7 @@ const staff: StaffMember[] = [
 		sortOrder: 1
 	},
 	{
-		name: 'Mike Gibbons',
+		name: 'Ministries & Operations Opening',
 		title: 'Pastor of Ministries & Operations, Elder',
 		applicationUrl: 'https://nextstep.sbtexas.com/employerjobs/rney/first-baptist-church-of-wimberley',
 		hideName: true,
@@ -110,11 +110,19 @@ const staff: StaffMember[] = [
 		sortOrder: 3
 	},
 	{
+		name: 'Mike Gibbons',
+		title: 'Non-Staff Pastor, Elder',
+		email: 'mike@fbcwimberley.com',
+		image: '/images/remote/fbcwimberley.com-Mike-Gibbons-1024x683-2f1c6e26df.webp',
+		group: 'elders',
+		sortOrder: 4
+	},
+	{
 		name: 'Mike Stevens',
 		title: 'Non-Staff Pastor, Elder',
 		image: '/images/remote/fbcwimberley.com-Mike-Stephens-1024x683-135df65071.webp',
 		group: 'elders',
-		sortOrder: 4
+		sortOrder: 5
 	}
 ];
 
