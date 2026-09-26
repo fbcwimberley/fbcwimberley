@@ -31,16 +31,29 @@
 			<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 				{#each elders as member}
 					<button class="staff-card flex w-full cursor-pointer flex-col items-center rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-6 text-center transition-all duration-300 hover:border-(--color-border) hover:shadow-(--shadow-sm)" class:expanded={expandedStaff === member.name} onclick={() => toggleStaff(member.name)} aria-expanded={expandedStaff === member.name}>
-						<div class="mb-4 h-[120px] w-[120px] overflow-hidden rounded-full border-3 border-(--color-border-light)">
-							<img src={member.image} alt={member.name} loading="lazy" class="h-full w-full object-cover" class:legacy-headshot={member.image.startsWith('/images/remote/')} />
-						</div>
-						<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
+						{#if member.image}
+							<div class="mb-4 h-[120px] w-[120px] overflow-hidden rounded-full border-3 border-(--color-border-light)">
+								<img src={member.image} alt={member.name} loading="lazy" class="h-full w-full object-cover" class:legacy-headshot={member.image.startsWith('/images/remote/')} />
+							</div>
+						{:else}
+							<div class="mb-4 flex h-[120px] w-[120px] items-center justify-center rounded-full border-3 border-(--color-border-light) bg-(--color-bg-alt) px-3 text-center text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-(--color-text-muted)" aria-label="Photo coming soon">
+								Coming Soon
+							</div>
+						{/if}
+						{#if !member.hideName}
+							<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
+						{/if}
 						<p class="mb-2 text-[0.85rem] text-(--color-text-muted)">{member.title}</p>
 						{#if member.email}
 							<a href="mailto:{member.email}" class="inline-flex items-center gap-1.5 text-[0.8rem] text-(--color-primary) transition-colors duration-200 hover:text-(--color-primary-hover)" onclick={(e) => e.stopPropagation()}>
 								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
 								{member.email}
 							</a>
+						{:else if member.applicationUrl}
+							<a href={member.applicationUrl} target="_blank" rel="noopener noreferrer" class="break-all text-[0.75rem] text-(--color-primary) transition-colors duration-200 hover:text-(--color-primary-hover)" onclick={(e) => e.stopPropagation()}>
+								{member.applicationUrl}
+							</a>
+							<span class="mt-1 text-[0.75rem] text-(--color-text-muted)">Click here to apply.</span>
 						{/if}
 						{#if member.bio && expandedStaff === member.name}
 							<p class="mt-4 text-left text-[0.9rem] leading-[1.7] text-(--color-text-muted)">{member.bio}</p>
@@ -61,16 +74,29 @@
 			<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 				{#each team as member}
 					<button class="staff-card flex w-full cursor-pointer flex-col items-center rounded-[var(--radius-lg)] border border-(--color-border-light) bg-(--color-bg-card) p-6 text-center transition-all duration-300 hover:border-(--color-border) hover:shadow-(--shadow-sm)" class:expanded={expandedStaff === member.name} onclick={() => toggleStaff(member.name)} aria-expanded={expandedStaff === member.name}>
-						<div class="mb-4 h-[120px] w-[120px] overflow-hidden rounded-full border-3 border-(--color-border-light)">
-							<img src={member.image} alt={member.name} loading="lazy" class="h-full w-full object-cover" class:legacy-headshot={member.image.startsWith('/images/remote/')} />
-						</div>
-						<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
+						{#if member.image}
+							<div class="mb-4 h-[120px] w-[120px] overflow-hidden rounded-full border-3 border-(--color-border-light)">
+								<img src={member.image} alt={member.name} loading="lazy" class="h-full w-full object-cover" class:legacy-headshot={member.image.startsWith('/images/remote/')} />
+							</div>
+						{:else}
+							<div class="mb-4 flex h-[120px] w-[120px] items-center justify-center rounded-full border-3 border-(--color-border-light) bg-(--color-bg-alt) px-3 text-center text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-(--color-text-muted)" aria-label="Photo coming soon">
+								Coming Soon
+							</div>
+						{/if}
+						{#if !member.hideName}
+							<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
+						{/if}
 						<p class="mb-2 text-[0.85rem] text-(--color-text-muted)">{member.title}</p>
 						{#if member.email}
 							<a href="mailto:{member.email}" class="inline-flex items-center gap-1.5 text-[0.8rem] text-(--color-primary) transition-colors duration-200 hover:text-(--color-primary-hover)" onclick={(e) => e.stopPropagation()}>
 								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
 								{member.email}
 							</a>
+						{:else if member.applicationUrl}
+							<a href={member.applicationUrl} target="_blank" rel="noopener noreferrer" class="break-all text-[0.75rem] text-(--color-primary) transition-colors duration-200 hover:text-(--color-primary-hover)" onclick={(e) => e.stopPropagation()}>
+								{member.applicationUrl}
+							</a>
+							<span class="mt-1 text-[0.75rem] text-(--color-text-muted)">Click here to apply.</span>
 						{/if}
 						{#if member.bio && expandedStaff === member.name}
 							<p class="mt-4 text-left text-[0.9rem] leading-[1.7] text-(--color-text-muted)">{member.bio}</p>

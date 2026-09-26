@@ -4,7 +4,9 @@ export type StaffMember = {
 	name: string;
 	title: string;
 	email?: string;
-	image: string;
+	applicationUrl?: string;
+	image?: string;
+	hideName?: boolean;
 	bio?: string;
 	group: 'elders' | 'team';
 	sortOrder?: number;
@@ -31,9 +33,9 @@ const staff: StaffMember[] = [
 	},
 	{
 		name: 'Mike Gibbons',
-		title: 'Executive Pastor, Elder',
-		email: 'mike@fbcwimberley.com',
-		image: '/images/remote/fbcwimberley.com-Mike-Gibbons-1024x683-2f1c6e26df.webp',
+		title: 'Pastor of Ministries & Operations, Elder',
+		applicationUrl: 'https://nextstep.sbtexas.com/employerjobs/rney/first-baptist-church-of-wimberley',
+		hideName: true,
 		group: 'elders',
 		sortOrder: 2
 	},
