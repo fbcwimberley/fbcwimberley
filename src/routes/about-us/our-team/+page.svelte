@@ -40,7 +40,9 @@
 								Coming Soon
 							</div>
 						{/if}
-						<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
+						{#if !member.hideName}
+							<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
+						{/if}
 						<p class="mb-2 text-[0.85rem] text-(--color-text-muted)">{member.title}</p>
 						{#if member.email}
 							<a href="mailto:{member.email}" class="inline-flex items-center gap-1.5 text-[0.8rem] text-(--color-primary) transition-colors duration-200 hover:text-(--color-primary-hover)" onclick={(e) => e.stopPropagation()}>
@@ -81,7 +83,9 @@
 								Coming Soon
 							</div>
 						{/if}
-						<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
+						{#if !member.hideName}
+							<h4 class="mb-1 font-sans text-base font-semibold text-(--color-heading)">{member.name}</h4>
+						{/if}
 						<p class="mb-2 text-[0.85rem] text-(--color-text-muted)">{member.title}</p>
 						{#if member.email}
 							<a href="mailto:{member.email}" class="inline-flex items-center gap-1.5 text-[0.8rem] text-(--color-primary) transition-colors duration-200 hover:text-(--color-primary-hover)" onclick={(e) => e.stopPropagation()}>

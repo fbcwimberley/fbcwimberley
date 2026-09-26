@@ -6,6 +6,7 @@ export type StaffMember = {
 	email?: string;
 	applicationUrl?: string;
 	image?: string;
+	hideName?: boolean;
 	bio?: string;
 	group: 'elders' | 'team';
 	sortOrder?: number;
@@ -34,6 +35,7 @@ const staff: StaffMember[] = [
 		name: 'Mike Gibbons',
 		title: 'Pastor of Ministries & Operations, Elder',
 		applicationUrl: 'https://nextstep.sbtexas.com/employerjobs/rney/first-baptist-church-of-wimberley',
+		hideName: true,
 		group: 'elders',
 		sortOrder: 2
 	},
