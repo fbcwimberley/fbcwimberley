@@ -37,9 +37,9 @@
 
 	const ageTwoTeachers = [
 		{ name: 'Abigail Morehous', image: '/images/remote/fbcwimberley.com-Abigail-Morehous-2136d9df80.webp' },
-		{ name: 'Tabetha Raquet', image: '/images/kdo/tabetha-raquet.jpg' },
 		{ name: 'Bailey Wilganowski', image: '/images/kdo/bailey-wilganowski.jpg' },
-		{ name: 'Kellie Cook', image: '/images/kdo/kellie-cook.jpg' }
+		{ name: 'Kellie Cook', image: '/images/kdo/kellie-cook.jpg' },
+		{ name: 'Aishling Dumas', image: '/images/kdo/aishling-dumas.jpg' }
 	];
 
 	const ageThreeTeachers = [
@@ -54,7 +54,10 @@
 		{ name: 'Caitlyn Scrogin', image: '/images/remote/fbcwimberley.com-Caitlyn-Scrogin-0861dd56dd.webp' }
 	];
 
-	const supportTeachers = [{ name: 'Lauren Whatley', image: '/images/kdo/lauren-whatley.jpg' }];
+	const supportTeachers = [
+		{ name: 'Lauren Whatley', image: '/images/kdo/lauren-whatley.jpg' },
+		{ name: 'Shiloh Collins', image: '/images/kdo/shiloh-collins.png' }
+	];
 
 	let name = $state('');
 	let email = $state('');
@@ -241,8 +244,8 @@
 		</div>
 
 		<div class="staff-group">
-			<h3>Specials and Support Teacher</h3>
-			<div class="staff-grid staff-grid--one">
+			<h3>Specials and Support Teachers</h3>
+			<div class="staff-grid staff-grid--two">
 				{#each supportTeachers as person}
 					<div class="staff-card">
 						<img src={person.image} alt={person.name} loading="lazy" />
@@ -377,10 +380,5 @@
 			grid-column: 2;
 		}
 
-		.staff-grid--one .staff-card {
-			grid-column: 2 / 4;
-			width: calc((100% - 1.25rem) / 2);
-			justify-self: center;
-		}
 	}
 </style>
