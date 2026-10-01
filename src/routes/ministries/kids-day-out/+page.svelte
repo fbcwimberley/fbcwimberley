@@ -24,8 +24,8 @@
 	];
 
 	const staffLead = [
-		{ name: 'Shelby Hubbard', role: 'Director', image: '/images/remote/fbcwimberley.com-Shelby-Hubbard-4bea81a076.webp' },
-		{ name: 'Sarah Raquet', role: 'Assistant Director', image: '/images/remote/fbcwimberley.com-Sarah-Raquet-4b4c875c36.webp' }
+		{ name: 'Shelby Hubbard', role: 'Director', image: '/images/kdo/shelby-hubbard.png' },
+		{ name: 'Sarah Raquet', role: 'Assistant Director', image: '/images/kdo/sarah-raquet.jpg' }
 	];
 
 	const ageOneTeachers = [
@@ -55,8 +55,8 @@
 	];
 
 	const supportTeachers = [
-		{ name: 'Lauren Whatley', image: '/images/kdo/lauren-specials.jpg' },
-		{ name: 'Shiloh Collins', image: '/images/kdo/shiloh-collins.png' }
+		{ name: 'Lauren Whatley', image: '/images/kdo/lauren-specials.jpg', objectPosition: 'center 100%' },
+		{ name: 'Shiloh Collins', image: '/images/kdo/shiloh-collins.png', objectPosition: 'center 20%' }
 	];
 
 	let name = $state('');
@@ -248,7 +248,7 @@
 			<div class="staff-grid staff-grid--two">
 				{#each supportTeachers as person}
 					<div class="staff-card">
-						<img src={person.image} alt={person.name} loading="lazy" />
+						<img src={person.image} alt={person.name} loading="lazy" style={`object-position: ${person.objectPosition}`} />
 						<p><strong>{person.name}</strong></p>
 					</div>
 				{/each}
