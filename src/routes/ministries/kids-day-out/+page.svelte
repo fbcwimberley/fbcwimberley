@@ -29,14 +29,14 @@
 	];
 
 	const ageOneTeachers = [
-		{ name: 'Evonne Dingman', image: '/images/remote/fbcwimberley.com-Evonne-Dingman-9eced58b45.webp' },
-		{ name: 'Lisa Vrana', image: '/images/remote/fbcwimberley.com-Lisa-Vrana-4b4ac522de.webp' },
-		{ name: 'Brianna Pietrowski', image: '/images/remote/fbcwimberley.com-Brianna-Pietrowski-8fe2752759.webp' },
+		{ name: 'Evonne Dingman', image: '/images/kdo/evonne-dingman.jpg' },
+		{ name: 'Lisa Vrana', image: '/images/kdo/lisa-vrana.jpg' },
+		{ name: 'Brianna Pietrowski', image: '/images/kdo/brianna-pietrowski.jpg' },
 		{ name: 'Shea Schmidt', image: '/images/kdo/shea-schmidt.jpg' }
 	];
 
 	const ageTwoTeachers = [
-		{ name: 'Abigail Morehous', image: '/images/remote/fbcwimberley.com-Abigail-Morehous-2136d9df80.webp' },
+		{ name: 'Abigail Morehous', image: '/images/kdo/abigail-morehous.jpg' },
 		{ name: 'Bailey Wilganowski', image: '/images/kdo/bailey-wilganowski.jpg' },
 		{ name: 'Kellie Cook', image: '/images/kdo/kellie-cook.jpg' },
 		{ name: 'Aishling Dumas', image: '/images/kdo/aishling-dumas.jpg' }
@@ -44,18 +44,18 @@
 
 	const ageThreeTeachers = [
 		{ name: 'Shannon Atkins', image: '/images/kdo/shannon-atkins.jpg' },
-		{ name: 'Sara Richart', image: '/images/remote/fbcwimberley.com-Sara-Richart-b6723d1ecd.webp' },
-		{ name: 'Lauren Badillo', image: '/images/remote/fbcwimberley.com-Lauren-Badillo-ce17e801f4.webp' },
-		{ name: 'Michelle Robinson', image: '/images/remote/fbcwimberley.com-Michelle-Robinson-23001d70cb.webp' }
+		{ name: 'Sara Richart', image: '/images/kdo/sara-richart.jpg' },
+		{ name: 'Lauren Badillo', image: '/images/kdo/lauren-badillo.jpg' },
+		{ name: 'Michelle Robinson', image: '/images/kdo/michelle-robinson.jpg' }
 	];
 
 	const ageFourTeachers = [
-		{ name: 'Joyce Hurt', image: '/images/remote/fbcwimberley.com-Joyce-Hurt-75848d562d.webp' },
-		{ name: 'Caitlyn Scrogin', image: '/images/remote/fbcwimberley.com-Caitlyn-Scrogin-0861dd56dd.webp' }
+		{ name: 'Joyce Hurt', image: '/images/kdo/joyce-hurt.jpg' },
+		{ name: 'Caitlyn Scrogin', image: '/images/kdo/caitlyn-scrogin.jpg' }
 	];
 
 	const supportTeachers = [
-		{ name: 'Lauren Whatley', image: '/images/kdo/lauren-whatley.jpg' },
+		{ name: 'Lauren Whatley', image: '/images/kdo/lauren-specials.jpg' },
 		{ name: 'Shiloh Collins', image: '/images/kdo/shiloh-collins.png' }
 	];
 
