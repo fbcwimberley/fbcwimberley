@@ -120,19 +120,18 @@
 </svelte:head>
 
 <section class="relative min-h-[50vh] md:min-h-[56vh] flex items-end justify-center overflow-hidden">
-	<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/remote/fbcwimberley.com-MG_6048-scaled-3ab2eebb7c.webp')"></div>
+	<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/womens-ministry-hero.jpeg')"></div>
 	<div class="absolute inset-0 bg-linear-to-t from-[rgba(0,0,0,0.72)] to-[rgba(0,0,0,0.28)]"></div>
 	<div class="relative z-1 text-center pb-16 px-6">
 		<p class="section-label">Ministries</p>
 		<h1 class="text-[clamp(2.3rem,6vw,3.9rem)] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.3)]">Women's Ministry</h1>
-		<p class="text-white/85 text-[1.02rem] max-w-[760px] mt-4">Knowing HIM &amp; making HIM be Known</p>
 	</div>
 </section>
 
 <section class="py-20">
 	<div class="container max-w-[920px] text-center">
 		<p class="text-(--color-text-muted) text-[1.04rem] leading-[1.85] max-w-[840px] mx-auto mb-6">
-			The Women's Ministry at First Baptist Church of Wimberley is a community of women striving to know Jesus and make Him be known by others. We'd love for you to join us! Check out our opportunities to get involved.
+			The Women's Ministry at First Baptist Church of Wimberley is a community of women striving to know Jesus and share His love with others. We'd love for you to join us! Check out our opportunities to get involved.
 		</p>
 		<blockquote class="mx-auto max-w-[760px] border-l-3 border-(--color-accent) pl-5 text-left font-serif italic text-[1.06rem] text-(--color-text-muted)">
 			I made known to them your name, and I will continue to make it known, that the love with which you have loved me may be in them, and I in them.
