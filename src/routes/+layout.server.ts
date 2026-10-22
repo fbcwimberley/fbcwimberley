@@ -1,7 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 import { HOME_PROMO_BANNER_KEY, HOME_PROMO_STARTS_AT_MS } from '$lib/homePromo';
 
-const HOME_PROMO_BANNER_ENABLED = true;
+const HOME_PROMO_BANNER_ENABLED = false;
 
 export const load: LayoutServerLoad = async ({ cookies, url }) => {
 	const rawHideUntil = cookies.get(HOME_PROMO_BANNER_KEY);
