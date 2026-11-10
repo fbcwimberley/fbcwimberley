@@ -6,6 +6,7 @@ const REGISTER_URL = `https://fbcwimberley.churchcenter.com/registrations/events
 const EVENT_URL = `https://fbcwimberley.churchcenter.com/registrations/events/${EVENT_ID}`;
 const ORGANIZATION_TIME_ZONE = 'America/Chicago';
 const UNARCHIVED_SIGNUPS_PATH = '/registrations/v2/signups?filter=unarchived';
+const CHURCH_CENTER_REGISTRATIONS_URL = 'https://fbcwimberley.churchcenter.com/registrations';
 
 // Limit the number of concurrent upstream API requests when loading events.
 const EVENTS_CONCURRENCY_LIMIT = 5;
@@ -170,6 +171,32 @@ async function fetchCollection<TAttributes>(path: string) {
 	}
 
 	return items;
+}
+
+async function fetchPublicEventIds() {
+	const response = await fetch(CHURCH_CENTER_REGISTRATIONS_URL, {
+		headers: {
+			Accept: 'text/html'
+		},
+		signal: AbortSignal.timeout(PLANNING_CENTER_REQUEST_TIMEOUT_MS)
+	});
+
+	if (!response.ok) {
+		throw new Error(`Church Center registrations request failed: ${response.status} ${response.statusText}`);
+	}
+
+	const html = await response.text();
+	const ids = new Set<string>();
+
+	for (const match of html.matchAll(/\/registrations\/events\/(\d+)/g)) {
+		ids.add(match[1]);
+	}
+
+	if (ids.size === 0) {
+		throw new Error('Church Center registrations page returned no public event links.');
+	}
+
+	return ids;
 }
 
 function stripHtml(value: string) {
@@ -442,9 +469,17 @@ function buildFallbackEventsListModel(): EventsListPageModel {
 
 export async function getUpcomingEvents(limit = Number.POSITIVE_INFINITY): Promise<EventsListPageModel> {
 	try {
-		const signups = await fetchCollection<SignupAttributes>(UNARCHIVED_SIGNUPS_PATH);
-		const openSignups = signups.filter(isSignupCurrentlyOpen);
-		const events = await mapWithConcurrency(openSignups, EVENTS_CONCURRENCY_LIMIT, async (signup) => {
+		const [signups, publicEventIds] = await Promise.all([
+			fetchCollection<SignupAttributes>(UNARCHIVED_SIGNUPS_PATH),
+			fetchPublicEventIds().catch((error) => {
+				console.error('Failed to load public event visibility from Church Center.', error);
+				return null;
+			})
+		]);
+		const visibleSignups = publicEventIds
+			? signups.filter((signup) => publicEventIds.has(signup.id))
+			: signups.filter(isSignupCurrentlyOpen);
+		const events = await mapWithConcurrency(visibleSignups, EVENTS_CONCURRENCY_LIMIT, async (signup) => {
 			const signupId = signup.id;
 			const registrationUrl = signup.attributes.new_registration_url ?? undefined;
 
